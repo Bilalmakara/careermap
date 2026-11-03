@@ -1,0 +1,2045 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <!-- CareerMap Vercel API Interceptor -->
+  <script>
+    (function() {
+      const originalFetch = window.fetch;
+      window.fetch = function(url, options) {
+        if (typeof url === 'string' && url.startsWith('/api/')) {
+          const customApiBase = localStorage.getItem('CAREERMAP_API_URL');
+          if (customApiBase && customApiBase.trim() !== '') {
+            url = customApiBase.trim().replace(/\/+$/, '') + url;
+          }
+        }
+        return originalFetch.call(this, url, options);
+      };
+    })();
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>CareerMap V2.6 — Akıllı İşveren Keşfi ve Başvuru Platformu (iPhone PWA)</title>
+  
+  <!-- Web App Manifest & Capabilities -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="CareerMap">
+  
+  <!-- iOS Safari PWA Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CareerMap">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-hover: #0369a1;
+      --primary-light: #e0f2fe;
+      --success: #16a34a;
+      --success-light: #dcfce7;
+      --warning: #d97706;
+      --warning-light: #fef3c7;
+      --danger: #dc2626;
+      --danger-light: #fee2e2;
+      --purple: #9333ea;
+      --purple-light: #f3e8ff;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --surface-border: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius: 12px;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body { font-family: var(--font); background-color: var(--bg); color: var(--text-main); line-height: 1.5; padding-bottom: 70px; }
+
+    /* Üst Navigasyon Çubuğu (Search-First) */
+    header.navbar {
+      background: #0f172a;
+      color: #fff;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 19px; letter-spacing: -0.02em; cursor: pointer; }
+    .brand-logo { width: 34px; height: 34px; background: linear-gradient(135deg, #0284c7, #38bdf8); border-radius: 8px; display: grid; place-items: center; font-weight: 900; color: white; font-size: 18px; }
+    .brand-sub { font-size: 11px; background: #0284c7; padding: 2px 7px; border-radius: 10px; margin-left: 4px; font-weight: 600; }
+    
+    .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
+    .nav-item {
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #94a3b8;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-item:hover { color: #fff; background: rgba(255,255,255,0.06); }
+    .nav-item.active { color: #fff; background: #0284c7; }
+
+    .nav-user { display: flex; align-items: center; gap: 12px; }
+    .user-pill { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #e2e8f0; background: rgba(255,255,255,0.08); padding: 5px 12px; border-radius: 20px; cursor: pointer; }
+    .user-avatar { width: 24px; height: 24px; border-radius: 50%; background: #38bdf8; color: #0f172a; display: grid; place-items: center; font-size: 11px; font-weight: 800; }
+
+    /* Ana Konteyner */
+    .container { max-width: 1200px; margin: 24px auto; padding: 0 20px; }
+
+    /* Ekranlar */
+    .screen { display: none; }
+    .screen.active { display: block; animation: fadeIn 0.2s ease-in-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Kartlar & Paneller */
+    .card { background: var(--surface); border: 1px solid var(--surface-border); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow); margin-bottom: 20px; }
+    .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid #f1f5f9; padding-bottom: 12px; }
+    .card-title { font-size: 17px; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 8px; }
+
+    /* Butonlar */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 10px 18px; border-radius: 8px; font-size: 13.5px; font-weight: 600; border: none; cursor: pointer; transition: all 0.15s ease; text-decoration: none; }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-success { background: var(--success); color: #fff; }
+    .btn-success:hover { background: #15803d; }
+    .btn-outline { background: transparent; border: 1px solid var(--surface-border); color: #334155; }
+    .btn-outline:hover { background: #f8fafc; border-color: #cbd5e1; }
+    .btn-whatsapp { background: #25d366; color: #fff; font-weight: 700; }
+    .btn-whatsapp:hover { background: #1eb956; }
+    .btn-sm { padding: 6px 12px; font-size: 12px; border-radius: 6px; }
+    .btn-lg { padding: 14px 28px; font-size: 16px; border-radius: 10px; }
+
+    /* Badges */
+    .badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 6px; font-size: 11.5px; font-weight: 600; }
+    .badge-primary { background: var(--primary-light); color: var(--primary); }
+    .badge-success { background: var(--success-light); color: #15803d; }
+    .badge-warning { background: var(--warning-light); color: #b45309; }
+    .badge-danger { background: var(--danger-light); color: #b91c1c; }
+    .badge-purple { background: var(--purple-light); color: #7e22ce; }
+    .badge-gray { background: #f1f5f9; color: #475569; }
+    .badge-interactive {
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+    .badge-interactive:hover {
+      filter: brightness(0.92);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+    }
+
+    /* Hero Search Paneli */
+    .hero-search-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #fff;
+      border-radius: 16px;
+      padding: 36px 32px;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 28px;
+    }
+    .hero-title { font-size: 32px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 8px; }
+    .hero-sub { font-size: 15px; color: #94a3b8; max-width: 660px; line-height: 1.6; margin-bottom: 24px; }
+
+    .search-form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      background: rgba(255,255,255,0.06);
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-label { font-size: 12px; font-weight: 700; color: #cbd5e1; text-transform: uppercase; letter-spacing: 0.05em; }
+    .form-control {
+      padding: 11px 14px;
+      border-radius: 8px;
+      border: 1px solid #334155;
+      background: #0f172a;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+      font-family: var(--font);
+    }
+    .form-control:focus { border-color: #38bdf8; box-shadow: 0 0 0 3px rgba(56,189,248,0.2); }
+    .form-control option { background: #0f172a; color: #fff; }
+
+    /* Dinamik Kurum Türü Seçim Kutuları */
+    .type-checkboxes { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+    .type-chip {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #e2e8f0;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease;
+    }
+    .type-chip.selected { background: #0284c7; border-color: #38bdf8; color: #fff; }
+
+    /* Canlı Araştırma İlerleme Kartı */
+    .progress-banner {
+      display: none;
+      background: #ffffff;
+      border: 2px solid #0284c7;
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 24px;
+      animation: pulseBorder 2s infinite;
+    }
+    @keyframes pulseBorder {
+      0% { border-color: #0284c7; }
+      50% { border-color: #38bdf8; }
+      100% { border-color: #0284c7; }
+    }
+    .progress-bar-bg { width: 100%; height: 10px; background: #e2e8f0; border-radius: 5px; overflow: hidden; margin: 12px 0; }
+    .progress-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #0284c7, #38bdf8); transition: width 0.3s ease; }
+    .progress-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; text-align: center; margin-top: 14px; }
+    .progress-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; }
+    .progress-val { font-size: 24px; font-weight: 800; color: #0f172a; }
+    .progress-lbl { font-size: 12px; color: #64748b; font-weight: 600; }
+
+    /* İşveren Kartları Tablosu & Sonuçlar */
+    .results-layout { display: grid; grid-template-columns: 280px 1fr; gap: 20px; }
+    .jobs-sidebar { background: #fff; border: 1px solid var(--surface-border); border-radius: var(--radius); padding: 16px; height: fit-content; }
+    .job-item { padding: 12px; border-radius: 8px; border: 1px solid var(--surface-border); margin-bottom: 10px; cursor: pointer; transition: all 0.15s ease; }
+    .job-item:hover { border-color: #0284c7; background: #f0f9ff; }
+    .job-item.active { border-color: #0284c7; background: #e0f2fe; }
+
+    .employer-card-item {
+      background: #fff;
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius);
+      padding: 18px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.15s ease;
+    }
+    .employer-card-item:hover { border-color: #cbd5e1; transform: translateY(-1px); }
+    .emp-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+    .emp-checkbox-label { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; flex: 1; }
+    .emp-check { width: 18px; height: 18px; margin-top: 2px; accent-color: #0284c7; cursor: pointer; }
+    .channel-badges { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+
+    /* Sticky Alt Eylem Çubuğu */
+    .sticky-action-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #0f172a;
+      color: #fff;
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 40;
+      box-shadow: 0 -4px 15px rgba(0,0,0,0.2);
+    }
+
+    /* Modal */
+    .modal-backdrop { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(4px); z-index: 100; align-items: center; justify-content: center; padding: 20px; }
+    .modal-backdrop.open { display: flex; }
+    .modal-box { background: #fff; width: 100%; max-width: 900px; max-height: 90vh; border-radius: 16px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); display: flex; flex-direction: column; overflow: hidden; }
+    .modal-header { padding: 18px 24px; background: #0f172a; color: #fff; display: flex; justify-content: space-between; align-items: center; }
+    .modal-body { padding: 24px; overflow-y: auto; flex: 1; }
+    .modal-tabs { display: flex; border-bottom: 2px solid #f1f5f9; margin-bottom: 20px; gap: 8px; overflow-x: auto; }
+    .modal-tab-btn { padding: 10px 16px; border: none; background: none; font-size: 13.5px; font-weight: 600; color: #64748b; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; white-space: nowrap; }
+    .modal-tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+    .code-box { background: #0f172a; color: #f8fafc; font-family: var(--font-mono); font-size: 13px; padding: 16px; border-radius: 8px; overflow-x: auto; white-space: pre-wrap; line-height: 1.6; border: 1px solid #334155; margin-bottom: 14px; }
+
+    /* Toast */
+    #toast { position: fixed; bottom: 80px; right: 24px; background: #0f172a; color: #fff; padding: 14px 22px; border-radius: 10px; font-size: 14px; font-weight: 600; box-shadow: 0 10px 25px rgba(0,0,0,0.2); display: none; z-index: 200; align-items: center; gap: 10px; border-left: 4px solid var(--primary); }
+
+    /* PWA & Safe Area Variables */
+    :root {
+      --sat: env(safe-area-inset-top, 0px);
+      --sab: env(safe-area-inset-bottom, 0px);
+      --sal: env(safe-area-inset-left, 0px);
+      --sar: env(safe-area-inset-right, 0px);
+    }
+
+    body {
+      padding-top: var(--sat);
+      padding-bottom: max(80px, calc(var(--sab) + 70px));
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* PWA Install Banner */
+    .pwa-banner {
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #f8fafc;
+      gap: 12px;
+    }
+    .pwa-banner-content {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13.5px;
+    }
+    .pwa-banner-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    /* iOS Mobile Bottom Navigation Bar */
+    .mobile-bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      z-index: 95;
+      padding-bottom: var(--sab);
+      height: calc(58px + var(--sab));
+      align-items: center;
+      justify-content: space-around;
+      box-shadow: 0 -4px 15px rgba(0,0,0,0.3);
+    }
+
+    .mobile-nav-btn {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      padding: 6px 0;
+      color: #94a3b8;
+      cursor: pointer;
+      font-size: 10.5px;
+      font-weight: 600;
+      gap: 3px;
+      transition: color 0.15s ease, transform 0.1s ease;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    .mobile-nav-btn:active {
+      transform: scale(0.92);
+    }
+    .mobile-nav-btn.active {
+      color: #38bdf8;
+    }
+    .mobile-nav-btn .m-icon {
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    @media (max-width: 768px) {
+      input, select, textarea {
+        font-size: 16px !important; /* iOS automatic zoom prevention */
+      }
+      header.navbar {
+        padding: 10px 16px;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .nav-links {
+        display: none !important;
+      }
+      .mobile-bottom-nav {
+        display: flex;
+      }
+      .container {
+        margin: 12px auto;
+        padding: 0 12px;
+      }
+      .sticky-action-bar {
+        bottom: calc(58px + var(--sab)) !important;
+        padding: 12px 16px;
+        border-top: 1px solid #334155;
+      }
+      .results-layout { grid-template-columns: 1fr; }
+      .search-form-grid { grid-template-columns: 1fr; }
+      .hero-title { font-size: 22px; }
+      .progress-stats { grid-template-columns: 1fr; }
+      .card { padding: 16px; border-radius: 12px; }
+      .btn { min-height: 44px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. ÜST NAVİGASYON (SEARCH-FIRST HİYERARŞİ) -->
+  <header class="navbar">
+    <div class="brand" onclick="switchScreen('search')">
+      <div class="brand-logo">C</div>
+      <span>CareerMap</span>
+      <span class="brand-sub">V2.6 PWA</span>
+    </div>
+
+    <ul class="nav-links">
+      <li class="nav-item active" id="nav-search" onclick="switchScreen('search')">🔍 Yeni Araştırma</li>
+      <li class="nav-item" id="nav-results" onclick="switchScreen('results')">📁 Araştırmalarım</li>
+      <li class="nav-item" id="nav-prep" onclick="switchScreen('prep')">✨ Başvuru Merkezi</li>
+      <li class="nav-item" id="nav-applications" onclick="switchScreen('applications')">📮 Başvurularım</li>
+      <li class="nav-item" id="nav-profile" onclick="switchScreen('profile')">👩‍⚕️ Profilim & CV</li>
+    </ul>
+
+    <div class="nav-user">
+      <button class="btn btn-outline btn-sm" style="color:#38bdf8; border-color:#0284c7; padding: 6px 10px;" onclick="openApiSettingsModal()">🌐 API Sunucusu</button>
+      <button class="btn btn-outline btn-sm d-md-none" style="color:#38bdf8; border-color:#0284c7; padding: 6px 10px;" onclick="openPwaModal()">📲 Kurulum</button>
+      <button class="btn btn-outline btn-sm" style="color:#94a3b8; border-color:#334155;" onclick="switchScreen('admin')">⚙️ Yönetici & Excel</button>
+      <div class="user-pill" id="user-display" onclick="switchScreen('profile')">
+        <div class="user-avatar" id="user-avatar">R</div>
+        <span id="user-name">Dt. Rümeysa Çolak</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- ========================================================
+         SCREEN 1: YENİ ARAŞTIRMA (DEFAULT SEARCH-FIRST LANDING)
+         ======================================================== -->
+    <section id="screen-search" class="screen active">
+      <!-- PWA Bilgilendirme Kartı -->
+      <div id="pwa-guide-banner" class="pwa-banner">
+        <div class="pwa-banner-content">
+          <span class="pwa-banner-icon">📱</span>
+          <div>
+            <strong>iPhone & Mobil PWA Hazır:</strong> Safari menüsünden <em>"Ana Ekrana Ekle"</em> yaparak CareerMap'i bağımsız uygulama olarak kullanabilirsiniz.
+          </div>
+        </div>
+        <button class="btn btn-outline btn-sm" style="color:#38bdf8; border-color:#0284c7; white-space:nowrap;" onclick="openPwaModal()">
+          Kurulum Rehberi 📲
+        </button>
+      </div>
+
+      <div class="hero-search-card">
+        <div style="display:inline-block; background:rgba(56,189,248,0.15); color:#38bdf8; font-size:12px; font-weight:700; padding:4px 10px; border-radius:12px; margin-bottom:12px;">
+          CAREERMAP V2.6 • iPHONE PWA & ULUSAL İSTİHDAM PLATFORMU
+        </div>
+        <h1 class="hero-title">Kariyer fırsatlarını keşfet.</h1>
+        <p class="hero-sub">
+          Çalışmak istediğin mesleği ve konumu seç. Sana uygun işverenleri araştırıp doğrulanmış iletişim kanallarını bulalım ve başvurularını hazırlayalım.
+        </p>
+
+        <!-- Arama Formu -->
+        <div class="search-form-grid">
+          <!-- 1. Meslek Seçimi -->
+          <div class="form-group">
+            <label class="form-label">Meslek / Pozisyon</label>
+            <select id="search-profession" class="form-control" onchange="onProfessionChanged()">
+              <option value="dentist">Diş Hekimi</option>
+              <option value="industrial_engineer">Endüstri Mühendisi</option>
+              <option value="software_engineer">Yazılım Geliştirici</option>
+              <option value="veterinarian">Veteriner Hekim</option>
+              <option value="lawyer">Avukat</option>
+            </select>
+          </div>
+
+          <!-- 2. İl Seçimi -->
+          <div class="form-group">
+            <label class="form-label">İl</label>
+            <select id="search-city" class="form-control" onchange="onCityChanged()">
+              <option value="Eskişehir">Eskişehir</option>
+              <option value="Ankara">Ankara</option>
+              <option value="İstanbul">İstanbul</option>
+              <option value="İzmir">İzmir</option>
+              <option value="Bursa">Bursa</option>
+              <option value="Antalya">Antalya</option>
+              <option value="Adana">Adana</option>
+              <option value="Konya">Konya</option>
+              <option value="Gaziantep">Gaziantep</option>
+              <option value="Kocaeli">Kocaeli</option>
+              <option value="Mersin">Mersin</option>
+              <option value="Diyarbakır">Diyarbakır</option>
+              <option value="Samsun">Samsun</option>
+              <option value="Denizli">Denizli</option>
+              <option value="Şanlıurfa">Şanlıurfa</option>
+              <option value="Sakarya">Sakarya</option>
+              <option value="Trabzon">Trabzon</option>
+              <option value="Kayseri">Kayseri</option>
+              <option value="Muğla">Muğla</option>
+              <option value="Balıkesir">Balıkesir</option>
+              <option value="Tekirdağ">Tekirdağ</option>
+              <option value="Manisa">Manisa</option>
+              <option value="Aydın">Aydın</option>
+              <option value="Hatay">Hatay</option>
+              <option value="Çanakkale">Çanakkale</option>
+              <option value="Afyonkarahisar">Afyonkarahisar</option>
+              <option value="Kütahya">Kütahya</option>
+              <option value="Bilecik">Bilecik</option>
+              <option value="Bolu">Bolu</option>
+              <option value="Isparta">Isparta</option>
+              <option value="Sivas">Sivas</option>
+              <option value="Erzurum">Erzurum</option>
+              <option value="Malatya">Malatya</option>
+              <option value="Van">Van</option>
+              <option value="Zonguldak">Zonguldak</option>
+            </select>
+          </div>
+
+          <!-- 3. İlçe Seçimi -->
+          <div class="form-group">
+            <label class="form-label">İlçe</label>
+            <select id="search-district" class="form-control">
+              <option value="all">Tüm İlçeler</option>
+              <!-- JS ile dinamik doldurulur -->
+            </select>
+          </div>
+
+          <!-- 4. Anahtar Kelimeler -->
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <label class="form-label">İsteğe Bağlı Anahtar Kelimeler</label>
+            <input type="text" id="search-keywords" class="form-control" placeholder="Örn: özel poliklinik, implantoloji, cerrahi, yeni açılan klinikler...">
+          </div>
+
+          <!-- 5. Dinamik İşveren / Kurum Türleri -->
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <label class="form-label">İşveren / Kurum Türü (Birden Fazla Seçilebilir)</label>
+            <div class="type-checkboxes" id="type-chips-container">
+              <!-- JS ile mesleğe göre dinamik butonlar üretilir -->
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+          <div style="font-size: 13px; color: #94a3b8;">
+            🔒 Resmî listeler, OSM ve doğrulanabilir kurumsal kanallar üzerinden taranır.
+          </div>
+          <button class="btn btn-primary btn-lg" onclick="startNewResearchJob()" style="background:#0284c7; box-shadow: 0 4px 14px rgba(2,132,199,0.4);">
+            🚀 İşveren Araştırmasını Başlat
+          </button>
+        </div>
+      </div>
+
+      <!-- CANLI ARAŞTIRMA İLERLEME KARTI (ARAŞTIRMA BAŞLATILINCA GÖRÜNÜR) -->
+      <div id="live-progress-banner" class="progress-banner">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <span class="badge badge-primary" style="margin-bottom:6px;">Canlı Araştırma Görevi Yürütülüyor</span>
+            <h2 id="prog-title" style="font-size: 18px; font-weight: 800; color: #0f172a;">Diş Hekimi • Ankara / Çankaya</h2>
+          </div>
+          <div style="font-size: 22px; font-weight: 800; color: #0284c7;" id="prog-percent-text">%0</div>
+        </div>
+
+        <div class="progress-bar-bg">
+          <div id="prog-bar-fill" class="progress-bar-fill"></div>
+        </div>
+        <div id="prog-stage-text" style="font-size: 13.5px; color: #475569; font-weight: 500;">
+          Kaynaklar taranıyor...
+        </div>
+
+        <div class="progress-stats">
+          <div class="progress-box">
+            <div class="progress-val" id="prog-val-found">0</div>
+            <div class="progress-lbl">Kurum Bulundu</div>
+          </div>
+          <div class="progress-box">
+            <div class="progress-val" id="prog-val-contacts" style="color:#16a34a;">0</div>
+            <div class="progress-lbl">İletişimi Bulundu</div>
+          </div>
+          <div class="progress-box">
+            <div class="progress-val" id="prog-val-verified" style="color:#7e22ce;">0</div>
+            <div class="progress-lbl">Doğrulandı / Hazır</div>
+          </div>
+        </div>
+
+        <div style="text-align: right; margin-top: 16px;">
+          <button id="prog-view-results-btn" class="btn btn-success" style="display:none;" onclick="openJobResultsFromProgress()">
+            Sonuçları İncele & Başvuru Hazırla →
+          </button>
+        </div>
+      </div>
+
+      <!-- Son Araştırmalarım (Kayıtlı Görevler) -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📁 Kaydedilen Araştırmalarım</div>
+          <span style="font-size: 12.5px; color: #64748b;">Önceki tarama sonuçlarına hızlı erişim</span>
+        </div>
+        <div id="recent-jobs-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px;">
+          <!-- JS ile doldurulur -->
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ========================================================
+         SCREEN 2: ARAŞTIRMALARIM & SONUÇLAR (JOB RESULTS)
+         ======================================================== -->
+    <section id="screen-results" class="screen">
+      <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+        <div>
+          <h1 style="font-size: 22px; font-weight: 800; color: #0f172a;" id="results-page-title">Araştırma Sonuçları</h1>
+          <p style="font-size: 13.5px; color: #64748b;" id="results-page-sub">Seçili araştırma görevinde bulunan işletmeler ve iletişim kaynakları</p>
+        </div>
+        <button class="btn btn-outline" onclick="switchScreen('search')">+ Yeni Araştırma Başlat</button>
+      </div>
+
+      <div class="results-layout">
+        <!-- Sol: Görev Listesi Kenar Çubuğu -->
+        <div class="jobs-sidebar">
+          <div style="font-size: 12px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 12px;">
+            Geçmiş Araştırmalar
+          </div>
+          <div id="sidebar-jobs-container">
+            <!-- JS ile doldurulur -->
+          </div>
+        </div>
+
+        <!-- Sağ: Kurum Kartları & Filtreler -->
+        <div>
+          <div class="card" style="padding: 14px 18px; margin-bottom: 16px;">
+            <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between;">
+              <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                <button class="btn btn-outline btn-sm active" id="rf-all" onclick="filterJobResults('all')">Tümü (<span id="rf-cnt-total">0</span>)</button>
+                <button class="btn btn-outline btn-sm" id="rf-reachable" onclick="filterJobResults('reachable')">⚡ İletişimi Olanlar</button>
+                <button class="btn btn-outline btn-sm" id="rf-email" onclick="filterJobResults('email')">📧 E-postası Olanlar</button>
+                <button class="btn btn-outline btn-sm" id="rf-whatsapp" onclick="filterJobResults('whatsapp')">💬 WhatsApp Olanlar</button>
+                <button class="btn btn-outline btn-sm" id="rf-unapplied" onclick="filterJobResults('unapplied')">Henüz Başvurulmayanlar</button>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button class="btn btn-outline btn-sm" onclick="selectAllCurrentJobResults(true)">Tümünü Seç</button>
+                <button class="btn btn-outline btn-sm" onclick="selectAllCurrentJobResults(false)">Seçimi Kaldır</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Kurum Listesi Konteyneri -->
+          <div id="job-results-container">
+            <!-- JS ile doldurulur -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ========================================================
+         SCREEN 3: BAŞVURU MERKEZİ (APPLICATION PREPARATION CENTER)
+         ======================================================== -->
+    <section id="screen-prep" class="screen">
+      <div style="margin-bottom: 24px;">
+        <h1 style="font-size: 22px; font-weight: 800; color: #0f172a;">Başvuru Hazırlama Merkezi</h1>
+        <p style="font-size: 13.5px; color: #64748b;">
+          Aday: <strong>Dt. Rümeysa Çolak</strong> • SDÜ Diş Hekimliği 2026 • 350+ Tamamlanmış Klinik Vaka
+        </p>
+      </div>
+
+      <div id="prep-packages-container">
+        <!-- JS ile seçilen kurumlar için başvuru kartları buraya basılır -->
+      </div>
+    </section>
+
+
+    <!-- ========================================================
+         SCREEN 4: BAŞVURULARIM (APPLICATION CRM & RESPONSE TRACKING)
+         ======================================================== -->
+    <section id="screen-applications" class="screen">
+      <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+        <div>
+          <h1 style="font-size: 22px; font-weight: 800; color: #0f172a;">Başvurularım & Yanıt Takip CRM</h1>
+          <p style="font-size: 13.5px; color: #64748b;">1 İşveren = 1 Başvuru Dosyası • E-posta & WhatsApp Gönderim ve Görüşme Takibi</p>
+        </div>
+        <button class="btn btn-primary" onclick="switchScreen('search')">+ Yeni Başvuru Araştırması</button>
+      </div>
+
+      <!-- Durum Sekmeleri -->
+      <div style="display: flex; gap: 8px; margin-bottom: 16px; overflow-x: auto; padding-bottom: 6px;">
+        <div class="type-chip selected" id="crm-tab-all" onclick="filterCrmStage('all')">Tüm Başvurular (<span id="c-cnt-all">0</span>)</div>
+        <div class="type-chip" id="crm-tab-draft" onclick="filterCrmStage('draft')">Taslak (<span id="c-cnt-draft">0</span>)</div>
+        <div class="type-chip" id="crm-tab-waiting" onclick="filterCrmStage('waiting')">Yanıt Bekleniyor (<span id="c-cnt-waiting">0</span>)</div>
+        <div class="type-chip" id="crm-tab-replied" onclick="filterCrmStage('replied')">Yanıt Alındı (<span id="c-cnt-replied">0</span>)</div>
+        <div class="type-chip" id="crm-tab-interview" onclick="filterCrmStage('interview')">🎉 Mülakat Daveti (<span id="c-cnt-interview">0</span>)</div>
+        <div class="type-chip" id="crm-tab-rejected" onclick="filterCrmStage('rejected')">Olumsuz (<span id="c-cnt-rejected">0</span>)</div>
+      </div>
+
+      <div id="crm-applications-container">
+        <!-- JS ile CRM başvuru kartları buraya yüklenir -->
+      </div>
+    </section>
+
+
+    <!-- ========================================================
+         SCREEN 5: PROFİLİM & CV (CANDIDATE & SECURE TOKEN)
+         ======================================================== -->
+    <section id="screen-profile" class="screen">
+      <div style="margin-bottom: 24px;">
+        <h1 style="font-size: 22px; font-weight: 800; color: #0f172a;">Aday Profili & CV Dosyaları</h1>
+        <p style="font-size: 13.5px; color: #64748b;">Dt. Rümeysa Çolak için doğrulanmış klinik yetkinlikler ve 30 günlük güvenli CV bağlantısı</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px;">
+        <!-- Profil Bilgileri -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">👤 Mesleki Bilgiler</div>
+            <span class="badge badge-success">Doğrulanmış Profil</span>
+          </div>
+          <div style="margin-bottom: 12px;">
+            <label style="font-size: 12px; font-weight: 700; color: #475569;">Ad Soyad</label>
+            <input type="text" id="prof-fullname" class="form-control" style="background:#fff; color:#0f172a; border-color:#cbd5e1;" value="Dt. Rümeysa Çolak">
+          </div>
+          <div style="margin-bottom: 12px;">
+            <label style="font-size: 12px; font-weight: 700; color: #475569;">Mezun Olunan Üniversite</label>
+            <input type="text" id="prof-school" class="form-control" style="background:#fff; color:#0f172a; border-color:#cbd5e1;" value="Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi (2026)">
+          </div>
+          <div style="margin-bottom: 12px;">
+            <label style="font-size: 12px; font-weight: 700; color: #475569;">Tamamlanan Klinik Vaka Sayısı</label>
+            <input type="number" id="prof-cases" class="form-control" style="background:#fff; color:#0f172a; border-color:#cbd5e1;" value="350">
+          </div>
+          <div style="margin-bottom: 16px;">
+            <label style="font-size: 12px; font-weight: 700; color: #475569;">Uzmanlık / Odak Alanları</label>
+            <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:6px;">
+              <span class="badge badge-primary">Restoratif Diş Tedavisi</span>
+              <span class="badge badge-primary">Endodonti (Kanal Tedavisi)</span>
+              <span class="badge badge-primary">Estetik Kompozit Dolgular</span>
+              <span class="badge badge-primary">Protetik Diş Tedavisi</span>
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="saveCandidateProfile()" style="width:100%;">💾 Değişiklikleri Kaydet</button>
+        </div>
+
+        <!-- CV ve Süreli Güvenli Link -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">📄 30 Günlük Güvenli CV Bağlantısı</div>
+            <span class="badge badge-primary">Model B Uyumlu</span>
+          </div>
+          <p style="font-size: 13px; color: #64748b; margin-bottom: 14px;">
+            WhatsApp ve e-posta taslaklarına eklenen, süresi dolduğunda kapatılabilen güvenli CV erişim adresi:
+          </p>
+          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:12px; margin-bottom:14px;">
+            <div id="prof-cv-link-display" style="font-family:var(--font-mono); font-size:12.5px; color:#0284c7; word-break:break-all;">
+              https://careermap.local/cv/view/loading...
+            </div>
+            <div style="display:flex; gap:8px; margin-top:8px;">
+              <button class="btn btn-outline btn-sm" onclick="copyCvLink()">📋 Bağlantıyı Kopyala</button>
+              <a id="prof-cv-preview-btn" class="btn btn-primary btn-sm" href="#" target="_blank">👁️ Önizle</a>
+            </div>
+          </div>
+
+          <div style="border: 2px dashed #cbd5e1; border-radius: 10px; padding: 18px; text-align: center; background: #f8fafc;">
+            <div style="font-size: 26px;">📤</div>
+            <div style="font-size: 13.5px; font-weight: 600; color: #334155;">Yeni CV PDF Belgesi Yükle</div>
+            <input type="file" id="cv-file-input" accept=".pdf" style="margin-top: 10px; font-size: 12px;">
+            <div style="margin-top: 10px;">
+              <button class="btn btn-outline btn-sm" onclick="uploadNewCv()">Yukarıdaki Dosyayı Yükle ve Yenile</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ========================================================
+         SCREEN 6: YÖNETİCİ & EXCEL (ADMIN & DATA ADAPTERS)
+         ======================================================== -->
+    <section id="screen-admin" class="screen">
+      <div style="margin-bottom: 24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+        <div>
+          <h1 style="font-size: 22px; font-weight: 800; color: #0f172a;">Yönetici Paneli & Excel Senkronizasyonu</h1>
+          <p style="font-size: 13.5px; color: #64748b;">Meslek adaptörleri, araştırma görevleri ve canlı 7 sekmeli Excel dışa aktarımı</p>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn btn-outline" style="color:#ef4444; border-color:#fca5a5; font-size:13px;" onclick="clearAllDemoApplications()">
+            🗑️ Demo Başvuruları Sıfırla (Canlı Sürüme Geç)
+          </button>
+          <a class="btn btn-success" href="/api/v2/admin/export-excel" target="_blank">📥 Canlı 7 Sekmeli Excel İndir</a>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">⚙️ Meslek Veri Adaptörleri Durumu</div>
+          </div>
+          <div id="admin-adapters-list" style="display:flex; flex-direction:column; gap:12px;">
+            <!-- JS ile doldurulur -->
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">📊 Veritabanı Özet Metrikleri</div>
+          </div>
+          <div id="admin-db-metrics" style="display:flex; flex-direction:column; gap:10px; font-size:13.5px;">
+            <!-- JS ile doldurulur -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- STICKY SEÇİLEN KURUMLAR EYLEM ÇUBUĞU (SONUÇLAR SAYFASINDA GÖRÜNÜR) -->
+  <div id="sticky-action-bar" class="sticky-action-bar" style="display:none;">
+    <div>
+      <strong id="bar-selected-count">0 Kurum Seçildi</strong>
+      <span style="font-size: 12px; color: #94a3b8; margin-left: 8px;">(CV'li e-posta ve WhatsApp başvuru paketleri üretilecek)</span>
+    </div>
+    <div style="display:flex; gap:10px;">
+      <button class="btn btn-outline btn-sm" style="color:#cbd5e1; border-color:#475569;" onclick="selectAllCurrentJobResults(false)">İptal</button>
+      <button class="btn btn-primary" onclick="proceedToApplicationPreparation()" style="background:#0284c7;">
+        ✨ Seçilen Kurumlara Başvuru Hazırla →
+      </button>
+    </div>
+  </div>
+
+  <!-- TOAST BİLDİRİMİ -->
+  <div id="toast">Bildirim mesajı</div>
+
+  <!-- UYGULAMA JAVASCRIPT MOTORU -->
+  <script>
+    // Global Durum
+        // Yerleşik Varsayılan Katalog (Arka uç henüz bağlı olmasa bile arayüzü tam çalıştırır)
+    const DEFAULT_CATALOG = [
+      {
+        id: "dentist",
+        name: "Diş Hekimi",
+        adapter_status: "ready",
+        employer_types: [
+          { id: "all", label: "Tüm Diş Klinikleri ve Muayenehaneler" },
+          { id: "clinic", label: "Özel Ağız ve Diş Sağlığı Poliklinikleri" },
+          { id: "practice", label: "Bireysel Diş Hekimi Muayenehaneleri" }
+        ],
+        supported_cities: {
+          "Bursa": ["Nilüfer", "Osmangazi", "Yıldırım", "İnegöl", "Mudanya"],
+          "İstanbul": ["Kadıköy", "Beşiktaş", "Şişli", "Üsküdar", "Bakırköy", "Ataşehir", "Maltepe", "Fatih", "Pendik", "Kartal", "Beyoğlu"],
+          "İzmir": ["Konak", "Karşıyaka", "Bornova", "Buca", "Çiğli", "Bayraklı", "Balçova"],
+          "Ankara": ["Çankaya", "Keçiören", "Yenimahalle", "Mamak", "Etimesgut"],
+          "Eskişehir": ["Tepebaşı", "Odunpazarı"],
+          "Antalya": ["Muratpaşa", "Kepez", "Konyaaltı", "Alanya"]
+        }
+      }
+    ];
+
+    let professionsCatalog = DEFAULT_CATALOG;
+    let currentJobId = null;
+    let currentJobResults = [];
+    let selectedEmployerIds = new Set();
+    let currentPreparedPackages = [];
+    let activePollTimer = null;
+    let crmFilterStage = 'all';
+
+    // Başlangıç Yüklemesi
+    document.addEventListener('DOMContentLoaded', async () => {
+      populateProfessionUI(); // Anında arayüzü doldur, asla boş kalmasın
+      await loadProfessions();
+      await loadRecentJobs();
+      await loadCandidateProfile();
+      await loadCrmDashboard();
+    });
+
+    // Ekran Değiştirici
+    function switchScreen(screenId) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      document.querySelectorAll('.mobile-nav-btn').forEach(m => m.classList.remove('active'));
+
+      const targetScreen = document.getElementById(`screen-${screenId}`);
+      const targetNav = document.getElementById(`nav-${screenId}`);
+      const targetMobileNav = document.getElementById(`m-nav-${screenId}`);
+      if (targetScreen) targetScreen.classList.add('active');
+      if (targetNav) targetNav.classList.add('active');
+      if (targetMobileNav) targetMobileNav.classList.add('active');
+
+      const bar = document.getElementById('sticky-action-bar');
+      if (screenId === 'results' && selectedEmployerIds.size > 0) {
+        bar.style.display = 'flex';
+      } else {
+        bar.style.display = 'none';
+      }
+
+      if (screenId === 'applications') loadCrmDashboard();
+      if (screenId === 'results') renderJobResultsList(currentJobResults);
+      if (screenId === 'admin') loadAdminStats();
+
+      // Mobil cihazlarda ekran değiştiğinde yukarı kaydır
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // 1. Meslek Kataloğunu Çek
+    async function loadProfessions() {
+      try {
+        const res = await fetch('/api/v2/research/professions');
+        if (!res.ok) {
+          console.warn('Arka uç henüz bağlı değil (HTTP ' + res.status + '). Yerleşik katalog kullanılıyor.');
+          return;
+        }
+        const data = await res.json();
+        if (data.status === 'success' && data.professions) {
+          professionsCatalog = data.professions;
+          populateProfessionUI();
+        }
+      } catch (e) {
+        console.warn('Arka uç henüz bağlı değil. Yerleşik meslek kataloğu devrede.');
+      }
+    }
+
+    function populateProfessionUI() {
+      const selProf = document.getElementById('search-profession');
+      const curProfId = selProf.value;
+      const profObj = professionsCatalog.find(p => p.id === curProfId) || professionsCatalog[0];
+
+      // İlçeleri güncelle
+      onCityChanged();
+
+      // Kurum türleri chiplerini güncelle
+      const chipsCont = document.getElementById('type-chips-container');
+      chipsCont.innerHTML = (profObj.employer_types || []).map((et, idx) => `
+        <div class="type-chip ${idx === 0 ? 'selected' : ''}" data-type-id="${et.id}" onclick="toggleTypeChip(this)">
+          ${et.label}
+        </div>
+      `).join('');
+    }
+
+    function onProfessionChanged() {
+      populateProfessionUI();
+    }
+
+    function onCityChanged() {
+      const curCity = document.getElementById('search-city').value;
+      const curProfId = document.getElementById('search-profession').value;
+      const profObj = professionsCatalog.find(p => p.id === curProfId) || professionsCatalog[0];
+
+      const distSelect = document.getElementById('search-district');
+      distSelect.innerHTML = `<option value="all">Tüm İlçeler (${curCity})</option>`;
+
+      const cityDistricts = profObj.supported_cities?.[curCity] || ["Merkez"];
+      cityDistricts.forEach(d => {
+        distSelect.innerHTML += `<option value="${d}">${d}</option>`;
+      });
+    }
+
+    function toggleTypeChip(el) {
+      el.classList.toggle('selected');
+      const allChip = document.querySelector('#type-chips-container .type-chip[data-type-id="all"]');
+      if (el.dataset.typeId === 'all' && el.classList.contains('selected')) {
+        document.querySelectorAll('#type-chips-container .type-chip').forEach(c => {
+          if (c !== el) c.classList.remove('selected');
+        });
+      } else if (el.dataset.typeId !== 'all' && el.classList.contains('selected') && allChip) {
+        allChip.classList.remove('selected');
+      }
+    }
+
+    function getSelectedEmployerTypes() {
+      const selected = [];
+      document.querySelectorAll('#type-chips-container .type-chip.selected').forEach(c => {
+        selected.push(c.dataset.typeId);
+      });
+      return selected.length > 0 ? selected : ['all'];
+    }
+
+    // 2. Yeni Dinamik Araştırma Başlat
+    async function startNewResearchJob() {
+      const profId = document.getElementById('search-profession').value;
+      const city = document.getElementById('search-city').value;
+      const dist = document.getElementById('search-district').value;
+      const kw = document.getElementById('search-keywords').value.trim();
+      const types = getSelectedEmployerTypes();
+
+      const payload = {
+        profession_id: profId,
+        city: city,
+        districts: dist === 'all' ? [] : [dist],
+        employer_types: types,
+        keywords: kw,
+        country: 'Türkiye'
+      };
+
+      try {
+        showToast('Araştırma görevi başlatılıyor...');
+        const res = await fetch('/api/v2/research/jobs', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) {
+          if (res.status === 404 || res.status === 502 || res.status === 503) {
+            showToast('⚠️ Python arka ucu bağlı değil. Canlı araştırma için sağ üstteki 🌐 API Sunucusu butonundan backend adresinizi bağlayın.');
+            openApiSettingsModal();
+            return;
+          }
+          const errData = await res.json().catch(() => ({}));
+          showToast('Hata: ' + (errData.detail || errData.message || `Sunucu hatası (${res.status})`));
+          return;
+        }
+
+        const data = await res.json();
+        if (data.status === 'success') {
+          currentJobId = data.job_id;
+          displayLiveProgressBanner(data.job);
+          startJobPolling(data.job_id);
+        } else {
+          showToast('Hata: ' + (data.detail || 'Araştırma başlatılamadı.'));
+        }
+      } catch (e) {
+        console.error('Araştırma hatası:', e);
+        showToast('⚠️ Arka uç sunucusuna ulaşılamadı. Sağ üstteki 🌐 API Sunucusu butonundan bağlantıyı kontrol ediniz.');
+        openApiSettingsModal();
+      }
+    }
+
+    function displayLiveProgressBanner(job) {
+      const banner = document.getElementById('live-progress-banner');
+      banner.style.display = 'block';
+      banner.scrollIntoView({ behavior: 'smooth' });
+
+      document.getElementById('prog-title').innerText = `${job.profession_name} • ${job.city} ${job.districts?.length ? '/ ' + job.districts.join(', ') : ''}`;
+      document.getElementById('prog-percent-text').innerText = `%${job.progress_percent || 10}`;
+      document.getElementById('prog-bar-fill').style.width = `${job.progress_percent || 10}%`;
+      document.getElementById('prog-stage-text').innerText = job.progress_stage || 'Sıraya alındı...';
+      document.getElementById('prog-view-results-btn').style.display = 'none';
+    }
+
+    function startJobPolling(jobId) {
+      clearInterval(activePollTimer);
+      activePollTimer = setInterval(async () => {
+        try {
+          const res = await fetch(`/api/v2/research/jobs/${jobId}`);
+          const data = await res.json();
+          if (data.status === 'success') {
+            const j = data.job;
+            document.getElementById('prog-percent-text').innerText = `%${j.progress_percent}`;
+            document.getElementById('prog-bar-fill').style.width = `${j.progress_percent}%`;
+            document.getElementById('prog-stage-text').innerText = j.progress_stage;
+            document.getElementById('prog-val-found').innerText = j.total_found;
+            document.getElementById('prog-val-contacts').innerText = j.contacts_found;
+            document.getElementById('prog-val-verified').innerText = j.verified_count;
+
+            if (j.status === 'completed' || j.status === 'failed') {
+              clearInterval(activePollTimer);
+              document.getElementById('prog-view-results-btn').style.display = 'inline-flex';
+              showToast('✓ Araştırma tamamlandı. Sonuçlar hazır.');
+              await loadRecentJobs();
+            }
+          }
+        } catch (e) {
+          console.error('Polling hatası:', e);
+        }
+      }, 700);
+    }
+
+    async function openJobResultsFromProgress() {
+      if (!currentJobId) return;
+      await openJobResults(currentJobId);
+      switchScreen('results');
+    }
+
+    // 3. Kayıtlı Araştırmaları Listele
+    async function loadRecentJobs() {
+      try {
+        const res = await fetch('/api/v2/research/jobs');
+        const data = await res.json();
+        if (data.status === 'success') {
+          renderRecentJobs(data.jobs);
+        }
+      } catch (e) {
+        console.error('Araştırma listesi hatası:', e);
+      }
+    }
+
+    function renderRecentJobs(jobs) {
+      const container = document.getElementById('recent-jobs-list');
+      const sideContainer = document.getElementById('sidebar-jobs-container');
+
+      if (!jobs || jobs.length === 0) {
+        container.innerHTML = `<div style="grid-column:1/-1; padding:20px; text-align:center; color:#94a3b8;">Henüz tamamlanmış araştırma yok. Yukarıdaki formdan arama başlatabilirsiniz.</div>`;
+        sideContainer.innerHTML = `<div style="font-size:12px; color:#94a3b8;">Kayıt yok.</div>`;
+        return;
+      }
+
+      container.innerHTML = jobs.slice(0, 4).map(j => `
+        <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:16px;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+            <strong style="color:#0f172a; font-size:14.5px;">${j.profession_name}</strong>
+            <span class="badge ${j.status === 'completed' ? 'badge-success' : 'badge-warning'}">${j.status === 'completed' ? 'Tamamlandı' : j.status}</span>
+          </div>
+          <div style="font-size:12.5px; color:#64748b; margin-top:2px;">📍 ${j.city} ${j.districts?.length ? '• ' + j.districts.join(', ') : ''}</div>
+          <div style="display:flex; gap:12px; margin-top:10px; font-size:12px; font-weight:600;">
+            <span>🏢 ${j.total_found} Kurum</span>
+            <span style="color:#16a34a;">📞 ${j.contacts_found} İletişimli</span>
+          </div>
+          <button class="btn btn-primary btn-sm" style="width:100%; margin-top:12px;" onclick="openJobResults('${j.research_job_id}')">
+            Sonuçları Aç →
+          </button>
+        </div>
+      `).join('');
+
+      sideContainer.innerHTML = jobs.map(j => `
+        <div class="job-item ${j.research_job_id === currentJobId ? 'active' : ''}" onclick="openJobResults('${j.research_job_id}')">
+          <div style="font-weight:700; font-size:13px; color:#0f172a;">${j.profession_name}</div>
+          <div style="font-size:12px; color:#64748b;">${j.city} • ${j.total_found} kurum</div>
+        </div>
+      `).join('');
+    }
+
+    // 4. Belirli bir araştırmanın sonuçlarını aç
+    async function openJobResults(jobId) {
+      currentJobId = jobId;
+      try {
+        const res = await fetch(`/api/v2/research/jobs/${jobId}/results`);
+        const data = await res.json();
+        if (data.status === 'success') {
+          currentJobResults = data.items;
+          selectedEmployerIds.clear();
+          updateStickyActionBar();
+
+          document.getElementById('rf-cnt-total').innerText = data.total;
+          document.getElementById('results-page-title').innerText = `Araştırma Sonuçları (${data.total} Kurum)`;
+          renderJobResultsList(data.items);
+          switchScreen('results');
+        }
+      } catch (e) {
+        console.error('Sonuçlar yüklenirken hata:', e);
+      }
+    }
+
+    function escapeName(name) {
+      if (!name) return '';
+      return name.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    }
+
+    function getDirectEmailBody(clinicName) {
+      const cvLink = document.getElementById('prof-cv-link-display')?.innerText?.trim() || 'https://careermap.local/cv/view/demo';
+      return `Sayın Yetkili (${clinicName}),\n\nBen Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunuyum (350+ klinik vaka deneyimi).\n\nKliniğiniz bünyesindeki diş hekimi kadrolarında değerlendirilmek üzere doğrulanmış özgeçmişimi bilgilerinize sunuyorum:\n${cvLink}\n\nDeğerlendirmeniz için teşekkür eder, iyi çalışmalar dilerim.\n\nSaygılarımla,\nDt. Rümeysa Çolak\n0(555) 000 26 26\nrumeysacolak.dt@gmail.com`;
+    }
+
+    function getDirectWhatsAppMsg(clinicName) {
+      const cvLink = document.getElementById('prof-cv-link-display')?.innerText?.trim() || 'https://careermap.local/cv/view/demo';
+      return `Merhaba Sayın Yetkili (${clinicName}), ben Diş Hekimi Rümeysa Çolak (SDÜ 2026 mezuniyeti, 350+ klinik vaka). Kliniğinizde değerlendirilmek üzere özgeçmişimi iletmek istiyorum: ${cvLink} . İyi çalışmalar dilerim.`;
+    }
+
+    function generateGmailComposeUrl(toEmail, subject, body) {
+      return `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(toEmail || '')}&su=${encodeURIComponent(subject || '')}&body=${encodeURIComponent(body || '')}`;
+    }
+
+    function generateMailtoUrl(toEmail, subject, body) {
+      return `mailto:${encodeURIComponent(toEmail || '')}?subject=${encodeURIComponent(subject || '')}&body=${encodeURIComponent(body || '')}`;
+    }
+
+    function extractCleanMobile(phoneOrUrl) {
+      if (!phoneOrUrl) return '';
+      const m = phoneOrUrl.match(/(?:phone=|\/)(?:\+?90|0+)?(5\d{9})/);
+      if (m) return '90' + m[1];
+      const m2 = phoneOrUrl.match(/(?:^|[^\d])(?:\+?90|0+)?(5\d{9})(?:[^\d]|$)/);
+      if (m2) return '90' + m2[1];
+      let digits = phoneOrUrl.replace(/\D/g, '');
+      if (digits.length === 11 && digits.startsWith('05')) return '9' + digits;
+      if (digits.length === 10 && digits.startsWith('5')) return '90' + digits;
+      if (digits.length === 12 && digits.startsWith('905')) return digits;
+      return digits.length >= 10 ? digits : '';
+    }
+
+    function generateWhatsAppWebUrl(phoneOrUrl, message) {
+      const clean = extractCleanMobile(phoneOrUrl);
+      if (clean) {
+        return `https://web.whatsapp.com/send?phone=${clean}&text=${encodeURIComponent(message)}`;
+      }
+      if (phoneOrUrl && phoneOrUrl.startsWith('http')) return phoneOrUrl;
+      return '#';
+    }
+
+    function generateWhatsAppAppUrl(phoneOrUrl, message) {
+      const clean = extractCleanMobile(phoneOrUrl);
+      if (clean) {
+        return `https://api.whatsapp.com/send?phone=${clean}&text=${encodeURIComponent(message)}`;
+      }
+      if (phoneOrUrl && phoneOrUrl.startsWith('http')) return phoneOrUrl;
+      return '#';
+    }
+
+    function recordDirectEmailApply(employerId, email, event) {
+      if (event) event.stopPropagation();
+      showToast(`📧 Gmail Web açılıyor (${email})... Başvuru taslağı aktarıldı.`);
+
+      fetch(`/api/v2/applications/prepare/${employerId}`, { method: 'POST' })
+        .then(r => r.json())
+        .then(data => {
+          if (data.application_id) {
+            return fetch(`/api/v2/applications/${data.application_id}/action`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ channel: 'email', contact_value: email, action_status: 'confirmed_by_user', notes: 'Gmail Web açıldı ve başvuru iletildi.' })
+            });
+          }
+        }).then(() => {
+          loadCrmDashboard();
+          const empItem = currentJobResults.find(e => e.employer_id === employerId);
+          if (empItem) {
+            empItem.application_status = 'waiting_reply';
+            renderJobResultsList(currentJobResults);
+          }
+        }).catch(e => console.error(e));
+    }
+
+    function recordDirectWhatsAppApply(employerId, event) {
+      if (event) event.stopPropagation();
+      showToast(`💬 WhatsApp Web açılıyor... Mesaj ve CV bağlantısı aktarıldı.`);
+
+      fetch(`/api/v2/applications/prepare/${employerId}`, { method: 'POST' })
+        .then(r => r.json())
+        .then(data => {
+          if (data.application_id) {
+            return fetch(`/api/v2/applications/${data.application_id}/status`, {
+              method: 'PATCH',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ new_status: 'whatsapp_opened', notes: 'WhatsApp Web yönlendirmesi tıklandı.' })
+            });
+          }
+        }).then(() => {
+          loadCrmDashboard();
+          const empItem = currentJobResults.find(e => e.employer_id === employerId);
+          if (empItem) {
+            empItem.application_status = 'whatsapp_opened';
+            renderJobResultsList(currentJobResults);
+          }
+        }).catch(e => console.error(e));
+    }
+
+    function handleDirectEmailApply(employerId, email, clinicName, event) {
+      if (event) event.stopPropagation();
+      if (!email) {
+        showToast('Bu kurum için kayıtlı e-posta adresi bulunamadı.');
+        return;
+      }
+      const subject = `Diş Hekimi İş Başvurusu — Dt. Rümeysa Çolak | ${clinicName}`;
+      const body = getDirectEmailBody(clinicName);
+      const gmailUrl = generateGmailComposeUrl(email, subject, body);
+      window.open(gmailUrl, '_blank');
+      recordDirectEmailApply(employerId, email, null);
+    }
+
+    function handleDirectWhatsAppApply(employerId, rawPhoneOrUrl, clinicName, event) {
+      if (event) event.stopPropagation();
+      const msg = getDirectWhatsAppMsg(clinicName);
+      const waUrl = generateWhatsAppWebUrl(rawPhoneOrUrl, msg);
+      if (!waUrl || waUrl === '#') {
+        showToast('Bu kurum için geçerli bir WhatsApp / cep numarası bulunamadı.');
+        return;
+      }
+      window.open(waUrl, '_blank');
+      recordDirectWhatsAppApply(employerId, null);
+    }
+
+    function renderJobResultsList(items) {
+      const container = document.getElementById('job-results-container');
+      if (!items || items.length === 0) {
+        container.innerHTML = `<div class="card" style="text-align:center; padding:40px; color:#64748b;">Bu araştırmada kriterlere uygun kurum bulunamadı.</div>`;
+        return;
+      }
+
+      container.innerHTML = items.map(emp => {
+        const isChecked = selectedEmployerIds.has(emp.employer_id);
+        const channelsHtml = [];
+
+        if (emp.email) {
+          const gmailUrl = emp.gmail_compose_url || generateGmailComposeUrl(emp.email, `Diş Hekimi İş Başvurusu — Dt. Rümeysa Çolak | ${emp.name}`, getDirectEmailBody(emp.name));
+          channelsHtml.push(`
+            <a href="${gmailUrl}" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               onclick="recordDirectEmailApply('${emp.employer_id}', '${emp.email}', event)"
+               class="badge badge-primary badge-interactive" 
+               style="text-decoration:none; padding:6px 11px; font-weight:700; display:inline-flex; align-items:center; gap:5px;"
+               title="Gmail Web'de Aç ve Başvur">
+              📧 ${emp.email} <span style="font-size:11px; opacity:0.85;">↗</span>
+            </a>
+          `);
+        }
+
+        if (emp.whatsapp_web_url || emp.whatsapp_url || (emp.phone && (emp.phone.includes('5') || emp.phone.includes('05')))) {
+          const rawWa = emp.whatsapp_url || emp.phone;
+          const waUrl = emp.whatsapp_web_url || generateWhatsAppWebUrl(rawWa, getDirectWhatsAppMsg(emp.name));
+          if (waUrl && waUrl !== '#') {
+            channelsHtml.push(`
+              <a href="${waUrl}" 
+                 target="_blank" 
+                 rel="noopener noreferrer"
+                 onclick="recordDirectWhatsAppApply('${emp.employer_id}', event)"
+                 class="badge badge-success badge-interactive" 
+                 style="text-decoration:none; padding:6px 11px; font-weight:700; display:inline-flex; align-items:center; gap:5px;"
+                 title="WhatsApp Web'de Aç ve Başvur">
+                💬 WhatsApp Web <span style="font-size:11px; opacity:0.85;">↗</span>
+              </a>
+            `);
+          }
+        }
+
+        if (emp.phone) {
+          channelsHtml.push(`
+            <a href="tel:${emp.phone.replace(/[^0-9+]/g, '')}" 
+               class="badge badge-gray badge-interactive" 
+               style="text-decoration:none; padding:6px 11px; font-weight:600; display:inline-flex; align-items:center; gap:5px;"
+               title="Telefonla Ara">
+              📞 ${emp.phone}
+            </a>
+          `);
+        }
+
+        if (emp.website) {
+          const webUrl = emp.website.startsWith('http') ? emp.website : 'https://' + emp.website;
+          channelsHtml.push(`
+            <a href="${webUrl}" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="badge badge-purple badge-interactive" 
+               style="text-decoration:none; padding:6px 11px; font-weight:600; display:inline-flex; align-items:center; gap:5px;"
+               title="Resmî Web Sitesini Aç">
+              🌐 Web <span style="font-size:11px; opacity:0.85;">↗</span>
+            </a>
+          `);
+        }
+
+        const postingBadge = emp.has_job_posting 
+          ? `<span class="badge badge-warning">Açık İlan</span>`
+          : `<span class="badge badge-gray">Genel Başvuru</span>`;
+
+        const appStatus = emp.application_status
+          ? `<span class="badge ${getStatusBadgeClass(emp.application_status)}">${getStatusLabel(emp.application_status)}</span>`
+          : '';
+
+        const gmailActionBtn = emp.email ? `
+          <a href="${emp.gmail_compose_url || generateGmailComposeUrl(emp.email, `Diş Hekimi İş Başvurusu — Dt. Rümeysa Çolak | ${emp.name}`, getDirectEmailBody(emp.name))}" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             class="btn btn-outline btn-sm" 
+             style="color:#0284c7; border-color:#bfdbfe; font-size:12px; padding:5px 11px; text-decoration:none; display:inline-flex; align-items:center; gap:4px;" 
+             onclick="recordDirectEmailApply('${emp.employer_id}', '${emp.email}', event)"
+             title="Gmail Web'de Aç ve Başvur">
+            📧 Gmail ile Başvur ↗
+          </a>
+        ` : '';
+
+        const waActionBtn = (emp.whatsapp_web_url || emp.whatsapp_url || (emp.phone && (emp.phone.includes('5') || emp.phone.includes('05')))) ? `
+          <a href="${emp.whatsapp_web_url || generateWhatsAppWebUrl(emp.whatsapp_url || emp.phone, getDirectWhatsAppMsg(emp.name))}" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             class="btn btn-outline btn-sm" 
+             style="color:#16a34a; border-color:#bbf7d0; font-size:12px; padding:5px 11px; text-decoration:none; display:inline-flex; align-items:center; gap:4px;" 
+             onclick="recordDirectWhatsAppApply('${emp.employer_id}', event)"
+             title="WhatsApp Web'de Aç ve Başvur">
+            💬 WhatsApp Web ↗
+          </a>
+        ` : '';
+
+        return `
+          <div class="employer-card-item">
+            <div class="emp-head">
+              <label class="emp-checkbox-label">
+                <input type="checkbox" class="emp-check" ${isChecked ? 'checked' : ''} onchange="toggleEmployerSelection('${emp.employer_id}', this.checked)">
+                <div>
+                  <div style="font-size:16px; font-weight:700; color:#0f172a;">${emp.name}</div>
+                  <div style="font-size:12px; color:#64748b; margin-top:2px;">${emp.district || emp.city} • ${emp.employer_type}</div>
+                </div>
+              </label>
+              <div style="display:flex; align-items:center; gap:8px;">
+                ${postingBadge}
+                ${appStatus}
+              </div>
+            </div>
+
+            <div style="font-size:12px; color:#475569; margin: 8px 0 4px 30px;">${emp.address || 'Adres bilgisi mevcut.'}</div>
+            <div class="channel-badges" style="margin-left:30px;">${channelsHtml.join('')}</div>
+
+            <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #f1f5f9; padding-top:10px; margin-top:8px; margin-left:30px; flex-wrap:wrap; gap:8px;">
+              <span style="font-size:11.5px; color:#94a3b8;">Kaynak: Doğrulanmış rehber ve kurumsal site</span>
+              <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                ${gmailActionBtn}
+                ${waActionBtn}
+                <button class="btn btn-primary btn-sm" onclick="prepareSingleEmployerApplication('${emp.employer_id}')">Bu Kuruma Başvur →</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function toggleEmployerSelection(empId, isChecked) {
+      if (isChecked) {
+        selectedEmployerIds.add(empId);
+      } else {
+        selectedEmployerIds.delete(empId);
+      }
+      updateStickyActionBar();
+    }
+
+    function selectAllCurrentJobResults(select) {
+      currentJobResults.forEach(e => {
+        if (select) selectedEmployerIds.add(e.employer_id);
+        else selectedEmployerIds.delete(e.employer_id);
+      });
+      updateStickyActionBar();
+      renderJobResultsList(currentJobResults);
+    }
+
+    function updateStickyActionBar() {
+      const bar = document.getElementById('sticky-action-bar');
+      const cnt = selectedEmployerIds.size;
+      document.getElementById('bar-selected-count').innerText = `${cnt} Kurum Seçildi`;
+      if (cnt > 0) {
+        bar.style.display = 'flex';
+      } else {
+        bar.style.display = 'none';
+      }
+    }
+
+    function filterJobResults(type) {
+      let filtered = currentJobResults;
+      if (type === 'reachable') filtered = currentJobResults.filter(e => e.is_reachable);
+      if (type === 'email') filtered = currentJobResults.filter(e => e.email);
+      if (type === 'whatsapp') filtered = currentJobResults.filter(e => e.whatsapp_url);
+      if (type === 'unapplied') filtered = currentJobResults.filter(e => !e.application_status);
+      renderJobResultsList(filtered);
+    }
+
+    // 5. Başvuru Hazırlama Merkezi (Batch & Single)
+    async function proceedToApplicationPreparation() {
+      const ids = Array.from(selectedEmployerIds);
+      if (ids.length === 0) return;
+
+      try {
+        showToast(`${ids.length} kurum için başvuru dosyaları hazırlanıyor...`);
+        const res = await fetch('/api/v2/applications/batch-prepare', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ employer_ids: ids, position_title: 'Diş Hekimi' })
+        });
+        const data = await res.json();
+        if (data.status === 'success') {
+          currentPreparedPackages = data.packages;
+          renderPreparedApplicationPackages(data.packages);
+          switchScreen('prep');
+        }
+      } catch (e) {
+        console.error('Toplu başvuru hazırlama hatası:', e);
+      }
+    }
+
+    async function prepareSingleEmployerApplication(empId) {
+      selectedEmployerIds.clear();
+      selectedEmployerIds.add(empId);
+      await proceedToApplicationPreparation();
+    }
+
+    function renderPreparedApplicationPackages(packages) {
+      const container = document.getElementById('prep-packages-container');
+      if (!packages || packages.length === 0) {
+        container.innerHTML = `<div class="card" style="text-align:center; padding:40px; color:#64748b;">Henüz başvuru hazırlanacak kurum seçilmedi. "Araştırmalarım" ekranından kurumları işaretleyip hazırlayabilirsiniz.</div>`;
+        return;
+      }
+
+      container.innerHTML = packages.map((pkg, idx) => `
+        <div class="card" style="border-left: 4px solid #0284c7; margin-bottom: 24px;">
+          <div class="card-header">
+            <div>
+              <div style="font-size:18px; font-weight:800; color:#0f172a;">${pkg.employer_name}</div>
+              <div style="font-size:12.5px; color:#64748b;">${pkg.district || pkg.city} • Uyum Skoru: %${pkg.match_score}</div>
+            </div>
+            <span class="badge badge-warning">Taslak Hazırlandı</span>
+          </div>
+
+          <!-- Sekmeler -->
+          <div class="modal-tabs">
+            <button class="modal-tab-btn active" onclick="switchPrepTab(this, 'email-${idx}')">✉️ E-posta Başvurusu</button>
+            <button class="modal-tab-btn" onclick="switchPrepTab(this, 'wa-b-${idx}')">💬 WhatsApp (Model B - Güvenli Bağlantı)</button>
+            <button class="modal-tab-btn" onclick="switchPrepTab(this, 'wa-c-${idx}')">📎 WhatsApp (Model C - PDF)</button>
+            <button class="modal-tab-btn" onclick="switchPrepTab(this, 'followup-${idx}')">⏰ 4-5 Gün Hatırlatma</button>
+            <button class="modal-tab-btn" onclick="switchPrepTab(this, 'phone-${idx}')">📞 Telefon Notu</button>
+          </div>
+
+          <!-- E-posta -->
+          <div id="tab-email-${idx}" class="prep-tab-pane active" style="display:block;">
+            <div style="font-size:13px; font-weight:600; color:#334155; margin-bottom:6px;">
+              Alıcı: <strong>${pkg.messages.email.recipient || 'info@klinik.com'}</strong> • Ek: <strong>Dt_Rumeysa_Colak_CV.pdf</strong>
+            </div>
+            <div class="code-box">${pkg.messages.email.body}</div>
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+              <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <a class="btn btn-primary btn-sm" 
+                   href="${pkg.messages.gmail_compose_url || generateGmailComposeUrl(pkg.messages.email.recipient, pkg.messages.email.subject, pkg.messages.email.body)}" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   onclick="sendEmailAction('${pkg.application_id}', '${pkg.messages.email.recipient}')">
+                  📧 Gmail Web'de Aç ve Gönder ↗
+                </a>
+                <a class="btn btn-outline btn-sm" 
+                   href="${pkg.messages.mailto_url || generateMailtoUrl(pkg.messages.email.recipient, pkg.messages.email.subject, pkg.messages.email.body)}" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   onclick="sendEmailAction('${pkg.application_id}', '${pkg.messages.email.recipient}')">
+                  ✉️ Mailto ile Aç ↗
+                </a>
+              </div>
+              <div style="display:flex; gap:8px;">
+                <button class="btn btn-outline btn-sm" onclick="approveSingleApp('${pkg.application_id}')">✓ Taslağı Onayla</button>
+                <button class="btn btn-outline btn-sm" onclick="sendEmailAction('${pkg.application_id}', '${pkg.messages.email.recipient}')">🚀 Gönderildi Olarak İşle</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- WhatsApp Model B -->
+          <div id="tab-wa-b-${idx}" class="prep-tab-pane" style="display:none;">
+            <div style="font-size:13px; font-weight:600; color:#334155; margin-bottom:6px;">
+              WhatsApp Numarası: <strong>${pkg.messages.whatsapp_phone || 'Doğrulanmış Telefon'}</strong>
+            </div>
+            <div class="code-box">${pkg.messages.whatsapp_model_b.body}</div>
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+              <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <a class="btn btn-whatsapp" 
+                   href="${pkg.messages.whatsapp_web_link_b || generateWhatsAppWebUrl(pkg.messages.whatsapp_phone, pkg.messages.whatsapp_model_b.body)}" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   onclick="markWaOpened('${pkg.application_id}')">
+                  💬 WhatsApp Web'i Aç (web.whatsapp.com) ↗
+                </a>
+                <a class="btn btn-outline btn-sm" 
+                   href="${pkg.messages.whatsapp_handoff_link_b || '#'}" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   onclick="markWaOpened('${pkg.application_id}')">
+                  📱 Mobil WhatsApp (wa.me) ↗
+                </a>
+              </div>
+              <button class="btn btn-success btn-sm" onclick="confirmWaSent('${pkg.application_id}', '${pkg.messages.whatsapp_phone}')">
+                ✓ WhatsApp'ta Gönderildi Olarak Doğrula
+              </button>
+            </div>
+          </div>
+
+          <!-- WhatsApp Model C -->
+          <div id="tab-wa-c-${idx}" class="prep-tab-pane" style="display:none;">
+            <div style="font-size:13px; color:#475569; margin-bottom:8px;">
+              💡 <strong>Rehber:</strong> WhatsApp üzerinden cihazınızdaki <code>Dt_Rumeysa_Colak_CV.pdf</code> dosyasını ekleyip şu refakat mesajını yapıştırın:
+            </div>
+            <div class="code-box">${pkg.messages.whatsapp_model_c.body}</div>
+          </div>
+
+          <!-- Hatırlatma -->
+          <div id="tab-followup-${idx}" class="prep-tab-pane" style="display:none;">
+            <div style="font-size:13px; color:#475569; margin-bottom:8px;">
+              ⏰ 4-5 gün yanıt gelmediğinde gönderilmek üzere hazırlanan nazik durum sorgulama mesajı:
+            </div>
+            <div class="code-box">${pkg.messages.whatsapp_followup.body}</div>
+          </div>
+
+          <!-- Telefon -->
+          <div id="tab-phone-${idx}" class="prep-tab-pane" style="display:none;">
+            <div style="font-size:13px; color:#475569; margin-bottom:8px;">📞 Santral ve Klinik Sorumlusu Karşılama Senaryosu:</div>
+            <div class="code-box">${pkg.messages.phone_script.body}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function switchPrepTab(btn, paneId) {
+      const parentCard = btn.closest('.card');
+      parentCard.querySelectorAll('.modal-tab-btn').forEach(b => b.classList.remove('active'));
+      parentCard.querySelectorAll('.prep-tab-pane').forEach(p => p.style.display = 'none');
+
+      btn.classList.add('active');
+      const targetPane = document.getElementById(`tab-${paneId}`);
+      if (targetPane) targetPane.style.display = 'block';
+    }
+
+    // Onay ve Eylem Fonksiyonları
+    async function approveSingleApp(appId) {
+      try {
+        const res = await fetch(`/api/v2/applications/${appId}/approve`, { method: 'POST' });
+        const data = await res.json();
+        if (data.status === 'success') {
+          showToast('✓ Başvuru taslakları onaylandı.');
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function sendEmailAction(appId, recipient) {
+      try {
+        const res = await fetch(`/api/v2/applications/${appId}/action`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ channel: 'email', contact_value: recipient, action_status: 'confirmed_by_user', notes: 'E-posta CV ekiyle gönderildi.' })
+        });
+        const data = await res.json();
+        if (data.status === 'success') {
+          showToast('🚀 E-posta gönderimi CRM\'e işlendi. Durum: Yanıt Bekleniyor.');
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function markWaOpened(appId) {
+      try {
+        await fetch(`/api/v2/applications/${appId}/status`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ new_status: 'whatsapp_opened', notes: 'WhatsApp wa.me bağlantısı açıldı.' })
+        });
+      } catch (e) {}
+    }
+
+    async function confirmWaSent(appId, phone) {
+      try {
+        const res = await fetch(`/api/v2/applications/${appId}/action`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ channel: 'whatsapp', contact_value: phone, action_status: 'confirmed_by_user', notes: 'Aday WhatsApp üzerinden ön yazıyı ve güvenli CV bağlantısını ilettiğini doğruladı.' })
+        });
+        const data = await res.json();
+        if (data.status === 'success') {
+          showToast('✓ WhatsApp gönderimi teyit edildi. Durum: Yanıt Bekleniyor.');
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    // 6. Başvurularım CRM
+    async function loadCrmDashboard() {
+      try {
+        const res = await fetch('/api/v2/applications/dashboard');
+        const data = await res.json();
+        if (data.status === 'success') {
+          const apps = data.dashboard.applications;
+          updateCrmCounts(apps);
+          renderCrmCards(apps);
+        }
+      } catch (e) {
+        console.error('CRM yükleme hatası:', e);
+      }
+    }
+
+    function updateCrmCounts(apps) {
+      document.getElementById('c-cnt-all').innerText = apps.length;
+      document.getElementById('c-cnt-draft').innerText = apps.filter(a => a.status === 'draft').length;
+      document.getElementById('c-cnt-waiting').innerText = apps.filter(a => ['waiting_reply', 'awaiting_reply', 'sent', 'email_sent', 'whatsapp_confirmed_sent'].includes(a.status)).length;
+      document.getElementById('c-cnt-replied').innerText = apps.filter(a => a.status === 'replied').length;
+      document.getElementById('c-cnt-interview').innerText = apps.filter(a => a.status === 'interview').length;
+      document.getElementById('c-cnt-rejected').innerText = apps.filter(a => a.status === 'rejected').length;
+    }
+
+    function filterCrmStage(stage) {
+      crmFilterStage = stage;
+      document.querySelectorAll('#screen-applications .type-chip').forEach(c => c.classList.remove('selected'));
+      const activeEl = document.getElementById(`crm-tab-${stage}`);
+      if (activeEl) activeEl.classList.add('selected');
+      loadCrmDashboard();
+    }
+
+    function renderCrmCards(apps) {
+      const container = document.getElementById('crm-applications-container');
+      let filtered = apps;
+
+      if (crmFilterStage === 'draft') filtered = apps.filter(a => a.status === 'draft');
+      if (crmFilterStage === 'waiting') filtered = apps.filter(a => ['waiting_reply', 'awaiting_reply', 'sent', 'email_sent', 'whatsapp_confirmed_sent'].includes(a.status));
+      if (crmFilterStage === 'replied') filtered = apps.filter(a => a.status === 'replied');
+      if (crmFilterStage === 'interview') filtered = apps.filter(a => a.status === 'interview');
+      if (crmFilterStage === 'rejected') filtered = apps.filter(a => a.status === 'rejected');
+
+      if (!filtered || filtered.length === 0) {
+        container.innerHTML = `<div class="card" style="text-align:center; padding:40px; color:#64748b;">Bu aşamada başvuru kaydı bulunmuyor.</div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(app => `
+        <div class="card" style="margin-bottom:14px;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px;">
+            <div>
+              <h3 style="font-size:17px; font-weight:700; color:#0f172a;">${app.employer_name}</h3>
+              <div style="font-size:12.5px; color:#64748b;">${app.district || 'Eskişehir'} • ${app.employer_type}</div>
+            </div>
+            <span class="badge ${getStatusBadgeClass(app.status)}">${getStatusLabel(app.status)}</span>
+          </div>
+
+          <!-- Hareketler -->
+          <div style="background:#f8fafc; border-radius:8px; padding:10px 14px; margin: 12px 0; font-size:12.5px;">
+            ${(app.channel_attempts || []).map(att => `
+              <div><strong>${att.channel.toUpperCase()}:</strong> ${att.notes} <span style="color:#94a3b8; font-size:11px;">(${att.attempted_at})</span></div>
+            `).join('') || '<div style="color:#94a3b8;">Henüz gönderim eylemi kaydedilmedi.</div>'}
+          </div>
+
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button class="btn btn-outline btn-sm" style="color:#16a34a; border-color:#bbf7d0;" onclick="updateAppStatusCrm('${app.application_id}', 'interview')">🎉 Mülakat Daveti Alındı</button>
+            <button class="btn btn-outline btn-sm" style="color:#0284c7; border-color:#bfdbfe;" onclick="updateAppStatusCrm('${app.application_id}', 'replied')">💬 Yanıt Alındı</button>
+            <button class="btn btn-outline btn-sm" style="color:#dc2626; border-color:#fecaca;" onclick="updateAppStatusCrm('${app.application_id}', 'rejected')">❌ Olumsuz</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    async function updateAppStatusCrm(appId, newStatus) {
+      try {
+        const res = await fetch(`/api/v2/applications/${appId}/status`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ new_status: newStatus, notes: 'Aday panelinden güncellendi.' })
+        });
+        const data = await res.json();
+        if (data.status === 'success') {
+          showToast(`Durum güncellendi: ${getStatusLabel(newStatus)}`);
+          await loadCrmDashboard();
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    // 7. Aday Profili & CV
+    async function loadCandidateProfile() {
+      try {
+        const res = await fetch('/api/v2/candidate/profile');
+        const data = await res.json();
+        if (data.status === 'success' && data.profile) {
+          const p = data.profile;
+          document.getElementById('prof-fullname').value = p.full_name;
+          document.getElementById('prof-school').value = p.graduation_school;
+          document.getElementById('prof-cases').value = p.clinical_case_count;
+        }
+
+        const cvRes = await fetch('/api/v2/candidate/cv');
+        const cvData = await cvRes.json();
+        if (cvData.documents && cvData.documents.length > 0) {
+          const doc = cvData.documents[0];
+          const fullUrl = window.location.origin + doc.secure_url;
+          document.getElementById('prof-cv-link-display').innerText = fullUrl;
+          document.getElementById('prof-cv-preview-btn').href = doc.secure_url;
+        }
+      } catch (e) {
+        console.error('Profil yükleme hatası:', e);
+      }
+    }
+
+    function copyCvLink() {
+      const link = document.getElementById('prof-cv-link-display').innerText.trim();
+      navigator.clipboard.writeText(link);
+      showToast('✓ Güvenli CV bağlantısı panoya kopyalandı.');
+    }
+
+    async function uploadNewCv() {
+      const input = document.getElementById('cv-file-input');
+      const formData = new FormData();
+      if (input.files.length > 0) formData.append('file', input.files[0]);
+      formData.append('validity_days', '30');
+
+      try {
+        showToast('CV yükleniyor...');
+        const res = await fetch('/api/v2/candidate/cv/upload', { method: 'POST', body: formData });
+        const data = await res.json();
+        if (data.status === 'success') {
+          showToast('✓ CV başarıyla yüklendi.');
+          await loadCandidateProfile();
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    // 8. Yönetici İstatistikleri
+    async function loadAdminStats() {
+      try {
+        const res = await fetch('/api/v2/admin/stats');
+        const data = await res.json();
+        if (data.status === 'success') {
+          const emp = data.employers;
+          document.getElementById('admin-db-metrics').innerHTML = `
+            <div>Toplam İşveren Kaydı: <strong>${emp.total}</strong></div>
+            <div>Doğrulanmış Ulaşılabilir Kurumlar: <strong style="color:#16a34a;">${emp.reachable} (%${emp.reachability_rate_percent})</strong></div>
+            <div>Telefon Numarası Mevcut: <strong>${emp.with_phone}</strong></div>
+            <div>Doğrulanmış E-posta: <strong>${emp.with_email}</strong></div>
+            <div>WhatsApp Butonu Aktif: <strong>${emp.with_whatsapp}</strong></div>
+          `;
+        }
+
+        // Adaptörleri listele
+        const adCont = document.getElementById('admin-adapters-list');
+        adCont.innerHTML = professionsCatalog.map(p => `
+          <div style="border:1px solid #e2e8f0; border-radius:8px; padding:10px 14px; display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <strong>${p.name}</strong>
+              <div style="font-size:12px; color:#64748b;">${p.adapter_message}</div>
+            </div>
+            <span class="badge ${p.adapter_status === 'ready' ? 'badge-success' : 'badge-warning'}">
+              ${p.adapter_status === 'ready' ? 'Aktif' : 'Geliştirme Planında'}
+            </span>
+          </div>
+        `).join('');
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function clearAllDemoApplications() {
+      if (!confirm('Tüm test ve sahte başvuru kayıtları silinecek ve CRM sıfırlanacaktır. Canlı sürüme geçmek için onaylıyor musunuz?')) return;
+      try {
+        const res = await fetch('/api/v2/applications/reset-clean', { method: 'POST' });
+        const data = await res.json();
+        if (data.status === 'success') {
+          showToast(`✓ ${data.deleted_count} demo başvuru temizlendi. Canlı sürüme hazır!`);
+          await loadCrmDashboard();
+          if (currentJobId) await openJobResults(currentJobId);
+        }
+      } catch (e) {
+        console.error(e);
+        showToast('Başvurular temizlenirken hata oluştu.');
+      }
+    }
+
+    // Yardımcılar
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.innerText = msg;
+      toast.style.display = 'flex';
+      setTimeout(() => { toast.style.display = 'none'; }, 3500);
+    }
+
+    function getStatusLabel(s) {
+      const map = {
+        'draft': 'Taslak',
+        'approved': 'Onaylandı',
+        'waiting_reply': 'Yanıt Bekleniyor',
+        'awaiting_reply': 'Yanıt Bekleniyor',
+        'sent': 'Gönderildi',
+        'email_sent': 'E-posta Gönderildi',
+        'whatsapp_opened': 'WhatsApp Açıldı',
+        'whatsapp_confirmed_sent': 'WhatsApp Gönderildi',
+        'replied': 'Yanıt Alındı 💬',
+        'interview': 'Mülakat Daveti 🎉',
+        'rejected': 'Olumsuz',
+        'hired': 'İşe Alındı 🏆',
+        'closed': 'Kapatıldı'
+      };
+      return map[s] || s;
+    }
+
+    function getStatusBadgeClass(s) {
+      const map = {
+        'draft': 'badge-warning',
+        'approved': 'badge-primary',
+        'waiting_reply': 'badge-primary',
+        'awaiting_reply': 'badge-primary',
+        'email_sent': 'badge-primary',
+        'whatsapp_confirmed_sent': 'badge-primary',
+        'replied': 'badge-purple',
+        'interview': 'badge-success',
+        'rejected': 'badge-danger',
+        'hired': 'badge-success'
+      };
+      return map[s] || 'badge-gray';
+    }
+
+    // PWA Modal ve Kurulum Fonksiyonları
+    function openPwaModal() {
+      const modal = document.getElementById('pwa-install-modal');
+      if (modal) modal.classList.add('open');
+    }
+
+    function closePwaModal() {
+      const modal = document.getElementById('pwa-install-modal');
+      if (modal) modal.classList.remove('open');
+    }
+
+    // PWA Service Worker Kaydı (iOS Safari & Modern Tarayıcılar)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then((registration) => {
+            console.log('[CareerMap V2.6 PWA] ServiceWorker aktif:', registration.scope);
+          })
+          .catch((err) => {
+            console.warn('[CareerMap V2.6 PWA] ServiceWorker kayıt uyarısı:', err);
+          });
+      });
+    }
+
+    // iOS Safari tespiti ve otomatik ana ekran önerisi
+    window.addEventListener('DOMContentLoaded', () => {
+      const isIos = /iPhone|iPad|iPod/.test(navigator.userAgent) && !window.MSStream;
+      const isStandalone = window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches;
+      const banner = document.getElementById('pwa-guide-banner');
+
+      if (isStandalone && banner) {
+        // Zaten PWA modunda çalışıyorsa bildirim kutusunu gizle
+        banner.style.display = 'none';
+      }
+    });
+  </script>
+
+  <!-- iOS PWA Kurulum Rehberi Modalı -->
+  <div id="pwa-install-modal" class="modal-backdrop">
+    <div class="modal-box" style="max-width: 480px; text-align: center; padding: 24px;">
+      <div style="font-size: 44px; margin-bottom: 12px;">📲</div>
+      <h3 style="font-size: 20px; font-weight: 700; color: #0f172a; margin-bottom: 8px;">CareerMap'i iPhone'a Ekleyin</h3>
+      <p style="font-size: 14px; color: #64748b; line-height: 1.5; margin-bottom: 20px;">
+        CareerMap'i Safari adres çubuğu olmadan tam ekran, bağımsız bir iPhone uygulaması olarak kullanmak için:
+      </p>
+      
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; text-align: left; margin-bottom: 22px;">
+        <div style="display: flex; gap: 12px; margin-bottom: 14px; align-items: flex-start;">
+          <div style="background: #0284c7; color: #fff; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-size: 13px; font-weight: 700; flex-shrink: 0;">1</div>
+          <div style="font-size: 14px; color: #334155; line-height: 1.4;">Safari'nin en altındaki <strong>Paylaş (⎋)</strong> simgesine dokunun.</div>
+        </div>
+        <div style="display: flex; gap: 12px; margin-bottom: 14px; align-items: flex-start;">
+          <div style="background: #0284c7; color: #fff; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-size: 13px; font-weight: 700; flex-shrink: 0;">2</div>
+          <div style="font-size: 14px; color: #334155; line-height: 1.4;">Açılan menüde aşağı kaydırarak <strong>"Ana Ekrana Ekle"</strong> seçeneğine tıklayın.</div>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: flex-start;">
+          <div style="background: #0284c7; color: #fff; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-size: 13px; font-weight: 700; flex-shrink: 0;">3</div>
+          <div style="font-size: 14px; color: #334155; line-height: 1.4;">Sağ üstteki <strong>"Ekle"</strong> butonuna basın.</div>
+        </div>
+      </div>
+      
+      <button class="btn btn-primary" style="width: 100%; min-height: 46px;" onclick="closePwaModal()">Tamam, Anladım</button>
+    </div>
+  </div>
+
+  <!-- MOBİL ALT NAVİGASYON (iOS PWA TAB BAR) -->
+  <nav class="mobile-bottom-nav">
+    <button class="mobile-nav-btn active" id="m-nav-search" onclick="switchScreen('search')">
+      <span class="m-icon">🔍</span>
+      <span class="m-label">Keşfet</span>
+    </button>
+    <button class="mobile-nav-btn" id="m-nav-results" onclick="switchScreen('results')">
+      <span class="m-icon">📁</span>
+      <span class="m-label">Kurumlar</span>
+    </button>
+    <button class="mobile-nav-btn" id="m-nav-prep" onclick="switchScreen('prep')">
+      <span class="m-icon">✨</span>
+      <span class="m-label">Başvuru</span>
+    </button>
+    <button class="mobile-nav-btn" id="m-nav-applications" onclick="switchScreen('applications')">
+      <span class="m-icon">📮</span>
+      <span class="m-label">Takip</span>
+    </button>
+    <button class="mobile-nav-btn" id="m-nav-profile" onclick="switchScreen('profile')">
+      <span class="m-icon">👩‍⚕️</span>
+      <span class="m-label">Profil</span>
+    </button>
+  </nav>
+
+  <!-- API Sunucu Ayarları Modalı (Vercel -> Remote Backend) -->
+  <div id="api-settings-modal" class="modal-backdrop">
+    <div class="modal-box" style="max-width: 500px; padding: 24px;">
+      <div style="font-size: 32px; margin-bottom: 8px;">⚙️</div>
+      <h3 style="font-size: 19px; font-weight: 700; color: #0f172a; margin-bottom: 6px;">FastAPI Sunucu Bağlantısı</h3>
+      <p style="font-size: 13.5px; color: #64748b; line-height: 1.5; margin-bottom: 18px;">
+        Vercel üzerinde barındırılan CareerMap'in kurum araştırmalarını ve CV işlemlerini yürüteceği Python backend adresini belirleyin.
+      </p>
+
+      <div style="margin-bottom: 16px; text-align: left;">
+        <label style="font-size: 13px; font-weight: 600; color: #334155; display: block; margin-bottom: 6px;">Arka Uç (Backend) URL</label>
+        <input type="url" id="custom-api-input" placeholder="https://careermap-api.onrender.com veya tünel linki" 
+               style="width: 100%; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; box-sizing: border-box;">
+        <span style="font-size: 11.5px; color: #94a3b8; display: block; margin-top: 4px;">Boş bırakırsanız Vercel ters vekili (proxy) kullanılır.</span>
+      </div>
+
+      <div id="api-connection-status" style="display:none; padding: 10px; border-radius: 8px; font-size: 13px; margin-bottom: 16px;"></div>
+
+      <div style="display: flex; gap: 10px; justify-content: flex-end;">
+        <button class="btn btn-outline btn-sm" onclick="testBackendConnection()">Bağlantıyı Sına</button>
+        <button class="btn btn-outline btn-sm" onclick="closeApiSettingsModal()">Kapat</button>
+        <button class="btn btn-primary btn-sm" onclick="saveApiSettings()">Kaydet</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openApiSettingsModal() {
+      const input = document.getElementById('custom-api-input');
+      if (input) input.value = localStorage.getItem('CAREERMAP_API_URL') || '';
+      const modal = document.getElementById('api-settings-modal');
+      if (modal) modal.classList.add('open');
+    }
+
+    function closeApiSettingsModal() {
+      const modal = document.getElementById('api-settings-modal');
+      if (modal) modal.classList.remove('open');
+    }
+
+    function saveApiSettings() {
+      const input = document.getElementById('custom-api-input');
+      const val = input.value.trim();
+      if (val) {
+        localStorage.setItem('CAREERMAP_API_URL', val);
+        showToast('✓ Arka uç adresi kaydedildi: ' + val);
+      } else {
+        localStorage.removeItem('CAREERMAP_API_URL');
+        showToast('✓ Varsayılan Vercel vekili seçildi.');
+      }
+      closeApiSettingsModal();
+      setTimeout(() => window.location.reload(), 500);
+    }
+
+    async function testBackendConnection() {
+      const input = document.getElementById('custom-api-input');
+      const statusDiv = document.getElementById('api-connection-status');
+      statusDiv.style.display = 'block';
+      statusDiv.style.background = '#e0f2fe';
+      statusDiv.style.color = '#0369a1';
+      statusDiv.innerText = '⏳ Sunucu test ediliyor...';
+
+      let targetUrl = input.value.trim().replace(/\/+$/, '');
+      const testEndpoint = (targetUrl ? targetUrl : '') + '/api/v2/research/professions';
+
+      try {
+        const res = await fetch(testEndpoint);
+        if (res.ok) {
+          statusDiv.style.background = '#dcfce7';
+          statusDiv.style.color = '#15803d';
+          statusDiv.innerText = '✓ Bağlantı başarılı! FastAPI sunucusuna erişildi.';
+        } else {
+          statusDiv.style.background = '#fee2e2';
+          statusDiv.style.color = '#b91c1c';
+          statusDiv.innerText = `⚠️ Sunucu yanıt verdi ancak HTTP kodu: ${res.status}`;
+        }
+      } catch (err) {
+        statusDiv.style.background = '#fee2e2';
+        statusDiv.style.color = '#b91c1c';
+        statusDiv.innerText = `✗ Sunucuya ulaşılamadı (${err.message}). CORS veya URL kontrol ediniz.`;
+      }
+    }
+  </script>
+</body>
+</html>

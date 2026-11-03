@@ -2,7 +2,7 @@
   "short_name": "CareerMap",
   "name": "CareerMap V2.6 — Akıllı İşveren Keşfi ve Başvuru Platformu",
   "description": "Diş hekimliği ve sağlık sektöründe konuma göre potansiyel işveren keşfi, CV yönetimi ve doğrudan WhatsApp/E-posta başvuru platformu.",
-  "start_url": "/app",
+  "start_url": "/",
   "scope": "/",
   "id": "/careermap-pwa",
   "display": "standalone",

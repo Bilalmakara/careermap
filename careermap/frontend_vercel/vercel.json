@@ -28,6 +28,14 @@
   ],
   "rewrites": [
     {
+      "source": "/app",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/v2",
+      "destination": "/index.html"
+    },
+    {
       "source": "/api/:path*",
       "destination": "https://careermap-backend.onrender.com/api/:path*"
     }

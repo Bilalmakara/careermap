@@ -829,7 +829,29 @@
   <!-- UYGULAMA JAVASCRIPT MOTORU -->
   <script>
     // Global Durum
-    let professionsCatalog = [];
+        // Yerleşik Varsayılan Katalog (Arka uç henüz bağlı olmasa bile arayüzü tam çalıştırır)
+    const DEFAULT_CATALOG = [
+      {
+        id: "dentist",
+        name: "Diş Hekimi",
+        adapter_status: "ready",
+        employer_types: [
+          { id: "all", label: "Tüm Diş Klinikleri ve Muayenehaneler" },
+          { id: "clinic", label: "Özel Ağız ve Diş Sağlığı Poliklinikleri" },
+          { id: "practice", label: "Bireysel Diş Hekimi Muayenehaneleri" }
+        ],
+        supported_cities: {
+          "Bursa": ["Nilüfer", "Osmangazi", "Yıldırım", "İnegöl", "Mudanya"],
+          "İstanbul": ["Kadıköy", "Beşiktaş", "Şişli", "Üsküdar", "Bakırköy", "Ataşehir", "Maltepe", "Fatih", "Pendik", "Kartal", "Beyoğlu"],
+          "İzmir": ["Konak", "Karşıyaka", "Bornova", "Buca", "Çiğli", "Bayraklı", "Balçova"],
+          "Ankara": ["Çankaya", "Keçiören", "Yenimahalle", "Mamak", "Etimesgut"],
+          "Eskişehir": ["Tepebaşı", "Odunpazarı"],
+          "Antalya": ["Muratpaşa", "Kepez", "Konyaaltı", "Alanya"]
+        }
+      }
+    ];
+
+    let professionsCatalog = DEFAULT_CATALOG;
     let currentJobId = null;
     let currentJobResults = [];
     let selectedEmployerIds = new Set();
@@ -839,6 +861,7 @@
 
     // Başlangıç Yüklemesi
     document.addEventListener('DOMContentLoaded', async () => {
+      populateProfessionUI(); // Anında arayüzü doldur, asla boş kalmasın
       await loadProfessions();
       await loadRecentJobs();
       await loadCandidateProfile();
@@ -877,13 +900,17 @@
     async function loadProfessions() {
       try {
         const res = await fetch('/api/v2/research/professions');
+        if (!res.ok) {
+          console.warn('Arka uç henüz bağlı değil (HTTP ' + res.status + '). Yerleşik katalog kullanılıyor.');
+          return;
+        }
         const data = await res.json();
-        if (data.status === 'success') {
+        if (data.status === 'success' && data.professions) {
           professionsCatalog = data.professions;
           populateProfessionUI();
         }
       } catch (e) {
-        console.error('Meslekler yüklenirken hata:', e);
+        console.warn('Arka uç henüz bağlı değil. Yerleşik meslek kataloğu devrede.');
       }
     }
 
@@ -966,6 +993,18 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
+
+        if (!res.ok) {
+          if (res.status === 404 || res.status === 502 || res.status === 503) {
+            showToast('⚠️ Python arka ucu bağlı değil. Canlı araştırma için sağ üstteki 🌐 API Sunucusu butonundan backend adresinizi bağlayın.');
+            openApiSettingsModal();
+            return;
+          }
+          const errData = await res.json().catch(() => ({}));
+          showToast('Hata: ' + (errData.detail || errData.message || `Sunucu hatası (${res.status})`));
+          return;
+        }
+
         const data = await res.json();
         if (data.status === 'success') {
           currentJobId = data.job_id;
@@ -976,7 +1015,8 @@
         }
       } catch (e) {
         console.error('Araştırma hatası:', e);
-        showToast('Sunucu bağlantı hatası.');
+        showToast('⚠️ Arka uç sunucusuna ulaşılamadı. Sağ üstteki 🌐 API Sunucusu butonundan bağlantıyı kontrol ediniz.');
+        openApiSettingsModal();
       }
     }
 

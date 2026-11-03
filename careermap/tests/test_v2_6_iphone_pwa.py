@@ -35,7 +35,7 @@ class TestCareerMapV26IPhonePWA(unittest.TestCase):
         self.assertEqual(manifest.get("short_name"), "CareerMap")
         self.assertIn("CareerMap", manifest.get("name"))
         self.assertEqual(manifest.get("display"), "standalone")
-        self.assertEqual(manifest.get("start_url"), "/app")
+        self.assertEqual(manifest.get("start_url"), "/")
         self.assertEqual(manifest.get("background_color"), "#0f172a")
         
         # Simgelerin varlığı ve boyutları
