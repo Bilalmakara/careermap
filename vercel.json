@@ -1,5 +1,7 @@
 {
   "version": 2,
-  "cleanUrls": true,
-  "outputDirectory": "careermap/web"
+  "framework": null,
+  "buildCommand": null,
+  "outputDirectory": "careermap/web",
+  "cleanUrls": true
 }
