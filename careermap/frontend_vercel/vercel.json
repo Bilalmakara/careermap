@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "framework": null,
   "outputDirectory": ".",
   "cleanUrls": true,
   "headers": [
@@ -37,7 +38,7 @@
     },
     {
       "source": "/api/:path*",
-      "destination": "https://careermap-backend.onrender.com/api/:path*"
+      "destination": "https://careermap-dnlb.onrender.com/api/:path*"
     }
   ]
 }

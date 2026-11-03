@@ -4,10 +4,14 @@
   <!-- CareerMap Vercel API Interceptor -->
   <script>
     (function() {
+      const DEFAULT_REMOTE_BACKEND = 'https://careermap-dnlb.onrender.com';
       const originalFetch = window.fetch;
       window.fetch = function(url, options) {
         if (typeof url === 'string' && url.startsWith('/api/')) {
-          const customApiBase = localStorage.getItem('CAREERMAP_API_URL');
+          let customApiBase = localStorage.getItem('CAREERMAP_API_URL');
+          if (!customApiBase && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+            customApiBase = DEFAULT_REMOTE_BACKEND;
+          }
           if (customApiBase && customApiBase.trim() !== '') {
             url = customApiBase.trim().replace(/\/+$/, '') + url;
           }
@@ -1970,7 +1974,7 @@
 
       <div style="margin-bottom: 16px; text-align: left;">
         <label style="font-size: 13px; font-weight: 600; color: #334155; display: block; margin-bottom: 6px;">Arka Uç (Backend) URL</label>
-        <input type="url" id="custom-api-input" placeholder="https://careermap-api.onrender.com veya tünel linki" 
+        <input type="url" id="custom-api-input" placeholder="https://careermap-dnlb.onrender.com" value="https://careermap-dnlb.onrender.com" 
                style="width: 100%; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; box-sizing: border-box;">
         <span style="font-size: 11.5px; color: #94a3b8; display: block; margin-top: 4px;">Boş bırakırsanız Vercel ters vekili (proxy) kullanılır.</span>
       </div>
@@ -1988,7 +1992,7 @@
   <script>
     function openApiSettingsModal() {
       const input = document.getElementById('custom-api-input');
-      if (input) input.value = localStorage.getItem('CAREERMAP_API_URL') || '';
+      if (input) input.value = localStorage.getItem('CAREERMAP_API_URL') || 'https://careermap-dnlb.onrender.com';
       const modal = document.getElementById('api-settings-modal');
       if (modal) modal.classList.add('open');
     }
