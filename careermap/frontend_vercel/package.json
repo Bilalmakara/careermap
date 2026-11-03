@@ -4,7 +4,6 @@
   "description": "CareerMap V2.6 — iPhone PWA & Web Platform Frontend for Vercel",
   "private": true,
   "scripts": {
-    "build": "echo 'CareerMap V2.6 PWA ready'",
     "dev": "npx serve .",
     "start": "npx serve ."
   }
