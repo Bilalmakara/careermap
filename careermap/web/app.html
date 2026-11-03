@@ -780,12 +780,22 @@
         <div>
           <div class="card" style="padding: 14px 18px; margin-bottom: 16px;">
             <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between;">
-              <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                <button class="btn btn-outline btn-sm active" id="rf-all" onclick="filterJobResults('all')">Tümü (<span id="rf-cnt-total">0</span>)</button>
-                <button class="btn btn-outline btn-sm" id="rf-reachable" onclick="filterJobResults('reachable')">⚡ İletişimi Olanlar</button>
-                <button class="btn btn-outline btn-sm" id="rf-email" onclick="filterJobResults('email')">📧 E-postası Olanlar</button>
-                <button class="btn btn-outline btn-sm" id="rf-whatsapp" onclick="filterJobResults('whatsapp')">💬 WhatsApp Olanlar</button>
-                <button class="btn btn-outline btn-sm" id="rf-unapplied" onclick="filterJobResults('unapplied')">Henüz Başvurulmayanlar</button>
+              <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+                <button class="btn btn-primary btn-sm" id="rf-unapplied" onclick="filterJobResults('unapplied')" style="font-weight: 700;">
+                  ⏳ Başvurulmayanlar (<span id="rf-cnt-unapplied">0</span>)
+                </button>
+                <button class="btn btn-outline btn-sm" id="rf-applied" onclick="filterJobResults('applied')">
+                  ✅ Başvurulanlar (<span id="rf-cnt-applied">0</span>)
+                </button>
+                <button class="btn btn-outline btn-sm" id="rf-all" onclick="filterJobResults('all')">
+                  Tümü (<span id="rf-cnt-total">0</span>)
+                </button>
+                <button class="btn btn-outline btn-sm" id="rf-whatsapp" onclick="filterJobResults('whatsapp')">
+                  💬 WhatsApp Olanlar
+                </button>
+                <button class="btn btn-outline btn-sm" id="rf-email" onclick="filterJobResults('email')">
+                  📧 E-postası Olanlar
+                </button>
               </div>
               <div style="display: flex; gap: 8px;">
                 <button class="btn btn-outline btn-sm" onclick="selectAllCurrentJobResults(true)">Tümünü Seç</button>
@@ -807,9 +817,18 @@
          SCREEN 3: BAŞVURU MERKEZİ (APPLICATION PREPARATION CENTER)
          ======================================================== -->
     <section id="screen-prep" class="screen">
-      <div style="margin-bottom: 24px;">
-        <h1 style="font-size: 22px; font-weight: 800; color: #0f172a;">Başvuru Hazırlama Merkezi</h1>
-        <p style="font-size: 13.5px; color: #64748b;">
+      <!-- 1. Geri Dönüş ve Durum Üst Çubuğu -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; flex-wrap: wrap; gap: 10px;">
+        <button class="btn btn-outline" onclick="goBackToResults()" style="display: inline-flex; align-items: center; gap: 8px; font-weight: 700; border-color: #cbd5e1; background: #fff; padding: 10px 18px; border-radius: 12px; cursor: pointer; color: #0f172a; box-shadow: 0 1px 4px rgba(0,0,0,0.06); font-size: 13.5px;">
+          <span style="font-size: 18px; line-height: 1;">←</span>
+          <span>Kurumlara Geri Dön</span>
+        </button>
+        <span style="font-size: 13px; color: #64748b; font-weight: 600;" id="prep-header-summary">1 Kurum Hazırlanıyor</span>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <h1 style="font-size: 21px; font-weight: 800; color: #0f172a; margin-bottom: 4px;">Başvuru Hazırlama Merkezi</h1>
+        <p style="font-size: 13px; color: #64748b;">
           Aday: <strong>Dt. Rümeysa Çolak</strong> • SDÜ Diş Hekimliği 2026 • 350+ Tamamlanmış Klinik Vaka
         </p>
       </div>
@@ -1021,7 +1040,11 @@
     });
 
     // Ekran Değiştirici
-    function switchScreen(screenId) {
+    function switchScreen(screenId, pushHistory = true) {
+      localStorage.setItem('CAREERMAP_ACTIVE_SCREEN', screenId);
+      if (pushHistory && window.history && window.history.pushState) {
+        history.pushState({ screen: screenId }, '', '#' + screenId);
+      }
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
       document.querySelectorAll('.mobile-nav-btn').forEach(m => m.classList.remove('active'));
@@ -1221,8 +1244,16 @@
       try {
         const res = await fetch('/api/v2/research/jobs');
         const data = await res.json();
-        if (data.status === 'success') {
+        if (data.status === 'success' && data.jobs && data.jobs.length > 0) {
           renderRecentJobs(data.jobs);
+          const savedJobId = localStorage.getItem('CAREERMAP_ACTIVE_JOB_ID');
+          const targetJobId = (savedJobId && data.jobs.some(j => j.research_job_id === savedJobId))
+            ? savedJobId
+            : data.jobs[0].research_job_id;
+          
+          const savedScreen = localStorage.getItem('CAREERMAP_ACTIVE_SCREEN') || 'results';
+          await openJobResults(targetJobId, false);
+          switchScreen(savedScreen, false);
         }
       } catch (e) {
         console.error('Araştırma listesi hatası:', e);
@@ -1265,8 +1296,9 @@
     }
 
     // 4. Belirli bir araştırmanın sonuçlarını aç
-    async function openJobResults(jobId) {
+    async function openJobResults(jobId, shouldSwitchScreen = true) {
       currentJobId = jobId;
+      localStorage.setItem('CAREERMAP_ACTIVE_JOB_ID', jobId);
       try {
         const res = await fetch(`/api/v2/research/jobs/${jobId}/results`);
         const data = await res.json();
@@ -1277,8 +1309,9 @@
 
           document.getElementById('rf-cnt-total').innerText = data.total;
           document.getElementById('results-page-title').innerText = `Araştırma Sonuçları (${data.total} Kurum)`;
-          renderJobResultsList(data.items);
-          switchScreen('results');
+          updateFilterCounts();
+          filterJobResults('unapplied');
+          if (shouldSwitchScreen) switchScreen('results');
         }
       } catch (e) {
         console.error('Sonuçlar yüklenirken hata:', e);
@@ -1350,7 +1383,8 @@
 
     function recordDirectEmailApply(employerId, email, event) {
       if (event) event.stopPropagation();
-      showToast(`📧 Gmail Web açılıyor (${email})... Başvuru taslağı aktarıldı.`);
+      showToast(`📧 E-posta açılıyor (${email})... Kurum hafızaya kaydedildi ve listeden kaldırıldı.`);
+      markEmployerAsApplied(employerId, 'email');
 
       fetch(`/api/v2/applications/prepare/${employerId}`, { method: 'POST' })
         .then(r => r.json())
@@ -1374,7 +1408,8 @@
 
     function recordDirectWhatsAppApply(employerId, event) {
       if (event) event.stopPropagation();
-      showToast(`💬 WhatsApp Web açılıyor... Mesaj ve CV bağlantısı aktarıldı.`);
+      showToast(`💬 WhatsApp açılıyor... Kurum hafızaya kaydedildi ve listeden kaldırıldı.`);
+      markEmployerAsApplied(employerId, 'whatsapp');
 
       fetch(`/api/v2/applications/prepare/${employerId}`, { method: 'POST' })
         .then(r => r.json())
@@ -1420,6 +1455,65 @@
       window.open(waUrl, '_blank');
       recordDirectWhatsAppApply(employerId, null);
     }
+
+    
+    // --- V2.6 Persistent Memory & Mobile UX Controller ---
+    let currentResultsFilter = 'unapplied';
+
+    function getAppliedEmployerIds() {
+      try {
+        const stored = JSON.parse(localStorage.getItem('CAREERMAP_APPLIED_IDS') || '[]');
+        return new Set(stored);
+      } catch (e) {
+        return new Set();
+      }
+    }
+
+    function isEmployerApplied(emp) {
+      if (!emp) return false;
+      const appliedSet = getAppliedEmployerIds();
+      return Boolean(emp.application_status || appliedSet.has(emp.employer_id));
+    }
+
+    function markEmployerAsApplied(empId, channel) {
+      const set = getAppliedEmployerIds();
+      set.add(empId);
+      localStorage.setItem('CAREERMAP_APPLIED_IDS', JSON.stringify(Array.from(set)));
+
+      const emp = currentJobResults.find(e => e.employer_id === empId);
+      if (emp) {
+        emp.application_status = channel === 'whatsapp' ? 'whatsapp_opened' : 'waiting_reply';
+      }
+
+      updateFilterCounts();
+      filterJobResults(currentResultsFilter);
+      loadCrmDashboard();
+    }
+
+    function updateFilterCounts() {
+      const appliedSet = getAppliedEmployerIds();
+      const total = currentJobResults.length;
+      const appliedCnt = currentJobResults.filter(e => isEmployerApplied(e)).length;
+      const unappliedCnt = total - appliedCnt;
+
+      const elTotal = document.getElementById('rf-cnt-total');
+      const elUnapplied = document.getElementById('rf-cnt-unapplied');
+      const elApplied = document.getElementById('rf-cnt-applied');
+
+      if (elTotal) elTotal.innerText = total;
+      if (elUnapplied) elUnapplied.innerText = unappliedCnt;
+      if (elApplied) elApplied.innerText = appliedCnt;
+    }
+
+    function goBackToResults() {
+      switchScreen('results');
+    }
+
+    window.addEventListener('popstate', (e) => {
+      const screen = (e.state && e.state.screen) || 'results';
+      switchScreen(screen, false);
+    });
+
 
     function renderJobResultsList(items) {
       const container = document.getElementById('job-results-container');
@@ -1598,11 +1692,27 @@
     }
 
     function filterJobResults(type) {
+      currentResultsFilter = type;
+      ['all', 'unapplied', 'applied', 'reachable', 'whatsapp', 'email'].forEach(t => {
+        const btn = document.getElementById(`rf-${t}`);
+        if (btn) {
+          if (t === type) {
+            btn.className = 'btn btn-primary btn-sm';
+            btn.style.fontWeight = '700';
+          } else {
+            btn.className = 'btn btn-outline btn-sm';
+            btn.style.fontWeight = 'normal';
+          }
+        }
+      });
+
       let filtered = currentJobResults;
+      if (type === 'unapplied') filtered = currentJobResults.filter(e => !isEmployerApplied(e));
+      if (type === 'applied') filtered = currentJobResults.filter(e => isEmployerApplied(e));
       if (type === 'reachable') filtered = currentJobResults.filter(e => e.is_reachable);
       if (type === 'email') filtered = currentJobResults.filter(e => e.email);
       if (type === 'whatsapp') filtered = currentJobResults.filter(e => e.whatsapp_url);
-      if (type === 'unapplied') filtered = currentJobResults.filter(e => !e.application_status);
+      
       renderJobResultsList(filtered);
     }
 
@@ -1635,127 +1745,193 @@
       await proceedToApplicationPreparation();
     }
 
-    function renderPreparedApplicationPackages(packages) {
+        function renderPreparedApplicationPackages(packages) {
       const container = document.getElementById('prep-packages-container');
+      const summaryEl = document.getElementById('prep-header-summary');
+      if (summaryEl) summaryEl.innerText = `${packages ? packages.length : 0} Kurum Seçili`;
+
       if (!packages || packages.length === 0) {
-        container.innerHTML = `<div class="card" style="text-align:center; padding:40px; color:#64748b;">Henüz başvuru hazırlanacak kurum seçilmedi. "Araştırmalarım" ekranından kurumları işaretleyip hazırlayabilirsiniz.</div>`;
+        container.innerHTML = `
+          <div class="card" style="text-align:center; padding:44px 20px; border-radius:18px;">
+            <div style="font-size:46px; margin-bottom:12px;">🎉</div>
+            <h3 style="font-size:20px; font-weight:800; color:#0f172a; margin-bottom:8px;">Tüm Başvurular Başarıyla İletildi</h3>
+            <p style="font-size:13.5px; color:#64748b; margin-bottom:22px; line-height:1.5;">
+              Seçilen tüm kurumlara başvurularınız iletildi ve hafızaya kaydedildi. Tekrar önünüze çıkmayacak şekilde listeden kaldırıldı.
+            </p>
+            <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
+              <button class="btn btn-primary" onclick="goBackToResults()" style="padding:12px 22px; font-size:14px; border-radius:12px;">← Kurumlar Listesine Dön</button>
+              <button class="btn btn-outline" onclick="switchScreen('applications')" style="padding:12px 22px; font-size:14px; border-radius:12px;">📮 Başvurularımı Takip Et</button>
+            </div>
+          </div>
+        `;
         return;
       }
 
-      container.innerHTML = packages.map((pkg, idx) => `
-        <div class="card" style="border-left: 4px solid #0284c7; margin-bottom: 24px;">
-          <div class="card-header">
+      container.innerHTML = packages.map((pkg, idx) => {
+        const liveCvUrl = localStorage.getItem('CAREERMAP_CV_URL') || 'https://careermap-dnlb.onrender.com/api/v2/cv/view/demo';
+        
+        let waBody = pkg.messages.whatsapp_model_b.body || '';
+        waBody = waBody.replace('https://careermap.local/cv/view/demo', liveCvUrl);
+        
+        let emailBody = pkg.messages.email.body || '';
+        emailBody = emailBody.replace('https://careermap.local/cv/view/demo', liveCvUrl);
+
+        const waPhone = pkg.messages.whatsapp_phone || '';
+        const waUniversalLink = generateWhatsAppUniversalUrl(waPhone, waBody);
+        const mailtoLink = generateMailtoUrl(pkg.messages.email.recipient, pkg.messages.email.subject, emailBody);
+        const gmailWebLink = generateGmailComposeUrl(pkg.messages.email.recipient, pkg.messages.email.subject, emailBody);
+
+        return `
+        <div class="card" id="prep-card-${pkg.employer_id}" style="border-left: 5px solid #0284c7; margin-bottom: 20px; padding: 20px 16px; border-radius: 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;">
             <div>
-              <div style="font-size:18px; font-weight:800; color:#0f172a;">${pkg.employer_name}</div>
-              <div style="font-size:12.5px; color:#64748b;">${pkg.district || pkg.city} • Uyum Skoru: %${pkg.match_score}</div>
+              <div style="font-size:17.5px; font-weight:800; color:#0f172a; line-height:1.3;">${pkg.employer_name}</div>
+              <div style="font-size:12.5px; color:#64748b; margin-top:3px;">${pkg.district || pkg.city} • Uyum Skoru: %${pkg.match_score}</div>
             </div>
-            <span class="badge badge-warning">Taslak Hazırlandı</span>
+            <span class="badge badge-warning" style="font-size:12px; padding:5px 10px;">Taslak Hazırlandı</span>
           </div>
 
-          <!-- Sekmeler -->
-          <div class="modal-tabs">
-            <button class="modal-tab-btn active" onclick="switchPrepTab(this, 'email-${idx}')">✉️ E-posta Başvurusu</button>
-            <button class="modal-tab-btn" onclick="switchPrepTab(this, 'wa-b-${idx}')">💬 WhatsApp (Model B - Güvenli Bağlantı)</button>
-            <button class="modal-tab-btn" onclick="switchPrepTab(this, 'wa-c-${idx}')">📎 WhatsApp (Model C - PDF)</button>
-            <button class="modal-tab-btn" onclick="switchPrepTab(this, 'followup-${idx}')">⏰ 4-5 Gün Hatırlatma</button>
-            <button class="modal-tab-btn" onclick="switchPrepTab(this, 'phone-${idx}')">📞 Telefon Notu</button>
+          <!-- Yatay Kaydırılabilir Modern Sekme Hapları -->
+          <div class="prep-pills-bar" style="display: flex; overflow-x: auto; gap: 8px; padding-bottom: 10px; margin-bottom: 16px; border-bottom: 1px solid #f1f5f9; -webkit-overflow-scrolling: touch;">
+            <button class="prep-pill-btn active" onclick="switchPrepTab(this, 'wa-b-${idx}')" style="padding: 8px 14px; border-radius: 20px; border: 1px solid #0284c7; background: #0284c7; color: #fff; font-weight: 700; font-size: 12.5px; white-space: nowrap; cursor: pointer;">💬 WhatsApp (Önerilen)</button>
+            <button class="prep-pill-btn" onclick="switchPrepTab(this, 'email-${idx}')" style="padding: 8px 14px; border-radius: 20px; border: 1px solid #e2e8f0; background: #f8fafc; color: #475569; font-weight: 600; font-size: 12.5px; white-space: nowrap; cursor: pointer;">✉️ E-posta</button>
+            <button class="prep-pill-btn" onclick="switchPrepTab(this, 'wa-c-${idx}')" style="padding: 8px 14px; border-radius: 20px; border: 1px solid #e2e8f0; background: #f8fafc; color: #475569; font-weight: 600; font-size: 12.5px; white-space: nowrap; cursor: pointer;">📎 PDF Ekli WhatsApp</button>
+            <button class="prep-pill-btn" onclick="switchPrepTab(this, 'followup-${idx}')" style="padding: 8px 14px; border-radius: 20px; border: 1px solid #e2e8f0; background: #f8fafc; color: #475569; font-weight: 600; font-size: 12.5px; white-space: nowrap; cursor: pointer;">⏰ Hatırlatma</button>
+            <button class="prep-pill-btn" onclick="switchPrepTab(this, 'phone-${idx}')" style="padding: 8px 14px; border-radius: 20px; border: 1px solid #e2e8f0; background: #f8fafc; color: #475569; font-weight: 600; font-size: 12.5px; white-space: nowrap; cursor: pointer;">📞 Telefon Notu</button>
           </div>
 
-          <!-- E-posta -->
-          <div id="tab-email-${idx}" class="prep-tab-pane active" style="display:block;">
-            <div style="font-size:13px; font-weight:600; color:#334155; margin-bottom:6px;">
-              Alıcı: <strong>${pkg.messages.email.recipient || 'info@klinik.com'}</strong> • Ek: <strong>Dt_Rumeysa_Colak_CV.pdf</strong>
+          <!-- 1. WhatsApp Model B (Varsayılan Açık) -->
+          <div id="tab-wa-b-${idx}" class="prep-tab-pane" style="display:block;">
+            <div style="font-size:12.5px; font-weight:600; color:#475569; margin-bottom:8px;">
+              WhatsApp Numarası: <strong style="color:#0284c7;">${pkg.messages.whatsapp_phone || 'Doğrulanmış Telefon'}</strong>
             </div>
-            <div class="code-box">${pkg.messages.email.body}</div>
-            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-              <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                <a class="btn btn-primary btn-sm" 
-                   href="${pkg.messages.gmail_compose_url || generateGmailComposeUrl(pkg.messages.email.recipient, pkg.messages.email.subject, pkg.messages.email.body)}" 
-                   target="_blank" 
-                   rel="noopener noreferrer" 
-                   onclick="sendEmailAction('${pkg.application_id}', '${pkg.messages.email.recipient}')">
-                  📧 Gmail Web'de Aç ve Gönder ↗
-                </a>
-                <a class="btn btn-outline btn-sm" 
-                   href="${pkg.messages.mailto_url || generateMailtoUrl(pkg.messages.email.recipient, pkg.messages.email.subject, pkg.messages.email.body)}" 
-                   target="_blank" 
-                   rel="noopener noreferrer" 
-                   onclick="sendEmailAction('${pkg.application_id}', '${pkg.messages.email.recipient}')">
-                  ✉️ Mailto ile Aç ↗
-                </a>
-              </div>
-              <div style="display:flex; gap:8px;">
-                <button class="btn btn-outline btn-sm" onclick="approveSingleApp('${pkg.application_id}')">✓ Taslağı Onayla</button>
-                <button class="btn btn-outline btn-sm" onclick="sendEmailAction('${pkg.application_id}', '${pkg.messages.email.recipient}')">🚀 Gönderildi Olarak İşle</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- WhatsApp Model B -->
-          <div id="tab-wa-b-${idx}" class="prep-tab-pane" style="display:none;">
-            <div style="font-size:13px; font-weight:600; color:#334155; margin-bottom:6px;">
-              WhatsApp Numarası: <strong>${pkg.messages.whatsapp_phone || 'Doğrulanmış Telefon'}</strong>
-            </div>
-            <div class="code-box">${pkg.messages.whatsapp_model_b.body}</div>
-            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-              <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                <a class="btn btn-whatsapp" 
-                   href="${pkg.messages.whatsapp_web_link_b || generateWhatsAppWebUrl(pkg.messages.whatsapp_phone, pkg.messages.whatsapp_model_b.body)}" 
-                   target="_blank" 
-                   rel="noopener noreferrer" 
-                   onclick="markWaOpened('${pkg.application_id}')">
-                  💬 WhatsApp Web'i Aç (web.whatsapp.com) ↗
-                </a>
-                <a class="btn btn-outline btn-sm" 
-                   href="${pkg.messages.whatsapp_handoff_link_b || '#'}" 
-                   target="_blank" 
-                   rel="noopener noreferrer" 
-                   onclick="markWaOpened('${pkg.application_id}')">
-                  📱 Mobil WhatsApp (wa.me) ↗
-                </a>
-              </div>
-              <button class="btn btn-success btn-sm" onclick="confirmWaSent('${pkg.application_id}', '${pkg.messages.whatsapp_phone}')">
-                ✓ WhatsApp'ta Gönderildi Olarak Doğrula
+            <div class="code-box" style="background:#0f172a; color:#e2e8f0; font-size:13px; line-height:1.6; padding:14px; border-radius:12px; margin-bottom:14px; word-break:break-word;">${waBody}</div>
+            
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <a class="btn btn-whatsapp" 
+                 href="${waUniversalLink}" 
+                 target="_blank" 
+                 rel="noopener noreferrer" 
+                 onclick="handlePrepWhatsAppSent('${pkg.application_id}', '${pkg.employer_id}')"
+                 style="width:100%; padding:14px; font-size:15px; font-weight:700; border-radius:12px; display:inline-flex; align-items:center; justify-content:center; gap:8px; text-decoration:none; box-sizing:border-box;">
+                💬 WhatsApp'ı Aç ve Başvuruyu İlet ↗
+              </a>
+              <button class="btn btn-outline" 
+                      onclick="handlePrepWhatsAppSent('${pkg.application_id}', '${pkg.employer_id}')"
+                      style="width:100%; padding:11px; font-size:13px; font-weight:600; border-radius:10px; color:#16a34a; border-color:#bbf7d0; box-sizing:border-box;">
+                ✓ Gönderildi Olarak Kaydet & Listeden Kaldır
               </button>
             </div>
           </div>
 
-          <!-- WhatsApp Model C -->
+          <!-- 2. E-posta Sekmesi -->
+          <div id="tab-email-${idx}" class="prep-tab-pane" style="display:none;">
+            <div style="font-size:12.5px; font-weight:600; color:#475569; margin-bottom:8px;">
+              Alıcı E-posta: <strong style="color:#0284c7;">${pkg.messages.email.recipient || 'Kayıtlı E-posta'}</strong> • Konu: ${pkg.messages.email.subject}
+            </div>
+            <div class="code-box" style="background:#0f172a; color:#e2e8f0; font-size:13px; line-height:1.6; padding:14px; border-radius:12px; margin-bottom:14px; word-break:break-word;">${emailBody}</div>
+            
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <a class="btn btn-primary" 
+                 href="${mailtoLink}" 
+                 onclick="handlePrepEmailSent('${pkg.application_id}', '${pkg.employer_id}', '${pkg.messages.email.recipient}')"
+                 style="width:100%; padding:14px; font-size:15px; font-weight:700; border-radius:12px; display:inline-flex; align-items:center; justify-content:center; gap:8px; text-decoration:none; box-sizing:border-box;">
+                ✉️ Mail Uygulamasıyla Aç ve Gönder ↗
+              </a>
+              <div style="display:flex; gap:8px;">
+                <a class="btn btn-outline" 
+                   href="${gmailWebLink}" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   onclick="handlePrepEmailSent('${pkg.application_id}', '${pkg.employer_id}', '${pkg.messages.email.recipient}')"
+                   style="flex:1; padding:10px; font-size:12.5px; border-radius:10px; text-align:center; text-decoration:none; color:#0284c7; border-color:#bfdbfe; box-sizing:border-box;">
+                  🌐 Gmail Web'de Aç ↗
+                </a>
+                <button class="btn btn-outline" 
+                        onclick="handlePrepEmailSent('${pkg.application_id}', '${pkg.employer_id}', '${pkg.messages.email.recipient}')"
+                        style="flex:1; padding:10px; font-size:12.5px; border-radius:10px; color:#16a34a; border-color:#bbf7d0; box-sizing:border-box;">
+                  ✓ Gönderildi Olarak İşle
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. WhatsApp Model C -->
           <div id="tab-wa-c-${idx}" class="prep-tab-pane" style="display:none;">
-            <div style="font-size:13px; color:#475569; margin-bottom:8px;">
-              💡 <strong>Rehber:</strong> WhatsApp üzerinden cihazınızdaki <code>Dt_Rumeysa_Colak_CV.pdf</code> dosyasını ekleyip şu refakat mesajını yapıştırın:
+            <div style="font-size:12.5px; color:#475569; margin-bottom:8px;">
+              💡 <strong>PDF Ekli:</strong> Cihazınızdaki PDF CV'yi sohbete ekleyip şu ön yazıyla gönderin:
             </div>
-            <div class="code-box">${pkg.messages.whatsapp_model_c.body}</div>
+            <div class="code-box" style="background:#0f172a; color:#e2e8f0; font-size:13px; line-height:1.6; padding:14px; border-radius:12px; margin-bottom:14px; word-break:break-word;">${pkg.messages.whatsapp_model_c.body}</div>
+            <a class="btn btn-whatsapp" 
+               href="${waUniversalLink}" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               onclick="handlePrepWhatsAppSent('${pkg.application_id}', '${pkg.employer_id}')"
+               style="width:100%; padding:14px; font-size:15px; font-weight:700; border-radius:12px; display:inline-flex; align-items:center; justify-content:center; gap:8px; text-decoration:none; box-sizing:border-box;">
+              💬 WhatsApp'ı Aç (PDF Ekleyerek Gönder) ↗
+            </a>
           </div>
 
-          <!-- Hatırlatma -->
+          <!-- 4. Hatırlatma -->
           <div id="tab-followup-${idx}" class="prep-tab-pane" style="display:none;">
-            <div style="font-size:13px; color:#475569; margin-bottom:8px;">
-              ⏰ 4-5 gün yanıt gelmediğinde gönderilmek üzere hazırlanan nazik durum sorgulama mesajı:
+            <div style="font-size:12.5px; color:#475569; margin-bottom:8px;">
+              ⏰ 4-5 gün yanıt gelmediğinde gönderilecek nazik durum sorgulama mesajı:
             </div>
-            <div class="code-box">${pkg.messages.whatsapp_followup.body}</div>
+            <div class="code-box" style="background:#0f172a; color:#e2e8f0; font-size:13px; line-height:1.6; padding:14px; border-radius:12px; margin-bottom:14px; word-break:break-word;">${pkg.messages.whatsapp_followup.body}</div>
           </div>
 
-          <!-- Telefon -->
+          <!-- 5. Telefon -->
           <div id="tab-phone-${idx}" class="prep-tab-pane" style="display:none;">
-            <div style="font-size:13px; color:#475569; margin-bottom:8px;">📞 Santral ve Klinik Sorumlusu Karşılama Senaryosu:</div>
-            <div class="code-box">${pkg.messages.phone_script.body}</div>
+            <div style="font-size:12.5px; color:#475569; margin-bottom:8px;">📞 Santral ve Klinik Sorumlusu Karşılama Senaryosu:</div>
+            <div class="code-box" style="background:#0f172a; color:#e2e8f0; font-size:13px; line-height:1.6; padding:14px; border-radius:12px; margin-bottom:14px; word-break:break-word;">${pkg.messages.phone_script.body}</div>
           </div>
         </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
     function switchPrepTab(btn, paneId) {
       const parentCard = btn.closest('.card');
-      parentCard.querySelectorAll('.modal-tab-btn').forEach(b => b.classList.remove('active'));
+      parentCard.querySelectorAll('.prep-pill-btn').forEach(b => {
+        b.classList.remove('active');
+        b.style.background = '#f8fafc';
+        b.style.color = '#475569';
+        b.style.borderColor = '#e2e8f0';
+      });
       parentCard.querySelectorAll('.prep-tab-pane').forEach(p => p.style.display = 'none');
 
       btn.classList.add('active');
+      btn.style.background = '#0284c7';
+      btn.style.color = '#ffffff';
+      btn.style.borderColor = '#0284c7';
+
       const targetPane = document.getElementById(`tab-${paneId}`);
       if (targetPane) targetPane.style.display = 'block';
     }
 
-    // Onay ve Eylem Fonksiyonları
+    function handlePrepWhatsAppSent(appId, empId) {
+      markEmployerAsApplied(empId, 'whatsapp');
+      markWaOpened(appId);
+      removeCardFromPrepView(empId);
+      showToast('✓ WhatsApp başvurusu iletildi ve hafızaya alındı!');
+    }
+
+    function handlePrepEmailSent(appId, empId, recipient) {
+      markEmployerAsApplied(empId, 'email');
+      sendEmailAction(appId, recipient);
+      removeCardFromPrepView(empId);
+      showToast('✓ E-posta başvurusu iletildi ve hafızaya alındı!');
+    }
+
+    function removeCardFromPrepView(empId) {
+      currentPreparedPackages = currentPreparedPackages.filter(p => p.employer_id !== empId);
+      selectedEmployerIds.delete(empId);
+      updateStickyActionBar();
+      renderPreparedApplicationPackages(currentPreparedPackages);
+    }
+
+
+          // Onay ve Eylem Fonksiyonları
     async function approveSingleApp(appId) {
       try {
         const res = await fetch(`/api/v2/applications/${appId}/approve`, { method: 'POST' });
@@ -2132,87 +2308,18 @@
     </button>
   </nav>
 
-  <!-- API Sunucu Ayarları Modalı (Vercel -> Remote Backend) -->
-  <div id="api-settings-modal" class="modal-backdrop">
-    <div class="modal-box" style="max-width: 500px; padding: 24px;">
-      <div style="font-size: 32px; margin-bottom: 8px;">⚙️</div>
-      <h3 style="font-size: 19px; font-weight: 700; color: #0f172a; margin-bottom: 6px;">FastAPI Sunucu Bağlantısı</h3>
-      <p style="font-size: 13.5px; color: #64748b; line-height: 1.5; margin-bottom: 18px;">
-        Vercel üzerinde barındırılan CareerMap'in kurum araştırmalarını ve CV işlemlerini yürüteceği Python backend adresini belirleyin.
-      </p>
-
-      <div style="margin-bottom: 16px; text-align: left;">
-        <label style="font-size: 13px; font-weight: 600; color: #334155; display: block; margin-bottom: 6px;">Arka Uç (Backend) URL</label>
-        <input type="url" id="custom-api-input" placeholder="https://careermap-dnlb.onrender.com" value="https://careermap-dnlb.onrender.com" 
-               style="width: 100%; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; box-sizing: border-box;">
-        <span style="font-size: 11.5px; color: #94a3b8; display: block; margin-top: 4px;">Boş bırakırsanız Vercel ters vekili (proxy) kullanılır.</span>
-      </div>
-
-      <div id="api-connection-status" style="display:none; padding: 10px; border-radius: 8px; font-size: 13px; margin-bottom: 16px;"></div>
-
-      <div style="display: flex; gap: 10px; justify-content: flex-end;">
-        <button class="btn btn-outline btn-sm" onclick="testBackendConnection()">Bağlantıyı Sına</button>
-        <button class="btn btn-outline btn-sm" onclick="closeApiSettingsModal()">Kapat</button>
-        <button class="btn btn-primary btn-sm" onclick="saveApiSettings()">Kaydet</button>
-      </div>
+    <!-- Backend Doğrudan Render Sunucusuna Bağlıdır (Otomatik Bağlantı) -->
+  <div id="api-settings-modal" class="modal-backdrop" style="display:none !important;">
+    <div class="modal-box" style="display:none !important;">
+      <input type="url" id="custom-api-input" value="https://careermap-dnlb.onrender.com" style="display:none;">
     </div>
   </div>
 
   <script>
-    function openApiSettingsModal() {
-      const input = document.getElementById('custom-api-input');
-      if (input) input.value = localStorage.getItem('CAREERMAP_API_URL') || 'https://careermap-dnlb.onrender.com';
-      const modal = document.getElementById('api-settings-modal');
-      if (modal) modal.classList.add('open');
-    }
-
-    function closeApiSettingsModal() {
-      const modal = document.getElementById('api-settings-modal');
-      if (modal) modal.classList.remove('open');
-    }
-
-    function saveApiSettings() {
-      const input = document.getElementById('custom-api-input');
-      const val = input.value.trim();
-      if (val) {
-        localStorage.setItem('CAREERMAP_API_URL', val);
-        showToast('✓ Arka uç adresi kaydedildi: ' + val);
-      } else {
-        localStorage.removeItem('CAREERMAP_API_URL');
-        showToast('✓ Varsayılan Vercel vekili seçildi.');
-      }
-      closeApiSettingsModal();
-      setTimeout(() => window.location.reload(), 500);
-    }
-
-    async function testBackendConnection() {
-      const input = document.getElementById('custom-api-input');
-      const statusDiv = document.getElementById('api-connection-status');
-      statusDiv.style.display = 'block';
-      statusDiv.style.background = '#e0f2fe';
-      statusDiv.style.color = '#0369a1';
-      statusDiv.innerText = '⏳ Sunucu test ediliyor...';
-
-      let targetUrl = input.value.trim().replace(/\/+$/, '');
-      const testEndpoint = (targetUrl ? targetUrl : '') + '/api/v2/research/professions';
-
-      try {
-        const res = await fetch(testEndpoint);
-        if (res.ok) {
-          statusDiv.style.background = '#dcfce7';
-          statusDiv.style.color = '#15803d';
-          statusDiv.innerText = '✓ Bağlantı başarılı! FastAPI sunucusuna erişildi.';
-        } else {
-          statusDiv.style.background = '#fee2e2';
-          statusDiv.style.color = '#b91c1c';
-          statusDiv.innerText = `⚠️ Sunucu yanıt verdi ancak HTTP kodu: ${res.status}`;
-        }
-      } catch (err) {
-        statusDiv.style.background = '#fee2e2';
-        statusDiv.style.color = '#b91c1c';
-        statusDiv.innerText = `✗ Sunucuya ulaşılamadı (${err.message}). CORS veya URL kontrol ediniz.`;
-      }
-    }
+    function openApiSettingsModal() {}
+    function closeApiSettingsModal() {}
+    function saveApiSettings() {}
+    function testBackendConnection() {}
   </script>
   </div>
 

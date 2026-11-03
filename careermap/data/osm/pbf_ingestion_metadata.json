@@ -4,7 +4,7 @@
   "license": "Open Database License (ODbL) 1.0",
   "total_indexed_records": 1229,
   "newly_indexed_records": 0,
-  "pipeline_executed_at": "2026-11-03 14:43:31",
-  "duration_seconds": 0.05,
+  "pipeline_executed_at": "2026-11-03 17:20:20",
+  "duration_seconds": 0.07,
   "target_index_file": "C:\\Users\\user\\Desktop\\Other Projects\\Job Finder\\careermap\\data\\osm\\turkey_osm_indexed.json"
 }

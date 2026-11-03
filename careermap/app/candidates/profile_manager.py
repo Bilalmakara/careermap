@@ -179,3 +179,22 @@ class CandidateProfileManager:
             "secure_url": f"https://careermap.local/cv/view/{secure_token}"
         }
 
+    def get_active_cv_document(self, candidate_id: str) -> Optional[Dict[str, Any]]:
+        """Adayın en güncel aktif CV belgesini döner."""
+        cursor = self.conn.cursor()
+        cursor.execute("""
+            SELECT document_id, candidate_id, document_type, file_name,
+                   file_path, secure_token, expires_at, view_count, created_at
+            FROM candidate_documents
+            WHERE candidate_id = ?
+            ORDER BY created_at DESC
+            LIMIT 1
+        """, (candidate_id,))
+        row = cursor.fetchone()
+        if not row:
+            return None
+        d = dict(row)
+        token = d.get("secure_token", "demo")
+        d["secure_url"] = f"https://careermap-dnlb.onrender.com/api/v2/cv/view/{token}"
+        return d
+

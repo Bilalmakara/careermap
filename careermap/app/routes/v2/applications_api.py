@@ -102,7 +102,13 @@ def prepare_employer_application(
     workflow_plan = plan_application_workflow(employer, candidate)
 
     # 3. Kişiselleştirilmiş mesaj taslakları (sıfır halüsinasyon garantili)
-    messages_package = generate_application_messages(employer, candidate)
+    active_doc = mgr.get_active_cv_document(cid)
+    live_cv_url = "https://careermap-dnlb.onrender.com/api/v2/cv/view/demo"
+    if active_doc and active_doc.get("secure_url"):
+        s = active_doc["secure_url"]
+        live_cv_url = s if s.startswith("http") else f"https://careermap-dnlb.onrender.com{s}"
+    live_cv_file = active_doc.get("file_name", "Dt_Rumeysa_Colak_CV.pdf") if active_doc else "Dt_Rumeysa_Colak_CV.pdf"
+    messages_package = generate_application_messages(employer, candidate, secure_cv_url=live_cv_url, cv_file_name=live_cv_file)
 
     # 4. CRM tekil başvuru kaydını oluştur
     crm = ApplicationCRM(conn)

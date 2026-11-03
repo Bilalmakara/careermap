@@ -48,7 +48,7 @@ def get_clinic_specific_pitch(employer: Dict[str, Any]) -> str:
 def generate_application_messages(
     employer: Dict[str, Any],
     candidate: Dict[str, Any],
-    secure_cv_url: str = "https://careermap.local/cv/view/demo",
+    secure_cv_url: str = "https://careermap-dnlb.onrender.com/api/v2/cv/view/demo",
     cv_file_name: str = "Rumeysa_Colak_CV.pdf"
 ) -> Dict[str, Any]:
     """
