@@ -1,0 +1,1223 @@
+{
+  "metadata": {
+    "version": "CareerMap V2.0-A Smart Application Orchestrator",
+    "generated_at": "2026-11-03T00:01:15.996094",
+    "target_city": "Eskişehir",
+    "candidate_name": "Dt. Rümeysa Çolak",
+    "graduation": "Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi (2026)",
+    "clinical_cases": 350,
+    "secure_cv_link": "https://careermap.local/cv/view/9306b1dee2c54959"
+  },
+  "crm_dashboard_metrics": {
+    "target_employers": 10,
+    "applications_sent": 1,
+    "replies_or_active": 2,
+    "interviews": 1,
+    "drafts": 7,
+    "pending_approval": 1
+  },
+  "applications": [
+    {
+      "application_id": "app--colak--tepebasi-bc",
+      "order": 1,
+      "clinic_name": "Özel BC Ağız Ve Diş Sağlığı Polikliniği",
+      "employer_type": "Özel poliklinik",
+      "district": "Tepebaşı",
+      "match_score": 100,
+      "match_reasons": [
+        "Şehir uyumu: Eskişehir",
+        "Hedef ilçe tercihi: Tepebaşı",
+        "Çok hekimli özel poliklinik yapısı (Geniş hasta sirkülasyonu ve ekip çalışması)",
+        "Doğrulanmış kurumsal e-posta kanalı mevcut (CV ekli resmî başvuruya uygun)",
+        "Doğrulanmış kurumsal WhatsApp hattı mevcut (Nezaket takibine uygun)",
+        "Kurumsal web iletişim formu mevcut",
+        "Restoratif diş tedavisi ve endodonti (kanal tedavisi) klinik vaka yetkinliği"
+      ],
+      "primary_channel": "email",
+      "verified_contacts": {
+        "email": "bilgi@bcklinik.com.tr",
+        "phone": "0(545) 425 27 19",
+        "whatsapp": "https://wa.me/905454252719",
+        "website": "https://www.bcklinik.com.tr/links",
+        "contact_form": "https://www.bcklinik.com.tr/eskisehir-dis-klingi-bc-iletisim"
+      },
+      "orchestration_workflow": [
+        {
+          "step_number": 1,
+          "day": 1,
+          "action_type": "initial_application",
+          "channel": "email",
+          "title": "CV Ekli E-posta Başvurusu",
+          "description": "Sayın Yetkili hitabıyla hazırlanan kişiselleştirilmiş başvuru metni ve Dt. Rümeysa Çolak CV PDF eki kurumsal e-posta adresine (bilgi@bcklinik.com.tr) iletilir.",
+          "requires_user_approval": true,
+          "is_automated_possible": true
+        },
+        {
+          "step_number": 2,
+          "day": 4,
+          "action_type": "wait_and_check",
+          "channel": "crm_monitor",
+          "title": "4-5 İş Günü Yanıt Bekleme Penceresi",
+          "description": "Kliniğin e-posta veya telefon dönüşü olup olmadığı CRM üzerinden kontrol edilir. Yanıt geldiyse takip durdurulur.",
+          "requires_user_approval": false,
+          "is_automated_possible": true
+        },
+        {
+          "step_number": 3,
+          "day": 5,
+          "action_type": "followup_reminder",
+          "channel": "whatsapp",
+          "title": "WhatsApp Nezaket Hatırlatması (Yalnızca Cevap Gelmediyse)",
+          "description": "E-posta başvurusunun ulaşıp ulaşmadığını nazikçe soran kısa WhatsApp durum kontrol mesajı.",
+          "requires_user_approval": true,
+          "is_automated_possible": false
+        },
+        {
+          "step_number": 4,
+          "day": 10,
+          "action_type": "finalize_or_archive",
+          "channel": "crm_monitor",
+          "title": "Başvuru Durumunu Netleştirme",
+          "description": "Görüşme daveti, olumsuz geri bildirim veya ileri tarihte değerlendirilmek üzere arşivleme kararı CRM'e işlenir.",
+          "requires_user_approval": true,
+          "is_automated_possible": false
+        }
+      ],
+      "messages": {
+        "email_draft": {
+          "subject": "Diş Hekimi İş Başvurusu — Dt. Rümeysa Çolak | Özel BC Ağız Ve Diş Sağlığı Polikliniği",
+          "recipient": "bilgi@bcklinik.com.tr",
+          "body": "Sayın Yetkili,\n\nBen Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi 2026 yılı mezunuyum.\n\nEğitimim süresince 350'nin üzerinde klinik vaka deneyimi edindim. Özellikle restoratif diş tedavisi, estetik anterior ve posterior kompozit restorasyonlar ile endodonti (kanal tedavisi) alanlarında yoğun klinik uygulamalar gerçekleştirdim. Mezuniyetimin ardından özel bir diş kliniğinde çalışarak hasta iletişimi, vaka takibi ve klinik iş akışında profesyonel deneyim kazandım.\n\nTepebaşı bölgesindeki yenilikçi ve estetik diş hekimliği uygulamalarınız doğrultusunda kliniğinizde verimli bir hekimlik süreci yürütmeyi amaçlıyorum.\n\nKliniğinizde mevcut veya ilerleyen dönemde oluşabilecek diş hekimi pozisyonları için özgeçmişimi değerlendirmenize sunuyorum.\n\nUygun görmeniz hâlinde yüz yüze veya çevrim içi bir ön görüşme gerçekleştirmekten büyük memnuniyet duyarım.\n\nSaygılarımla,\n\nDt. Rümeysa Çolak\nTelefon: 0(555) 000 26 26\nE-posta: rumeysacolak.dt@gmail.com\n\nEk: Rumeysa_Colak_CV.pdf",
+          "attachment": "Rumeysa_Colak_CV.pdf"
+        },
+        "whatsapp_model_b": {
+          "title": "Model B — Mesaj + Güvenli CV Bağlantısı (Önerilen)",
+          "mobile_phone": "905454252719",
+          "message_text": "Merhaba, ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunuyum.\n\nKliniğinizde (Özel BC Ağız Ve Diş Sağlığı Polikliniği) oluşabilecek diş hekimi pozisyonları için başvuruda bulunmak istiyorum.\n\nÖzgeçmişimi aşağıdaki güvenli bağlantıdan inceleyebilirsiniz:\nhttps://careermap.local/cv/view/9306b1dee2c54959\n\nUygun görmeniz hâlinde görüşmekten memnuniyet duyarım. İyi çalışmalar dilerim.",
+          "wa_link": "https://wa.me/905454252719?text=Merhaba%2C%20ben%20Dt.%20R%C3%BCmeysa%20%C3%87olak.%20S%C3%BCleyman%20Demirel%20%C3%9Cniversitesi%20Di%C5%9F%20Hekimli%C4%9Fi%20Fak%C3%BCltesi%20mezunuyum.%0A%0AKlini%C4%9Finizde%20%28%C3%96zel%20BC%20A%C4%9F%C4%B1z%20Ve%20Di%C5%9F%20Sa%C4%9Fl%C4%B1%C4%9F%C4%B1%20Poliklini%C4%9Fi%29%20olu%C5%9Fabilecek%20di%C5%9F%20hekimi%20pozisyonlar%C4%B1%20i%C3%A7in%20ba%C5%9Fvuruda%20bulunmak%20istiyorum.%0A%0A%C3%96zge%C3%A7mi%C5%9Fimi%20a%C5%9Fa%C4%9F%C4%B1daki%20g%C3%BCvenli%20ba%C4%9Flant%C4%B1dan%20inceleyebilirsiniz%3A%0Ahttps%3A//careermap.local/cv/view/9306b1dee2c54959%0A%0AUygun%20g%C3%B6rmeniz%20h%C3%A2linde%20g%C3%B6r%C3%BC%C5%9Fmekten%20memnuniyet%20duyar%C4%B1m.%20%C4%B0yi%20%C3%A7al%C4%B1%C5%9Fmalar%20dilerim."
+        },
+        "whatsapp_model_c": {
+          "title": "Model C — Mesaj + Gerçek PDF Dosya Eki",
+          "message_text": "Merhaba, ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunuyum.\n\nKliniğiniz bünyesinde (Özel BC Ağız Ve Diş Sağlığı Polikliniği) değerlendirilmek üzere özgeçmişimi ekte PDF dosyası olarak iletiyorum.\n\nÖzellikle restoratif ve endodontik tedavilerdeki 350+ vaka tecrübemle kurumunuza değer katmayı hedefliyorum. Uygun görmeniz halinde görüşmekten memnuniyet duyarım. İyi çalışmalar dilerim.",
+          "wa_link": "https://wa.me/905454252719?text=Merhaba%2C%20ben%20Dt.%20R%C3%BCmeysa%20%C3%87olak.%20S%C3%BCleyman%20Demirel%20%C3%9Cniversitesi%20Di%C5%9F%20Hekimli%C4%9Fi%20Fak%C3%BCltesi%20mezunuyum.%0A%0AKlini%C4%9Finiz%20b%C3%BCnyesinde%20%28%C3%96zel%20BC%20A%C4%9F%C4%B1z%20Ve%20Di%C5%9F%20Sa%C4%9Fl%C4%B1%C4%9F%C4%B1%20Poliklini%C4%9Fi%29%20de%C4%9Ferlendirilmek%20%C3%BCzere%20%C3%B6zge%C3%A7mi%C5%9Fimi%20ekte%20PDF%20dosyas%C4%B1%20olarak%20iletiyorum.%0A%0A%C3%96zellikle%20restoratif%20ve%20endodontik%20tedavilerdeki%20350%2B%20vaka%20tecr%C3%BCbemle%20kurumunuza%20de%C4%9Fer%20katmay%C4%B1%20hedefliyorum.%20Uygun%20g%C3%B6rmeniz%20halinde%20g%C3%B6r%C3%BC%C5%9Fmekten%20memnuniyet%20duyar%C4%B1m.%20%C4%B0yi%20%C3%A7al%C4%B1%C5%9Fmalar%20dilerim.",
+          "instructions": "WhatsApp açılır, hazır mesaj iletilir; aday cihazındaki PDF CV dosyasını sohbete ekleyerek gönderir."
+        },
+        "whatsapp_followup": {
+          "title": "Nezaket Hatırlatması (4-5 İş Günü Sonrası)",
+          "message_text": "Merhaba, ben Dt. Rümeysa Çolak.\n\nDiş hekimi pozisyonları için geçtiğimiz günlerde kliniğinize özgeçmişimi e-posta yoluyla iletmiştim.\n\nBaşvurumun değerlendirilme imkânı olup olmadığını nazikçe öğrenmek istedim. Uygun görmeniz hâlinde tanışmaktan ve görüşmekten memnuniyet duyarım.\n\nİyi çalışmalar dilerim.",
+          "wa_link": "https://wa.me/905454252719?text=Merhaba%2C%20ben%20Dt.%20R%C3%BCmeysa%20%C3%87olak.%0A%0ADi%C5%9F%20hekimi%20pozisyonlar%C4%B1%20i%C3%A7in%20ge%C3%A7ti%C4%9Fimiz%20g%C3%BCnlerde%20klini%C4%9Finize%20%C3%B6zge%C3%A7mi%C5%9Fimi%20e-posta%20yoluyla%20iletmi%C5%9Ftim.%0A%0ABa%C5%9Fvurumun%20de%C4%9Ferlendirilme%20imk%C3%A2n%C4%B1%20olup%20olmad%C4%B1%C4%9F%C4%B1n%C4%B1%20nazik%C3%A7e%20%C3%B6%C4%9Frenmek%20istedim.%20Uygun%20g%C3%B6rmeniz%20h%C3%A2linde%20tan%C4%B1%C5%9Fmaktan%20ve%20g%C3%B6r%C3%BC%C5%9Fmekten%20memnuniyet%20duyar%C4%B1m.%0A%0A%C4%B0yi%20%C3%A7al%C4%B1%C5%9Fmalar%20dilerim."
+        },
+        "phone_calling_brief": {
+          "employer_name": "Özel BC Ağız Ve Diş Sağlığı Polikliniği",
+          "phone_formatted": "0(545) 425 27 19",
+          "tel_link": "tel:05454252719",
+          "call_script": "İyi günler, ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunu diş hekimiyim.\n\nKliniğinizin mesul müdürü veya hekim işe alımından sorumlu yetkilisi ile görüşmem mümkün müdür?\n\n(Yetkili bağlandığında):\n\"Merhabalar Hocam / İyi günler. Ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunuyum. 350'nin üzerinde restoratif ve endodontik vaka tecrübem ve özel klinik deneyimim bulunuyor. Kliniğiniz bünyesinde diş hekimi kadrosu değerlendirmesi için özgeçmişimi iletmek ve uygun görmeniz halinde kendimi kısaca tanıtmak isterdim.\" ",
+          "instructions": [
+            "1. Kurumu aramadan önce görüşme notunu gözden geçirin.",
+            "2. Klinik mesul müdürü veya insan kaynakları yetkilisi ile görüşmek istediğinizi belirtin.",
+            "3. Görüşme sonrasında aldığınız cevabı (Görüşme planlandı, İleride değerlendirilecek vb.) panele kaydedin."
+          ]
+        },
+        "career_form_brief": {
+          "employer_name": "Özel BC Ağız Ve Diş Sağlığı Polikliniği",
+          "form_url": "https://www.bcklinik.com.tr/eskisehir-dis-klingi-bc-iletisim",
+          "is_available": true,
+          "message_to_paste": "Sayın Özel BC Ağız Ve Diş Sağlığı Polikliniği Yetkilisi,\n\nBen Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi 2026 yılı mezunuyum. 350'nin üzerinde restoratif ve endodontik klinik vaka deneyimim ve özel klinik hekimlik tecrübem bulunmaktadır.\n\nTepebaşı bölgesindeki yenilikçi ve estetik diş hekimliği uygulamalarınız doğrultusunda kliniğinizde verimli bir hekimlik süreci yürütmeyi amaçlıyorum.\n\nKliniğiniz bünyesinde diş hekimi kadrolarında değerlendirilmek üzere özgeçmişimi takdim etmek isterim. İletişim: 0(555) 000 26 26 / rumeysacolak.dt@gmail.com.",
+          "candidate_info": {
+            "name": "Dt. Rümeysa Çolak",
+            "email": "rumeysacolak.dt@gmail.com",
+            "phone": "0(555) 000 26 26",
+            "subject": "Diş Hekimi İş Başvurusu — Dt. Rümeysa Çolak"
+          },
+          "instructions": [
+            "1. 'Form Sayfasını Aç' düğmesine tıklayarak kliniğin resmî sayfasına gidin.",
+            "2. Ad, e-posta ve telefon bilgilerinizi doldurun.",
+            "3. 'Mesajınız' alanına hazırlanan başvuru metnini yapıştırıp formu gönderin.",
+            "4. CareerMap paneline dönüp başvuruyu 'Gönderildi' olarak onaylayın."
+          ]
+        }
+      }
+    },
+    {
+      "application_id": "app--colak-epebasi-klas",
+      "order": 2,
+      "clinic_name": "Özel Klas Ağız ve Diş Sağlığı Polikliniği",
+      "employer_type": "Özel poliklinik",
+      "district": "Tepebaşı",
+      "match_score": 100,
+      "match_reasons": [
+        "Şehir uyumu: Eskişehir",
+        "Hedef ilçe tercihi: Tepebaşı",
+        "Çok hekimli özel poliklinik yapısı (Geniş hasta sirkülasyonu ve ekip çalışması)",
+        "Doğrulanmış kurumsal e-posta kanalı mevcut (CV ekli resmî başvuruya uygun)",
+        "Doğrulanmış kurumsal WhatsApp hattı mevcut (Nezaket takibine uygun)",
+        "Kurumsal web iletişim formu mevcut",
+        "Restoratif diş tedavisi ve endodonti (kanal tedavisi) klinik vaka yetkinliği"
+      ],
+      "primary_channel": "email",
+      "verified_contacts": {
+        "email": "info@klasdisklinigi.com",
+        "phone": "0(222) 221 75 21",
+        "whatsapp": "https://api.whatsapp.com/send?phone=905366017726&text=Merhaba, https://www.klasdisklinigi.com/ web sitesinden sizlere ulaşıyorum. Hizmetleriniz hakkında bilgi alabilir miyim?",
+        "website": "https://www.klasdisklinigi.com/index",
+        "contact_form": "https://www.klasdisklinigi.com/iletisim"
+      },
+      "orchestration_workflow": [
+        {
+          "step_number": 1,
+          "day": 1,
+          "action_type": "initial_application",
+          "channel": "email",
+          "title": "CV Ekli E-posta Başvurusu",
+          "description": "Sayın Yetkili hitabıyla hazırlanan kişiselleştirilmiş başvuru metni ve Dt. Rümeysa Çolak CV PDF eki kurumsal e-posta adresine (info@klasdisklinigi.com) iletilir.",
+          "requires_user_approval": true,
+          "is_automated_possible": true
+        },
+        {
+          "step_number": 2,
+          "day": 4,
+          "action_type": "wait_and_check",
+          "channel": "crm_monitor",
+          "title": "4-5 İş Günü Yanıt Bekleme Penceresi",
+          "description": "Kliniğin e-posta veya telefon dönüşü olup olmadığı CRM üzerinden kontrol edilir. Yanıt geldiyse takip durdurulur.",
+          "requires_user_approval": false,
+          "is_automated_possible": true
+        },
+        {
+          "step_number": 3,
+          "day": 5,
+          "action_type": "followup_reminder",
+          "channel": "whatsapp",
+          "title": "WhatsApp Nezaket Hatırlatması (Yalnızca Cevap Gelmediyse)",
+          "description": "E-posta başvurusunun ulaşıp ulaşmadığını nazikçe soran kısa WhatsApp durum kontrol mesajı.",
+          "requires_user_approval": true,
+          "is_automated_possible": false
+        },
+        {
+          "step_number": 4,
+          "day": 10,
+          "action_type": "finalize_or_archive",
+          "channel": "crm_monitor",
+          "title": "Başvuru Durumunu Netleştirme",
+          "description": "Görüşme daveti, olumsuz geri bildirim veya ileri tarihte değerlendirilmek üzere arşivleme kararı CRM'e işlenir.",
+          "requires_user_approval": true,
+          "is_automated_possible": false
+        }
+      ],
+      "messages": {
+        "email_draft": {
+          "subject": "Diş Hekimi İş Başvurusu — Dt. Rümeysa Çolak | Özel Klas Ağız ve Diş Sağlığı Polikliniği",
+          "recipient": "info@klasdisklinigi.com",
+          "body": "Sayın Yetkili,\n\nBen Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi 2026 yılı mezunuyum.\n\nEğitimim süresince 350'nin üzerinde klinik vaka deneyimi edindim. Özellikle restoratif diş tedavisi, estetik anterior ve posterior kompozit restorasyonlar ile endodonti (kanal tedavisi) alanlarında yoğun klinik uygulamalar gerçekleştirdim. Mezuniyetimin ardından özel bir diş kliniğinde çalışarak hasta iletişimi, vaka takibi ve klinik iş akışında profesyonel deneyim kazandım.\n\nTepebaşı lokasyonunda dinamik hekim ekibiniz ve geniş tedavi yelpazeniz ile mesleki vizyonumun güçlü bir sinerji oluşturacağına inanıyorum.\n\nKliniğinizde mevcut veya ilerleyen dönemde oluşabilecek diş hekimi pozisyonları için özgeçmişimi değerlendirmenize sunuyorum.\n\nUygun görmeniz hâlinde yüz yüze veya çevrim içi bir ön görüşme gerçekleştirmekten büyük memnuniyet duyarım.\n\nSaygılarımla,\n\nDt. Rümeysa Çolak\nTelefon: 0(555) 000 26 26\nE-posta: rumeysacolak.dt@gmail.com\n\nEk: Rumeysa_Colak_CV.pdf",
+          "attachment": "Rumeysa_Colak_CV.pdf"
+        },
+        "whatsapp_model_b": {
+          "title": "Model B — Mesaj + Güvenli CV Bağlantısı (Önerilen)",
+          "mobile_phone": "905366017726",
+          "message_text": "Merhaba, ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunuyum.\n\nKliniğinizde (Özel Klas Ağız ve Diş Sağlığı Polikliniği) oluşabilecek diş hekimi pozisyonları için başvuruda bulunmak istiyorum.\n\nÖzgeçmişimi aşağıdaki güvenli bağlantıdan inceleyebilirsiniz:\nhttps://careermap.local/cv/view/9306b1dee2c54959\n\nUygun görmeniz hâlinde görüşmekten memnuniyet duyarım. İyi çalışmalar dilerim.",
+          "wa_link": "https://wa.me/905366017726?text=Merhaba%2C%20ben%20Dt.%20R%C3%BCmeysa%20%C3%87olak.%20S%C3%BCleyman%20Demirel%20%C3%9Cniversitesi%20Di%C5%9F%20Hekimli%C4%9Fi%20Fak%C3%BCltesi%20mezunuyum.%0A%0AKlini%C4%9Finizde%20%28%C3%96zel%20Klas%20A%C4%9F%C4%B1z%20ve%20Di%C5%9F%20Sa%C4%9Fl%C4%B1%C4%9F%C4%B1%20Poliklini%C4%9Fi%29%20olu%C5%9Fabilecek%20di%C5%9F%20hekimi%20pozisyonlar%C4%B1%20i%C3%A7in%20ba%C5%9Fvuruda%20bulunmak%20istiyorum.%0A%0A%C3%96zge%C3%A7mi%C5%9Fimi%20a%C5%9Fa%C4%9F%C4%B1daki%20g%C3%BCvenli%20ba%C4%9Flant%C4%B1dan%20inceleyebilirsiniz%3A%0Ahttps%3A//careermap.local/cv/view/9306b1dee2c54959%0A%0AUygun%20g%C3%B6rmeniz%20h%C3%A2linde%20g%C3%B6r%C3%BC%C5%9Fmekten%20memnuniyet%20duyar%C4%B1m.%20%C4%B0yi%20%C3%A7al%C4%B1%C5%9Fmalar%20dilerim."
+        },
+        "whatsapp_model_c": {
+          "title": "Model C — Mesaj + Gerçek PDF Dosya Eki",
+          "message_text": "Merhaba, ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunuyum.\n\nKliniğiniz bünyesinde (Özel Klas Ağız ve Diş Sağlığı Polikliniği) değerlendirilmek üzere özgeçmişimi ekte PDF dosyası olarak iletiyorum.\n\nÖzellikle restoratif ve endodontik tedavilerdeki 350+ vaka tecrübemle kurumunuza değer katmayı hedefliyorum. Uygun görmeniz halinde görüşmekten memnuniyet duyarım. İyi çalışmalar dilerim.",
+          "wa_link": "https://wa.me/905366017726?text=Merhaba%2C%20ben%20Dt.%20R%C3%BCmeysa%20%C3%87olak.%20S%C3%BCleyman%20Demirel%20%C3%9Cniversitesi%20Di%C5%9F%20Hekimli%C4%9Fi%20Fak%C3%BCltesi%20mezunuyum.%0A%0AKlini%C4%9Finiz%20b%C3%BCnyesinde%20%28%C3%96zel%20Klas%20A%C4%9F%C4%B1z%20ve%20Di%C5%9F%20Sa%C4%9Fl%C4%B1%C4%9F%C4%B1%20Poliklini%C4%9Fi%29%20de%C4%9Ferlendirilmek%20%C3%BCzere%20%C3%B6zge%C3%A7mi%C5%9Fimi%20ekte%20PDF%20dosyas%C4%B1%20olarak%20iletiyorum.%0A%0A%C3%96zellikle%20restoratif%20ve%20endodontik%20tedavilerdeki%20350%2B%20vaka%20tecr%C3%BCbemle%20kurumunuza%20de%C4%9Fer%20katmay%C4%B1%20hedefliyorum.%20Uygun%20g%C3%B6rmeniz%20halinde%20g%C3%B6r%C3%BC%C5%9Fmekten%20memnuniyet%20duyar%C4%B1m.%20%C4%B0yi%20%C3%A7al%C4%B1%C5%9Fmalar%20dilerim.",
+          "instructions": "WhatsApp açılır, hazır mesaj iletilir; aday cihazındaki PDF CV dosyasını sohbete ekleyerek gönderir."
+        },
+        "whatsapp_followup": {
+          "title": "Nezaket Hatırlatması (4-5 İş Günü Sonrası)",
+          "message_text": "Merhaba, ben Dt. Rümeysa Çolak.\n\nDiş hekimi pozisyonları için geçtiğimiz günlerde kliniğinize özgeçmişimi e-posta yoluyla iletmiştim.\n\nBaşvurumun değerlendirilme imkânı olup olmadığını nazikçe öğrenmek istedim. Uygun görmeniz hâlinde tanışmaktan ve görüşmekten memnuniyet duyarım.\n\nİyi çalışmalar dilerim.",
+          "wa_link": "https://wa.me/905366017726?text=Merhaba%2C%20ben%20Dt.%20R%C3%BCmeysa%20%C3%87olak.%0A%0ADi%C5%9F%20hekimi%20pozisyonlar%C4%B1%20i%C3%A7in%20ge%C3%A7ti%C4%9Fimiz%20g%C3%BCnlerde%20klini%C4%9Finize%20%C3%B6zge%C3%A7mi%C5%9Fimi%20e-posta%20yoluyla%20iletmi%C5%9Ftim.%0A%0ABa%C5%9Fvurumun%20de%C4%9Ferlendirilme%20imk%C3%A2n%C4%B1%20olup%20olmad%C4%B1%C4%9F%C4%B1n%C4%B1%20nazik%C3%A7e%20%C3%B6%C4%9Frenmek%20istedim.%20Uygun%20g%C3%B6rmeniz%20h%C3%A2linde%20tan%C4%B1%C5%9Fmaktan%20ve%20g%C3%B6r%C3%BC%C5%9Fmekten%20memnuniyet%20duyar%C4%B1m.%0A%0A%C4%B0yi%20%C3%A7al%C4%B1%C5%9Fmalar%20dilerim."
+        },
+        "phone_calling_brief": {
+          "employer_name": "Özel Klas Ağız ve Diş Sağlığı Polikliniği",
+          "phone_formatted": "0(222) 221 75 21",
+          "tel_link": "tel:02222217521",
+          "call_script": "İyi günler, ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunu diş hekimiyim.\n\nKliniğinizin mesul müdürü veya hekim işe alımından sorumlu yetkilisi ile görüşmem mümkün müdür?\n\n(Yetkili bağlandığında):\n\"Merhabalar Hocam / İyi günler. Ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunuyum. 350'nin üzerinde restoratif ve endodontik vaka tecrübem ve özel klinik deneyimim bulunuyor. Kliniğiniz bünyesinde diş hekimi kadrosu değerlendirmesi için özgeçmişimi iletmek ve uygun görmeniz halinde kendimi kısaca tanıtmak isterdim.\" ",
+          "instructions": [
+            "1. Kurumu aramadan önce görüşme notunu gözden geçirin.",
+            "2. Klinik mesul müdürü veya insan kaynakları yetkilisi ile görüşmek istediğinizi belirtin.",
+            "3. Görüşme sonrasında aldığınız cevabı (Görüşme planlandı, İleride değerlendirilecek vb.) panele kaydedin."
+          ]
+        },
+        "career_form_brief": {
+          "employer_name": "Özel Klas Ağız ve Diş Sağlığı Polikliniği",
+          "form_url": "https://www.klasdisklinigi.com/iletisim",
+          "is_available": true,
+          "message_to_paste": "Sayın Özel Klas Ağız ve Diş Sağlığı Polikliniği Yetkilisi,\n\nBen Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi 2026 yılı mezunuyum. 350'nin üzerinde restoratif ve endodontik klinik vaka deneyimim ve özel klinik hekimlik tecrübem bulunmaktadır.\n\nTepebaşı lokasyonunda dinamik hekim ekibiniz ve geniş tedavi yelpazeniz ile mesleki vizyonumun güçlü bir sinerji oluşturacağına inanıyorum.\n\nKliniğiniz bünyesinde diş hekimi kadrolarında değerlendirilmek üzere özgeçmişimi takdim etmek isterim. İletişim: 0(555) 000 26 26 / rumeysacolak.dt@gmail.com.",
+          "candidate_info": {
+            "name": "Dt. Rümeysa Çolak",
+            "email": "rumeysacolak.dt@gmail.com",
+            "phone": "0(555) 000 26 26",
+            "subject": "Diş Hekimi İş Başvurusu — Dt. Rümeysa Çolak"
+          },
+          "instructions": [
+            "1. 'Form Sayfasını Aç' düğmesine tıklayarak kliniğin resmî sayfasına gidin.",
+            "2. Ad, e-posta ve telefon bilgilerinizi doldurun.",
+            "3. 'Mesajınız' alanına hazırlanan başvuru metnini yapıştırıp formu gönderin.",
+            "4. CareerMap paneline dönüp başvuruyu 'Gönderildi' olarak onaylayın."
+          ]
+        }
+      }
+    },
+    {
+      "application_id": "app--colak-ri-mayadapol",
+      "order": 3,
+      "clinic_name": "Özel Mayadapol Ağız Ve Diş Sağlığı Polikliniği",
+      "employer_type": "Özel poliklinik",
+      "district": "Odunpazarı",
+      "match_score": 100,
+      "match_reasons": [
+        "Şehir uyumu: Eskişehir",
+        "Hedef ilçe tercihi: Odunpazarı",
+        "Çok hekimli özel poliklinik yapısı (Geniş hasta sirkülasyonu ve ekip çalışması)",
+        "Doğrulanmış kurumsal e-posta kanalı mevcut (CV ekli resmî başvuruya uygun)",
+        "Doğrulanmış kurumsal WhatsApp hattı mevcut (Nezaket takibine uygun)",
+        "Kurumsal web iletişim formu mevcut",
+        "Restoratif diş tedavisi ve endodonti (kanal tedavisi) klinik vaka yetkinliği"
+      ],
+      "primary_channel": "email",
+      "verified_contacts": {
+        "email": "mayadapoldental@gmail.com",
+        "phone": "0(222) 230 40 40",
+        "whatsapp": "https://wa.me/905540052600",
+        "website": "https://www.mayadapol.com",
+        "contact_form": "https://www.mayadapol.com/iletisim"
+      },
+      "orchestration_workflow": [
+        {
+          "step_number": 1,
+          "day": 1,
+          "action_type": "initial_application",
+          "channel": "email",
+          "title": "CV Ekli E-posta Başvurusu",
+          "description": "Sayın Yetkili hitabıyla hazırlanan kişiselleştirilmiş başvuru metni ve Dt. Rümeysa Çolak CV PDF eki kurumsal e-posta adresine (mayadapoldental@gmail.com) iletilir.",
+          "requires_user_approval": true,
+          "is_automated_possible": true
+        },
+        {
+          "step_number": 2,
+          "day": 4,
+          "action_type": "wait_and_check",
+          "channel": "crm_monitor",
+          "title": "4-5 İş Günü Yanıt Bekleme Penceresi",
+          "description": "Kliniğin e-posta veya telefon dönüşü olup olmadığı CRM üzerinden kontrol edilir. Yanıt geldiyse takip durdurulur.",
+          "requires_user_approval": false,
+          "is_automated_possible": true
+        },
+        {
+          "step_number": 3,
+          "day": 5,
+          "action_type": "followup_reminder",
+          "channel": "whatsapp",
+          "title": "WhatsApp Nezaket Hatırlatması (Yalnızca Cevap Gelmediyse)",
+          "description": "E-posta başvurusunun ulaşıp ulaşmadığını nazikçe soran kısa WhatsApp durum kontrol mesajı.",
+          "requires_user_approval": true,
+          "is_automated_possible": false
+        },
+        {
+          "step_number": 4,
+          "day": 10,
+          "action_type": "finalize_or_archive",
+          "channel": "crm_monitor",
+          "title": "Başvuru Durumunu Netleştirme",
+          "description": "Görüşme daveti, olumsuz geri bildirim veya ileri tarihte değerlendirilmek üzere arşivleme kararı CRM'e işlenir.",
+          "requires_user_approval": true,
+          "is_automated_possible": false
+        }
+      ],
+      "messages": {
+        "email_draft": {
+          "subject": "Diş Hekimi İş Başvurusu — Dt. Rümeysa Çolak | Özel Mayadapol Ağız Ve Diş Sağlığı Polikliniği",
+          "recipient": "mayadapoldental@gmail.com",
+          "body": "Sayın Yetkili,\n\nBen Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi 2026 yılı mezunuyum.\n\nEğitimim süresince 350'nin üzerinde klinik vaka deneyimi edindim. Özellikle restoratif diş tedavisi, estetik anterior ve posterior kompozit restorasyonlar ile endodonti (kanal tedavisi) alanlarında yoğun klinik uygulamalar gerçekleştirdim. Mezuniyetimin ardından özel bir diş kliniğinde çalışarak hasta iletişimi, vaka takibi ve klinik iş akışında profesyonel deneyim kazandım.\n\nOdunpazarı lokasyonundaki donanımlı poliklinik kadronuz ve multidisipliner klinik yaklaşımınız bünyesinde uzun vadeli değer üretmek istiyorum.\n\nKliniğinizde mevcut veya ilerleyen dönemde oluşabilecek diş hekimi pozisyonları için özgeçmişimi değerlendirmenize sunuyorum.\n\nUygun görmeniz hâlinde yüz yüze veya çevrim içi bir ön görüşme gerçekleştirmekten büyük memnuniyet duyarım.\n\nSaygılarımla,\n\nDt. Rümeysa Çolak\nTelefon: 0(555) 000 26 26\nE-posta: rumeysacolak.dt@gmail.com\n\nEk: Rumeysa_Colak_CV.pdf",
+          "attachment": "Rumeysa_Colak_CV.pdf"
+        },
+        "whatsapp_model_b": {
+          "title": "Model B — Mesaj + Güvenli CV Bağlantısı (Önerilen)",
+          "mobile_phone": "905540052600",
+          "message_text": "Merhaba, ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunuyum.\n\nKliniğinizde (Özel Mayadapol Ağız Ve Diş Sağlığı Polikliniği) oluşabilecek diş hekimi pozisyonları için başvuruda bulunmak istiyorum.\n\nÖzgeçmişimi aşağıdaki güvenli bağlantıdan inceleyebilirsiniz:\nhttps://careermap.local/cv/view/9306b1dee2c54959\n\nUygun görmeniz hâlinde görüşmekten memnuniyet duyarım. İyi çalışmalar dilerim.",
+          "wa_link": "https://wa.me/905540052600?text=Merhaba%2C%20ben%20Dt.%20R%C3%BCmeysa%20%C3%87olak.%20S%C3%BCleyman%20Demirel%20%C3%9Cniversitesi%20Di%C5%9F%20Hekimli%C4%9Fi%20Fak%C3%BCltesi%20mezunuyum.%0A%0AKlini%C4%9Finizde%20%28%C3%96zel%20Mayadapol%20A%C4%9F%C4%B1z%20Ve%20Di%C5%9F%20Sa%C4%9Fl%C4%B1%C4%9F%C4%B1%20Poliklini%C4%9Fi%29%20olu%C5%9Fabilecek%20di%C5%9F%20hekimi%20pozisyonlar%C4%B1%20i%C3%A7in%20ba%C5%9Fvuruda%20bulunmak%20istiyorum.%0A%0A%C3%96zge%C3%A7mi%C5%9Fimi%20a%C5%9Fa%C4%9F%C4%B1daki%20g%C3%BCvenli%20ba%C4%9Flant%C4%B1dan%20inceleyebilirsiniz%3A%0Ahttps%3A//careermap.local/cv/view/9306b1dee2c54959%0A%0AUygun%20g%C3%B6rmeniz%20h%C3%A2linde%20g%C3%B6r%C3%BC%C5%9Fmekten%20memnuniyet%20duyar%C4%B1m.%20%C4%B0yi%20%C3%A7al%C4%B1%C5%9Fmalar%20dilerim."
+        },
+        "whatsapp_model_c": {
+          "title": "Model C — Mesaj + Gerçek PDF Dosya Eki",
+          "message_text": "Merhaba, ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunuyum.\n\nKliniğiniz bünyesinde (Özel Mayadapol Ağız Ve Diş Sağlığı Polikliniği) değerlendirilmek üzere özgeçmişimi ekte PDF dosyası olarak iletiyorum.\n\nÖzellikle restoratif ve endodontik tedavilerdeki 350+ vaka tecrübemle kurumunuza değer katmayı hedefliyorum. Uygun görmeniz halinde görüşmekten memnuniyet duyarım. İyi çalışmalar dilerim.",
+          "wa_link": "https://wa.me/905540052600?text=Merhaba%2C%20ben%20Dt.%20R%C3%BCmeysa%20%C3%87olak.%20S%C3%BCleyman%20Demirel%20%C3%9Cniversitesi%20Di%C5%9F%20Hekimli%C4%9Fi%20Fak%C3%BCltesi%20mezunuyum.%0A%0AKlini%C4%9Finiz%20b%C3%BCnyesinde%20%28%C3%96zel%20Mayadapol%20A%C4%9F%C4%B1z%20Ve%20Di%C5%9F%20Sa%C4%9Fl%C4%B1%C4%9F%C4%B1%20Poliklini%C4%9Fi%29%20de%C4%9Ferlendirilmek%20%C3%BCzere%20%C3%B6zge%C3%A7mi%C5%9Fimi%20ekte%20PDF%20dosyas%C4%B1%20olarak%20iletiyorum.%0A%0A%C3%96zellikle%20restoratif%20ve%20endodontik%20tedavilerdeki%20350%2B%20vaka%20tecr%C3%BCbemle%20kurumunuza%20de%C4%9Fer%20katmay%C4%B1%20hedefliyorum.%20Uygun%20g%C3%B6rmeniz%20halinde%20g%C3%B6r%C3%BC%C5%9Fmekten%20memnuniyet%20duyar%C4%B1m.%20%C4%B0yi%20%C3%A7al%C4%B1%C5%9Fmalar%20dilerim.",
+          "instructions": "WhatsApp açılır, hazır mesaj iletilir; aday cihazındaki PDF CV dosyasını sohbete ekleyerek gönderir."
+        },
+        "whatsapp_followup": {
+          "title": "Nezaket Hatırlatması (4-5 İş Günü Sonrası)",
+          "message_text": "Merhaba, ben Dt. Rümeysa Çolak.\n\nDiş hekimi pozisyonları için geçtiğimiz günlerde kliniğinize özgeçmişimi e-posta yoluyla iletmiştim.\n\nBaşvurumun değerlendirilme imkânı olup olmadığını nazikçe öğrenmek istedim. Uygun görmeniz hâlinde tanışmaktan ve görüşmekten memnuniyet duyarım.\n\nİyi çalışmalar dilerim.",
+          "wa_link": "https://wa.me/905540052600?text=Merhaba%2C%20ben%20Dt.%20R%C3%BCmeysa%20%C3%87olak.%0A%0ADi%C5%9F%20hekimi%20pozisyonlar%C4%B1%20i%C3%A7in%20ge%C3%A7ti%C4%9Fimiz%20g%C3%BCnlerde%20klini%C4%9Finize%20%C3%B6zge%C3%A7mi%C5%9Fimi%20e-posta%20yoluyla%20iletmi%C5%9Ftim.%0A%0ABa%C5%9Fvurumun%20de%C4%9Ferlendirilme%20imk%C3%A2n%C4%B1%20olup%20olmad%C4%B1%C4%9F%C4%B1n%C4%B1%20nazik%C3%A7e%20%C3%B6%C4%9Frenmek%20istedim.%20Uygun%20g%C3%B6rmeniz%20h%C3%A2linde%20tan%C4%B1%C5%9Fmaktan%20ve%20g%C3%B6r%C3%BC%C5%9Fmekten%20memnuniyet%20duyar%C4%B1m.%0A%0A%C4%B0yi%20%C3%A7al%C4%B1%C5%9Fmalar%20dilerim."
+        },
+        "phone_calling_brief": {
+          "employer_name": "Özel Mayadapol Ağız Ve Diş Sağlığı Polikliniği",
+          "phone_formatted": "0(222) 230 40 40",
+          "tel_link": "tel:02222304040",
+          "call_script": "İyi günler, ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunu diş hekimiyim.\n\nKliniğinizin mesul müdürü veya hekim işe alımından sorumlu yetkilisi ile görüşmem mümkün müdür?\n\n(Yetkili bağlandığında):\n\"Merhabalar Hocam / İyi günler. Ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunuyum. 350'nin üzerinde restoratif ve endodontik vaka tecrübem ve özel klinik deneyimim bulunuyor. Kliniğiniz bünyesinde diş hekimi kadrosu değerlendirmesi için özgeçmişimi iletmek ve uygun görmeniz halinde kendimi kısaca tanıtmak isterdim.\" ",
+          "instructions": [
+            "1. Kurumu aramadan önce görüşme notunu gözden geçirin.",
+            "2. Klinik mesul müdürü veya insan kaynakları yetkilisi ile görüşmek istediğinizi belirtin.",
+            "3. Görüşme sonrasında aldığınız cevabı (Görüşme planlandı, İleride değerlendirilecek vb.) panele kaydedin."
+          ]
+        },
+        "career_form_brief": {
+          "employer_name": "Özel Mayadapol Ağız Ve Diş Sağlığı Polikliniği",
+          "form_url": "https://www.mayadapol.com/iletisim",
+          "is_available": true,
+          "message_to_paste": "Sayın Özel Mayadapol Ağız Ve Diş Sağlığı Polikliniği Yetkilisi,\n\nBen Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi 2026 yılı mezunuyum. 350'nin üzerinde restoratif ve endodontik klinik vaka deneyimim ve özel klinik hekimlik tecrübem bulunmaktadır.\n\nOdunpazarı lokasyonundaki donanımlı poliklinik kadronuz ve multidisipliner klinik yaklaşımınız bünyesinde uzun vadeli değer üretmek istiyorum.\n\nKliniğiniz bünyesinde diş hekimi kadrolarında değerlendirilmek üzere özgeçmişimi takdim etmek isterim. İletişim: 0(555) 000 26 26 / rumeysacolak.dt@gmail.com.",
+          "candidate_info": {
+            "name": "Dt. Rümeysa Çolak",
+            "email": "rumeysacolak.dt@gmail.com",
+            "phone": "0(555) 000 26 26",
+            "subject": "Diş Hekimi İş Başvurusu — Dt. Rümeysa Çolak"
+          },
+          "instructions": [
+            "1. 'Form Sayfasını Aç' düğmesine tıklayarak kliniğin resmî sayfasına gidin.",
+            "2. Ad, e-posta ve telefon bilgilerinizi doldurun.",
+            "3. 'Mesajınız' alanına hazırlanan başvuru metnini yapıştırıp formu gönderin.",
+            "4. CareerMap paneline dönüp başvuruyu 'Gönderildi' olarak onaylayın."
+          ]
+        }
+      }
+    },
+    {
+      "application_id": "app--colak-basi-minepol",
+      "order": 4,
+      "clinic_name": "Özel Minepol Ağız ve Diş Sağlığı Polikliniği",
+      "employer_type": "Özel poliklinik",
+      "district": "Tepebaşı",
+      "match_score": 100,
+      "match_reasons": [
+        "Şehir uyumu: Eskişehir",
+        "Hedef ilçe tercihi: Tepebaşı",
+        "Çok hekimli özel poliklinik yapısı (Geniş hasta sirkülasyonu ve ekip çalışması)",
+        "Doğrulanmış kurumsal e-posta kanalı mevcut (CV ekli resmî başvuruya uygun)",
+        "Doğrulanmış kurumsal WhatsApp hattı mevcut (Nezaket takibine uygun)",
+        "Kurumsal web iletişim formu mevcut",
+        "Restoratif diş tedavisi ve endodonti (kanal tedavisi) klinik vaka yetkinliği"
+      ],
+      "primary_channel": "email",
+      "verified_contacts": {
+        "email": "info@minepol.com.tr",
+        "phone": "0(222) 320 30 30",
+        "whatsapp": "https://api.whatsapp.com/send?phone=905324750817&text=Merhaba, size minepol.com.tr sitenizden ulaşıyorum.",
+        "website": "https://www.minepol.com.tr",
+        "contact_form": "https://www.minepol.com.tr/"
+      },
+      "orchestration_workflow": [
+        {
+          "step_number": 1,
+          "day": 1,
+          "action_type": "initial_application",
+          "channel": "email",
+          "title": "CV Ekli E-posta Başvurusu",
+          "description": "Sayın Yetkili hitabıyla hazırlanan kişiselleştirilmiş başvuru metni ve Dt. Rümeysa Çolak CV PDF eki kurumsal e-posta adresine (info@minepol.com.tr) iletilir.",
+          "requires_user_approval": true,
+          "is_automated_possible": true
+        },
+        {
+          "step_number": 2,
+          "day": 4,
+          "action_type": "wait_and_check",
+          "channel": "crm_monitor",
+          "title": "4-5 İş Günü Yanıt Bekleme Penceresi",
+          "description": "Kliniğin e-posta veya telefon dönüşü olup olmadığı CRM üzerinden kontrol edilir. Yanıt geldiyse takip durdurulur.",
+          "requires_user_approval": false,
+          "is_automated_possible": true
+        },
+        {
+          "step_number": 3,
+          "day": 5,
+          "action_type": "followup_reminder",
+          "channel": "whatsapp",
+          "title": "WhatsApp Nezaket Hatırlatması (Yalnızca Cevap Gelmediyse)",
+          "description": "E-posta başvurusunun ulaşıp ulaşmadığını nazikçe soran kısa WhatsApp durum kontrol mesajı.",
+          "requires_user_approval": true,
+          "is_automated_possible": false
+        },
+        {
+          "step_number": 4,
+          "day": 10,
+          "action_type": "finalize_or_archive",
+          "channel": "crm_monitor",
+          "title": "Başvuru Durumunu Netleştirme",
+          "description": "Görüşme daveti, olumsuz geri bildirim veya ileri tarihte değerlendirilmek üzere arşivleme kararı CRM'e işlenir.",
+          "requires_user_approval": true,
+          "is_automated_possible": false
+        }
+      ],
+      "messages": {
+        "email_draft": {
+          "subject": "Diş Hekimi İş Başvurusu — Dt. Rümeysa Çolak | Özel Minepol Ağız ve Diş Sağlığı Polikliniği",
+          "recipient": "info@minepol.com.tr",
+          "body": "Sayın Yetkili,\n\nBen Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi 2026 yılı mezunuyum.\n\nEğitimim süresince 350'nin üzerinde klinik vaka deneyimi edindim. Özellikle restoratif diş tedavisi, estetik anterior ve posterior kompozit restorasyonlar ile endodonti (kanal tedavisi) alanlarında yoğun klinik uygulamalar gerçekleştirdim. Mezuniyetimin ardından özel bir diş kliniğinde çalışarak hasta iletişimi, vaka takibi ve klinik iş akışında profesyonel deneyim kazandım.\n\nTepebaşı merkezli kliniğinizin çağdaş hasta protokolleri ve ileri restoratif vizyonu ile uyum içinde çalışmayı arzu ediyorum.\n\nKliniğinizde mevcut veya ilerleyen dönemde oluşabilecek diş hekimi pozisyonları için özgeçmişimi değerlendirmenize sunuyorum.\n\nUygun görmeniz hâlinde yüz yüze veya çevrim içi bir ön görüşme gerçekleştirmekten büyük memnuniyet duyarım.\n\nSaygılarımla,\n\nDt. Rümeysa Çolak\nTelefon: 0(555) 000 26 26\nE-posta: rumeysacolak.dt@gmail.com\n\nEk: Rumeysa_Colak_CV.pdf",
+          "attachment": "Rumeysa_Colak_CV.pdf"
+        },
+        "whatsapp_model_b": {
+          "title": "Model B — Mesaj + Güvenli CV Bağlantısı (Önerilen)",
+          "mobile_phone": "905324750817",
+          "message_text": "Merhaba, ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunuyum.\n\nKliniğinizde (Özel Minepol Ağız ve Diş Sağlığı Polikliniği) oluşabilecek diş hekimi pozisyonları için başvuruda bulunmak istiyorum.\n\nÖzgeçmişimi aşağıdaki güvenli bağlantıdan inceleyebilirsiniz:\nhttps://careermap.local/cv/view/9306b1dee2c54959\n\nUygun görmeniz hâlinde görüşmekten memnuniyet duyarım. İyi çalışmalar dilerim.",
+          "wa_link": "https://wa.me/905324750817?text=Merhaba%2C%20ben%20Dt.%20R%C3%BCmeysa%20%C3%87olak.%20S%C3%BCleyman%20Demirel%20%C3%9Cniversitesi%20Di%C5%9F%20Hekimli%C4%9Fi%20Fak%C3%BCltesi%20mezunuyum.%0A%0AKlini%C4%9Finizde%20%28%C3%96zel%20Minepol%20A%C4%9F%C4%B1z%20ve%20Di%C5%9F%20Sa%C4%9Fl%C4%B1%C4%9F%C4%B1%20Poliklini%C4%9Fi%29%20olu%C5%9Fabilecek%20di%C5%9F%20hekimi%20pozisyonlar%C4%B1%20i%C3%A7in%20ba%C5%9Fvuruda%20bulunmak%20istiyorum.%0A%0A%C3%96zge%C3%A7mi%C5%9Fimi%20a%C5%9Fa%C4%9F%C4%B1daki%20g%C3%BCvenli%20ba%C4%9Flant%C4%B1dan%20inceleyebilirsiniz%3A%0Ahttps%3A//careermap.local/cv/view/9306b1dee2c54959%0A%0AUygun%20g%C3%B6rmeniz%20h%C3%A2linde%20g%C3%B6r%C3%BC%C5%9Fmekten%20memnuniyet%20duyar%C4%B1m.%20%C4%B0yi%20%C3%A7al%C4%B1%C5%9Fmalar%20dilerim."
+        },
+        "whatsapp_model_c": {
+          "title": "Model C — Mesaj + Gerçek PDF Dosya Eki",
+          "message_text": "Merhaba, ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunuyum.\n\nKliniğiniz bünyesinde (Özel Minepol Ağız ve Diş Sağlığı Polikliniği) değerlendirilmek üzere özgeçmişimi ekte PDF dosyası olarak iletiyorum.\n\nÖzellikle restoratif ve endodontik tedavilerdeki 350+ vaka tecrübemle kurumunuza değer katmayı hedefliyorum. Uygun görmeniz halinde görüşmekten memnuniyet duyarım. İyi çalışmalar dilerim.",
+          "wa_link": "https://wa.me/905324750817?text=Merhaba%2C%20ben%20Dt.%20R%C3%BCmeysa%20%C3%87olak.%20S%C3%BCleyman%20Demirel%20%C3%9Cniversitesi%20Di%C5%9F%20Hekimli%C4%9Fi%20Fak%C3%BCltesi%20mezunuyum.%0A%0AKlini%C4%9Finiz%20b%C3%BCnyesinde%20%28%C3%96zel%20Minepol%20A%C4%9F%C4%B1z%20ve%20Di%C5%9F%20Sa%C4%9Fl%C4%B1%C4%9F%C4%B1%20Poliklini%C4%9Fi%29%20de%C4%9Ferlendirilmek%20%C3%BCzere%20%C3%B6zge%C3%A7mi%C5%9Fimi%20ekte%20PDF%20dosyas%C4%B1%20olarak%20iletiyorum.%0A%0A%C3%96zellikle%20restoratif%20ve%20endodontik%20tedavilerdeki%20350%2B%20vaka%20tecr%C3%BCbemle%20kurumunuza%20de%C4%9Fer%20katmay%C4%B1%20hedefliyorum.%20Uygun%20g%C3%B6rmeniz%20halinde%20g%C3%B6r%C3%BC%C5%9Fmekten%20memnuniyet%20duyar%C4%B1m.%20%C4%B0yi%20%C3%A7al%C4%B1%C5%9Fmalar%20dilerim.",
+          "instructions": "WhatsApp açılır, hazır mesaj iletilir; aday cihazındaki PDF CV dosyasını sohbete ekleyerek gönderir."
+        },
+        "whatsapp_followup": {
+          "title": "Nezaket Hatırlatması (4-5 İş Günü Sonrası)",
+          "message_text": "Merhaba, ben Dt. Rümeysa Çolak.\n\nDiş hekimi pozisyonları için geçtiğimiz günlerde kliniğinize özgeçmişimi e-posta yoluyla iletmiştim.\n\nBaşvurumun değerlendirilme imkânı olup olmadığını nazikçe öğrenmek istedim. Uygun görmeniz hâlinde tanışmaktan ve görüşmekten memnuniyet duyarım.\n\nİyi çalışmalar dilerim.",
+          "wa_link": "https://wa.me/905324750817?text=Merhaba%2C%20ben%20Dt.%20R%C3%BCmeysa%20%C3%87olak.%0A%0ADi%C5%9F%20hekimi%20pozisyonlar%C4%B1%20i%C3%A7in%20ge%C3%A7ti%C4%9Fimiz%20g%C3%BCnlerde%20klini%C4%9Finize%20%C3%B6zge%C3%A7mi%C5%9Fimi%20e-posta%20yoluyla%20iletmi%C5%9Ftim.%0A%0ABa%C5%9Fvurumun%20de%C4%9Ferlendirilme%20imk%C3%A2n%C4%B1%20olup%20olmad%C4%B1%C4%9F%C4%B1n%C4%B1%20nazik%C3%A7e%20%C3%B6%C4%9Frenmek%20istedim.%20Uygun%20g%C3%B6rmeniz%20h%C3%A2linde%20tan%C4%B1%C5%9Fmaktan%20ve%20g%C3%B6r%C3%BC%C5%9Fmekten%20memnuniyet%20duyar%C4%B1m.%0A%0A%C4%B0yi%20%C3%A7al%C4%B1%C5%9Fmalar%20dilerim."
+        },
+        "phone_calling_brief": {
+          "employer_name": "Özel Minepol Ağız ve Diş Sağlığı Polikliniği",
+          "phone_formatted": "0(222) 320 30 30",
+          "tel_link": "tel:02223203030",
+          "call_script": "İyi günler, ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunu diş hekimiyim.\n\nKliniğinizin mesul müdürü veya hekim işe alımından sorumlu yetkilisi ile görüşmem mümkün müdür?\n\n(Yetkili bağlandığında):\n\"Merhabalar Hocam / İyi günler. Ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunuyum. 350'nin üzerinde restoratif ve endodontik vaka tecrübem ve özel klinik deneyimim bulunuyor. Kliniğiniz bünyesinde diş hekimi kadrosu değerlendirmesi için özgeçmişimi iletmek ve uygun görmeniz halinde kendimi kısaca tanıtmak isterdim.\" ",
+          "instructions": [
+            "1. Kurumu aramadan önce görüşme notunu gözden geçirin.",
+            "2. Klinik mesul müdürü veya insan kaynakları yetkilisi ile görüşmek istediğinizi belirtin.",
+            "3. Görüşme sonrasında aldığınız cevabı (Görüşme planlandı, İleride değerlendirilecek vb.) panele kaydedin."
+          ]
+        },
+        "career_form_brief": {
+          "employer_name": "Özel Minepol Ağız ve Diş Sağlığı Polikliniği",
+          "form_url": "https://www.minepol.com.tr/",
+          "is_available": true,
+          "message_to_paste": "Sayın Özel Minepol Ağız ve Diş Sağlığı Polikliniği Yetkilisi,\n\nBen Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi 2026 yılı mezunuyum. 350'nin üzerinde restoratif ve endodontik klinik vaka deneyimim ve özel klinik hekimlik tecrübem bulunmaktadır.\n\nTepebaşı merkezli kliniğinizin çağdaş hasta protokolleri ve ileri restoratif vizyonu ile uyum içinde çalışmayı arzu ediyorum.\n\nKliniğiniz bünyesinde diş hekimi kadrolarında değerlendirilmek üzere özgeçmişimi takdim etmek isterim. İletişim: 0(555) 000 26 26 / rumeysacolak.dt@gmail.com.",
+          "candidate_info": {
+            "name": "Dt. Rümeysa Çolak",
+            "email": "rumeysacolak.dt@gmail.com",
+            "phone": "0(555) 000 26 26",
+            "subject": "Diş Hekimi İş Başvurusu — Dt. Rümeysa Çolak"
+          },
+          "instructions": [
+            "1. 'Form Sayfasını Aç' düğmesine tıklayarak kliniğin resmî sayfasına gidin.",
+            "2. Ad, e-posta ve telefon bilgilerinizi doldurun.",
+            "3. 'Mesajınız' alanına hazırlanan başvuru metnini yapıştırıp formu gönderin.",
+            "4. CareerMap paneline dönüp başvuruyu 'Gönderildi' olarak onaylayın."
+          ]
+        }
+      }
+    },
+    {
+      "application_id": "app--colak-epebasi-inci",
+      "order": 5,
+      "clinic_name": "Özel İnci Ağız ve Diş Sağlığı Polikliniği",
+      "employer_type": "Özel poliklinik",
+      "district": "Tepebaşı",
+      "match_score": 100,
+      "match_reasons": [
+        "Şehir uyumu: Eskişehir",
+        "Hedef ilçe tercihi: Tepebaşı",
+        "Çok hekimli özel poliklinik yapısı (Geniş hasta sirkülasyonu ve ekip çalışması)",
+        "Doğrulanmış kurumsal e-posta kanalı mevcut (CV ekli resmî başvuruya uygun)",
+        "Doğrulanmış kurumsal WhatsApp hattı mevcut (Nezaket takibine uygun)",
+        "Kurumsal web iletişim formu mevcut",
+        "Restoratif diş tedavisi ve endodonti (kanal tedavisi) klinik vaka yetkinliği"
+      ],
+      "primary_channel": "email",
+      "verified_contacts": {
+        "email": "info@incidis.com.tr",
+        "phone": "0(222) 231 11 11",
+        "whatsapp": "https://wa.me/905421373573",
+        "website": "https://incidisclinic.com",
+        "contact_form": "https://www.incidis.com.tr"
+      },
+      "orchestration_workflow": [
+        {
+          "step_number": 1,
+          "day": 1,
+          "action_type": "initial_application",
+          "channel": "email",
+          "title": "CV Ekli E-posta Başvurusu",
+          "description": "Sayın Yetkili hitabıyla hazırlanan kişiselleştirilmiş başvuru metni ve Dt. Rümeysa Çolak CV PDF eki kurumsal e-posta adresine (info@incidis.com.tr) iletilir.",
+          "requires_user_approval": true,
+          "is_automated_possible": true
+        },
+        {
+          "step_number": 2,
+          "day": 4,
+          "action_type": "wait_and_check",
+          "channel": "crm_monitor",
+          "title": "4-5 İş Günü Yanıt Bekleme Penceresi",
+          "description": "Kliniğin e-posta veya telefon dönüşü olup olmadığı CRM üzerinden kontrol edilir. Yanıt geldiyse takip durdurulur.",
+          "requires_user_approval": false,
+          "is_automated_possible": true
+        },
+        {
+          "step_number": 3,
+          "day": 5,
+          "action_type": "followup_reminder",
+          "channel": "whatsapp",
+          "title": "WhatsApp Nezaket Hatırlatması (Yalnızca Cevap Gelmediyse)",
+          "description": "E-posta başvurusunun ulaşıp ulaşmadığını nazikçe soran kısa WhatsApp durum kontrol mesajı.",
+          "requires_user_approval": true,
+          "is_automated_possible": false
+        },
+        {
+          "step_number": 4,
+          "day": 10,
+          "action_type": "finalize_or_archive",
+          "channel": "crm_monitor",
+          "title": "Başvuru Durumunu Netleştirme",
+          "description": "Görüşme daveti, olumsuz geri bildirim veya ileri tarihte değerlendirilmek üzere arşivleme kararı CRM'e işlenir.",
+          "requires_user_approval": true,
+          "is_automated_possible": false
+        }
+      ],
+      "messages": {
+        "email_draft": {
+          "subject": "Diş Hekimi İş Başvurusu — Dt. Rümeysa Çolak | Özel İnci Ağız ve Diş Sağlığı Polikliniği",
+          "recipient": "info@incidis.com.tr",
+          "body": "Sayın Yetkili,\n\nBen Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi 2026 yılı mezunuyum.\n\nEğitimim süresince 350'nin üzerinde klinik vaka deneyimi edindim. Özellikle restoratif diş tedavisi, estetik anterior ve posterior kompozit restorasyonlar ile endodonti (kanal tedavisi) alanlarında yoğun klinik uygulamalar gerçekleştirdim. Mezuniyetimin ardından özel bir diş kliniğinde çalışarak hasta iletişimi, vaka takibi ve klinik iş akışında profesyonel deneyim kazandım.\n\nTepebaşı bölgesindeki kurumsal poliklinik yapınız ve ekip çalışmasına dayalı klinik kültürünüz içerisinde uzun vadeli hekimlik yapmayı hedefliyorum.\n\nKliniğinizde mevcut veya ilerleyen dönemde oluşabilecek diş hekimi pozisyonları için özgeçmişimi değerlendirmenize sunuyorum.\n\nUygun görmeniz hâlinde yüz yüze veya çevrim içi bir ön görüşme gerçekleştirmekten büyük memnuniyet duyarım.\n\nSaygılarımla,\n\nDt. Rümeysa Çolak\nTelefon: 0(555) 000 26 26\nE-posta: rumeysacolak.dt@gmail.com\n\nEk: Rumeysa_Colak_CV.pdf",
+          "attachment": "Rumeysa_Colak_CV.pdf"
+        },
+        "whatsapp_model_b": {
+          "title": "Model B — Mesaj + Güvenli CV Bağlantısı (Önerilen)",
+          "mobile_phone": "905421373573",
+          "message_text": "Merhaba, ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunuyum.\n\nKliniğinizde (Özel İnci Ağız ve Diş Sağlığı Polikliniği) oluşabilecek diş hekimi pozisyonları için başvuruda bulunmak istiyorum.\n\nÖzgeçmişimi aşağıdaki güvenli bağlantıdan inceleyebilirsiniz:\nhttps://careermap.local/cv/view/9306b1dee2c54959\n\nUygun görmeniz hâlinde görüşmekten memnuniyet duyarım. İyi çalışmalar dilerim.",
+          "wa_link": "https://wa.me/905421373573?text=Merhaba%2C%20ben%20Dt.%20R%C3%BCmeysa%20%C3%87olak.%20S%C3%BCleyman%20Demirel%20%C3%9Cniversitesi%20Di%C5%9F%20Hekimli%C4%9Fi%20Fak%C3%BCltesi%20mezunuyum.%0A%0AKlini%C4%9Finizde%20%28%C3%96zel%20%C4%B0nci%20A%C4%9F%C4%B1z%20ve%20Di%C5%9F%20Sa%C4%9Fl%C4%B1%C4%9F%C4%B1%20Poliklini%C4%9Fi%29%20olu%C5%9Fabilecek%20di%C5%9F%20hekimi%20pozisyonlar%C4%B1%20i%C3%A7in%20ba%C5%9Fvuruda%20bulunmak%20istiyorum.%0A%0A%C3%96zge%C3%A7mi%C5%9Fimi%20a%C5%9Fa%C4%9F%C4%B1daki%20g%C3%BCvenli%20ba%C4%9Flant%C4%B1dan%20inceleyebilirsiniz%3A%0Ahttps%3A//careermap.local/cv/view/9306b1dee2c54959%0A%0AUygun%20g%C3%B6rmeniz%20h%C3%A2linde%20g%C3%B6r%C3%BC%C5%9Fmekten%20memnuniyet%20duyar%C4%B1m.%20%C4%B0yi%20%C3%A7al%C4%B1%C5%9Fmalar%20dilerim."
+        },
+        "whatsapp_model_c": {
+          "title": "Model C — Mesaj + Gerçek PDF Dosya Eki",
+          "message_text": "Merhaba, ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunuyum.\n\nKliniğiniz bünyesinde (Özel İnci Ağız ve Diş Sağlığı Polikliniği) değerlendirilmek üzere özgeçmişimi ekte PDF dosyası olarak iletiyorum.\n\nÖzellikle restoratif ve endodontik tedavilerdeki 350+ vaka tecrübemle kurumunuza değer katmayı hedefliyorum. Uygun görmeniz halinde görüşmekten memnuniyet duyarım. İyi çalışmalar dilerim.",
+          "wa_link": "https://wa.me/905421373573?text=Merhaba%2C%20ben%20Dt.%20R%C3%BCmeysa%20%C3%87olak.%20S%C3%BCleyman%20Demirel%20%C3%9Cniversitesi%20Di%C5%9F%20Hekimli%C4%9Fi%20Fak%C3%BCltesi%20mezunuyum.%0A%0AKlini%C4%9Finiz%20b%C3%BCnyesinde%20%28%C3%96zel%20%C4%B0nci%20A%C4%9F%C4%B1z%20ve%20Di%C5%9F%20Sa%C4%9Fl%C4%B1%C4%9F%C4%B1%20Poliklini%C4%9Fi%29%20de%C4%9Ferlendirilmek%20%C3%BCzere%20%C3%B6zge%C3%A7mi%C5%9Fimi%20ekte%20PDF%20dosyas%C4%B1%20olarak%20iletiyorum.%0A%0A%C3%96zellikle%20restoratif%20ve%20endodontik%20tedavilerdeki%20350%2B%20vaka%20tecr%C3%BCbemle%20kurumunuza%20de%C4%9Fer%20katmay%C4%B1%20hedefliyorum.%20Uygun%20g%C3%B6rmeniz%20halinde%20g%C3%B6r%C3%BC%C5%9Fmekten%20memnuniyet%20duyar%C4%B1m.%20%C4%B0yi%20%C3%A7al%C4%B1%C5%9Fmalar%20dilerim.",
+          "instructions": "WhatsApp açılır, hazır mesaj iletilir; aday cihazındaki PDF CV dosyasını sohbete ekleyerek gönderir."
+        },
+        "whatsapp_followup": {
+          "title": "Nezaket Hatırlatması (4-5 İş Günü Sonrası)",
+          "message_text": "Merhaba, ben Dt. Rümeysa Çolak.\n\nDiş hekimi pozisyonları için geçtiğimiz günlerde kliniğinize özgeçmişimi e-posta yoluyla iletmiştim.\n\nBaşvurumun değerlendirilme imkânı olup olmadığını nazikçe öğrenmek istedim. Uygun görmeniz hâlinde tanışmaktan ve görüşmekten memnuniyet duyarım.\n\nİyi çalışmalar dilerim.",
+          "wa_link": "https://wa.me/905421373573?text=Merhaba%2C%20ben%20Dt.%20R%C3%BCmeysa%20%C3%87olak.%0A%0ADi%C5%9F%20hekimi%20pozisyonlar%C4%B1%20i%C3%A7in%20ge%C3%A7ti%C4%9Fimiz%20g%C3%BCnlerde%20klini%C4%9Finize%20%C3%B6zge%C3%A7mi%C5%9Fimi%20e-posta%20yoluyla%20iletmi%C5%9Ftim.%0A%0ABa%C5%9Fvurumun%20de%C4%9Ferlendirilme%20imk%C3%A2n%C4%B1%20olup%20olmad%C4%B1%C4%9F%C4%B1n%C4%B1%20nazik%C3%A7e%20%C3%B6%C4%9Frenmek%20istedim.%20Uygun%20g%C3%B6rmeniz%20h%C3%A2linde%20tan%C4%B1%C5%9Fmaktan%20ve%20g%C3%B6r%C3%BC%C5%9Fmekten%20memnuniyet%20duyar%C4%B1m.%0A%0A%C4%B0yi%20%C3%A7al%C4%B1%C5%9Fmalar%20dilerim."
+        },
+        "phone_calling_brief": {
+          "employer_name": "Özel İnci Ağız ve Diş Sağlığı Polikliniği",
+          "phone_formatted": "0(222) 231 11 11",
+          "tel_link": "tel:02222311111",
+          "call_script": "İyi günler, ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunu diş hekimiyim.\n\nKliniğinizin mesul müdürü veya hekim işe alımından sorumlu yetkilisi ile görüşmem mümkün müdür?\n\n(Yetkili bağlandığında):\n\"Merhabalar Hocam / İyi günler. Ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunuyum. 350'nin üzerinde restoratif ve endodontik vaka tecrübem ve özel klinik deneyimim bulunuyor. Kliniğiniz bünyesinde diş hekimi kadrosu değerlendirmesi için özgeçmişimi iletmek ve uygun görmeniz halinde kendimi kısaca tanıtmak isterdim.\" ",
+          "instructions": [
+            "1. Kurumu aramadan önce görüşme notunu gözden geçirin.",
+            "2. Klinik mesul müdürü veya insan kaynakları yetkilisi ile görüşmek istediğinizi belirtin.",
+            "3. Görüşme sonrasında aldığınız cevabı (Görüşme planlandı, İleride değerlendirilecek vb.) panele kaydedin."
+          ]
+        },
+        "career_form_brief": {
+          "employer_name": "Özel İnci Ağız ve Diş Sağlığı Polikliniği",
+          "form_url": "https://www.incidis.com.tr",
+          "is_available": true,
+          "message_to_paste": "Sayın Özel İnci Ağız ve Diş Sağlığı Polikliniği Yetkilisi,\n\nBen Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi 2026 yılı mezunuyum. 350'nin üzerinde restoratif ve endodontik klinik vaka deneyimim ve özel klinik hekimlik tecrübem bulunmaktadır.\n\nTepebaşı bölgesindeki kurumsal poliklinik yapınız ve ekip çalışmasına dayalı klinik kültürünüz içerisinde uzun vadeli hekimlik yapmayı hedefliyorum.\n\nKliniğiniz bünyesinde diş hekimi kadrolarında değerlendirilmek üzere özgeçmişimi takdim etmek isterim. İletişim: 0(555) 000 26 26 / rumeysacolak.dt@gmail.com.",
+          "candidate_info": {
+            "name": "Dt. Rümeysa Çolak",
+            "email": "rumeysacolak.dt@gmail.com",
+            "phone": "0(555) 000 26 26",
+            "subject": "Diş Hekimi İş Başvurusu — Dt. Rümeysa Çolak"
+          },
+          "instructions": [
+            "1. 'Form Sayfasını Aç' düğmesine tıklayarak kliniğin resmî sayfasına gidin.",
+            "2. Ad, e-posta ve telefon bilgilerinizi doldurun.",
+            "3. 'Mesajınız' alanına hazırlanan başvuru metnini yapıştırıp formu gönderin.",
+            "4. CareerMap paneline dönüp başvuruyu 'Gönderildi' olarak onaylayın."
+          ]
+        }
+      }
+    },
+    {
+      "application_id": "app--colak--dorliondent",
+      "order": 6,
+      "clinic_name": "Özel Dorlion Dent Ağız Ve Diş Sağlığı Polikliniği",
+      "employer_type": "Özel poliklinik",
+      "district": "Odunpazarı",
+      "match_score": 85,
+      "match_reasons": [
+        "Şehir uyumu: Eskişehir",
+        "Hedef ilçe tercihi: Odunpazarı",
+        "Çok hekimli özel poliklinik yapısı (Geniş hasta sirkülasyonu ve ekip çalışması)",
+        "Doğrulanmış kurumsal e-posta kanalı mevcut (CV ekli resmî başvuruya uygun)",
+        "Restoratif diş tedavisi ve endodonti (kanal tedavisi) klinik vaka yetkinliği"
+      ],
+      "primary_channel": "email",
+      "verified_contacts": {
+        "email": "info@dorliondent.com.tr",
+        "phone": "0(222) 234 44 44",
+        "whatsapp": "",
+        "website": "https://www.dorliondent.com",
+        "contact_form": ""
+      },
+      "orchestration_workflow": [
+        {
+          "step_number": 1,
+          "day": 1,
+          "action_type": "initial_application",
+          "channel": "email",
+          "title": "CV Ekli E-posta Başvurusu",
+          "description": "Sayın Yetkili hitabıyla hazırlanan kişiselleştirilmiş başvuru metni ve Dt. Rümeysa Çolak CV PDF eki kurumsal e-posta adresine (info@dorliondent.com.tr) iletilir.",
+          "requires_user_approval": true,
+          "is_automated_possible": true
+        },
+        {
+          "step_number": 2,
+          "day": 4,
+          "action_type": "wait_and_check",
+          "channel": "crm_monitor",
+          "title": "4-5 İş Günü Yanıt Bekleme Penceresi",
+          "description": "Kliniğin e-posta veya telefon dönüşü olup olmadığı CRM üzerinden kontrol edilir. Yanıt geldiyse takip durdurulur.",
+          "requires_user_approval": false,
+          "is_automated_possible": true
+        },
+        {
+          "step_number": 3,
+          "day": 6,
+          "action_type": "followup_reminder",
+          "channel": "phone",
+          "title": "Telefonla Takip Araması (Yalnızca Cevap Gelmediyse)",
+          "description": "Klinik sekreteryası aranarak gönderilen CV'nin ilgili mesul müdürün değerlendirmesine sunulup sunulmadığı teyit edilir.",
+          "requires_user_approval": true,
+          "is_automated_possible": false
+        },
+        {
+          "step_number": 4,
+          "day": 10,
+          "action_type": "finalize_or_archive",
+          "channel": "crm_monitor",
+          "title": "Başvuru Durumunu Netleştirme",
+          "description": "Görüşme daveti, olumsuz geri bildirim veya ileri tarihte değerlendirilmek üzere arşivleme kararı CRM'e işlenir.",
+          "requires_user_approval": true,
+          "is_automated_possible": false
+        }
+      ],
+      "messages": {
+        "email_draft": {
+          "subject": "Diş Hekimi İş Başvurusu — Dt. Rümeysa Çolak | Özel Dorlion Dent Ağız Ve Diş Sağlığı Polikliniği",
+          "recipient": "info@dorliondent.com.tr",
+          "body": "Sayın Yetkili,\n\nBen Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi 2026 yılı mezunuyum.\n\nEğitimim süresince 350'nin üzerinde klinik vaka deneyimi edindim. Özellikle restoratif diş tedavisi, estetik anterior ve posterior kompozit restorasyonlar ile endodonti (kanal tedavisi) alanlarında yoğun klinik uygulamalar gerçekleştirdim. Mezuniyetimin ardından özel bir diş kliniğinde çalışarak hasta iletişimi, vaka takibi ve klinik iş akışında profesyonel deneyim kazandım.\n\nOdunpazarı bölgesinde köklü ve modern klinik altyapınızla sunduğunuz hasta memnuniyeti odaklı tedavi standartlarına katkı sağlamayı hedefliyorum.\n\nKliniğinizde mevcut veya ilerleyen dönemde oluşabilecek diş hekimi pozisyonları için özgeçmişimi değerlendirmenize sunuyorum.\n\nUygun görmeniz hâlinde yüz yüze veya çevrim içi bir ön görüşme gerçekleştirmekten büyük memnuniyet duyarım.\n\nSaygılarımla,\n\nDt. Rümeysa Çolak\nTelefon: 0(555) 000 26 26\nE-posta: rumeysacolak.dt@gmail.com\n\nEk: Rumeysa_Colak_CV.pdf",
+          "attachment": "Rumeysa_Colak_CV.pdf"
+        },
+        "whatsapp_model_b": {
+          "title": "Model B — Mesaj + Güvenli CV Bağlantısı (Önerilen)",
+          "mobile_phone": "",
+          "message_text": "Merhaba, ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunuyum.\n\nKliniğinizde (Özel Dorlion Dent Ağız Ve Diş Sağlığı Polikliniği) oluşabilecek diş hekimi pozisyonları için başvuruda bulunmak istiyorum.\n\nÖzgeçmişimi aşağıdaki güvenli bağlantıdan inceleyebilirsiniz:\nhttps://careermap.local/cv/view/9306b1dee2c54959\n\nUygun görmeniz hâlinde görüşmekten memnuniyet duyarım. İyi çalışmalar dilerim.",
+          "wa_link": ""
+        },
+        "whatsapp_model_c": {
+          "title": "Model C — Mesaj + Gerçek PDF Dosya Eki",
+          "message_text": "Merhaba, ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunuyum.\n\nKliniğiniz bünyesinde (Özel Dorlion Dent Ağız Ve Diş Sağlığı Polikliniği) değerlendirilmek üzere özgeçmişimi ekte PDF dosyası olarak iletiyorum.\n\nÖzellikle restoratif ve endodontik tedavilerdeki 350+ vaka tecrübemle kurumunuza değer katmayı hedefliyorum. Uygun görmeniz halinde görüşmekten memnuniyet duyarım. İyi çalışmalar dilerim.",
+          "wa_link": "",
+          "instructions": "WhatsApp açılır, hazır mesaj iletilir; aday cihazındaki PDF CV dosyasını sohbete ekleyerek gönderir."
+        },
+        "whatsapp_followup": {
+          "title": "Nezaket Hatırlatması (4-5 İş Günü Sonrası)",
+          "message_text": "Merhaba, ben Dt. Rümeysa Çolak.\n\nDiş hekimi pozisyonları için geçtiğimiz günlerde kliniğinize özgeçmişimi e-posta yoluyla iletmiştim.\n\nBaşvurumun değerlendirilme imkânı olup olmadığını nazikçe öğrenmek istedim. Uygun görmeniz hâlinde tanışmaktan ve görüşmekten memnuniyet duyarım.\n\nİyi çalışmalar dilerim.",
+          "wa_link": ""
+        },
+        "phone_calling_brief": {
+          "employer_name": "Özel Dorlion Dent Ağız Ve Diş Sağlığı Polikliniği",
+          "phone_formatted": "0(222) 234 44 44",
+          "tel_link": "tel:02222344444",
+          "call_script": "İyi günler, ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunu diş hekimiyim.\n\nKliniğinizin mesul müdürü veya hekim işe alımından sorumlu yetkilisi ile görüşmem mümkün müdür?\n\n(Yetkili bağlandığında):\n\"Merhabalar Hocam / İyi günler. Ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunuyum. 350'nin üzerinde restoratif ve endodontik vaka tecrübem ve özel klinik deneyimim bulunuyor. Kliniğiniz bünyesinde diş hekimi kadrosu değerlendirmesi için özgeçmişimi iletmek ve uygun görmeniz halinde kendimi kısaca tanıtmak isterdim.\" ",
+          "instructions": [
+            "1. Kurumu aramadan önce görüşme notunu gözden geçirin.",
+            "2. Klinik mesul müdürü veya insan kaynakları yetkilisi ile görüşmek istediğinizi belirtin.",
+            "3. Görüşme sonrasında aldığınız cevabı (Görüşme planlandı, İleride değerlendirilecek vb.) panele kaydedin."
+          ]
+        },
+        "career_form_brief": {
+          "employer_name": "Özel Dorlion Dent Ağız Ve Diş Sağlığı Polikliniği",
+          "form_url": "https://www.dorliondent.com",
+          "is_available": true,
+          "message_to_paste": "Sayın Özel Dorlion Dent Ağız Ve Diş Sağlığı Polikliniği Yetkilisi,\n\nBen Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi 2026 yılı mezunuyum. 350'nin üzerinde restoratif ve endodontik klinik vaka deneyimim ve özel klinik hekimlik tecrübem bulunmaktadır.\n\nOdunpazarı bölgesinde köklü ve modern klinik altyapınızla sunduğunuz hasta memnuniyeti odaklı tedavi standartlarına katkı sağlamayı hedefliyorum.\n\nKliniğiniz bünyesinde diş hekimi kadrolarında değerlendirilmek üzere özgeçmişimi takdim etmek isterim. İletişim: 0(555) 000 26 26 / rumeysacolak.dt@gmail.com.",
+          "candidate_info": {
+            "name": "Dt. Rümeysa Çolak",
+            "email": "rumeysacolak.dt@gmail.com",
+            "phone": "0(555) 000 26 26",
+            "subject": "Diş Hekimi İş Başvurusu — Dt. Rümeysa Çolak"
+          },
+          "instructions": [
+            "1. 'Form Sayfasını Aç' düğmesine tıklayarak kliniğin resmî sayfasına gidin.",
+            "2. Ad, e-posta ve telefon bilgilerinizi doldurun.",
+            "3. 'Mesajınız' alanına hazırlanan başvuru metnini yapıştırıp formu gönderin.",
+            "4. CareerMap paneline dönüp başvuruyu 'Gönderildi' olarak onaylayın."
+          ]
+        }
+      }
+    },
+    {
+      "application_id": "app--colak-ri-emek-emek",
+      "order": 7,
+      "clinic_name": "Özel Emek Ağız ve Diş Sağlığı Polikliniği",
+      "employer_type": "Özel poliklinik",
+      "district": "Odunpazarı",
+      "match_score": 85,
+      "match_reasons": [
+        "Şehir uyumu: Eskişehir",
+        "Hedef ilçe tercihi: Odunpazarı",
+        "Çok hekimli özel poliklinik yapısı (Geniş hasta sirkülasyonu ve ekip çalışması)",
+        "Doğrulanmış kurumsal e-posta kanalı mevcut (CV ekli resmî başvuruya uygun)",
+        "Restoratif diş tedavisi ve endodonti (kanal tedavisi) klinik vaka yetkinliği"
+      ],
+      "primary_channel": "email",
+      "verified_contacts": {
+        "email": "info@emekdis.com.tr",
+        "phone": "0(545) 603 80 43",
+        "whatsapp": "",
+        "website": "https://www.emekdis.com.tr",
+        "contact_form": ""
+      },
+      "orchestration_workflow": [
+        {
+          "step_number": 1,
+          "day": 1,
+          "action_type": "initial_application",
+          "channel": "email",
+          "title": "CV Ekli E-posta Başvurusu",
+          "description": "Sayın Yetkili hitabıyla hazırlanan kişiselleştirilmiş başvuru metni ve Dt. Rümeysa Çolak CV PDF eki kurumsal e-posta adresine (info@emekdis.com.tr) iletilir.",
+          "requires_user_approval": true,
+          "is_automated_possible": true
+        },
+        {
+          "step_number": 2,
+          "day": 4,
+          "action_type": "wait_and_check",
+          "channel": "crm_monitor",
+          "title": "4-5 İş Günü Yanıt Bekleme Penceresi",
+          "description": "Kliniğin e-posta veya telefon dönüşü olup olmadığı CRM üzerinden kontrol edilir. Yanıt geldiyse takip durdurulur.",
+          "requires_user_approval": false,
+          "is_automated_possible": true
+        },
+        {
+          "step_number": 3,
+          "day": 6,
+          "action_type": "followup_reminder",
+          "channel": "phone",
+          "title": "Telefonla Takip Araması (Yalnızca Cevap Gelmediyse)",
+          "description": "Klinik sekreteryası aranarak gönderilen CV'nin ilgili mesul müdürün değerlendirmesine sunulup sunulmadığı teyit edilir.",
+          "requires_user_approval": true,
+          "is_automated_possible": false
+        },
+        {
+          "step_number": 4,
+          "day": 10,
+          "action_type": "finalize_or_archive",
+          "channel": "crm_monitor",
+          "title": "Başvuru Durumunu Netleştirme",
+          "description": "Görüşme daveti, olumsuz geri bildirim veya ileri tarihte değerlendirilmek üzere arşivleme kararı CRM'e işlenir.",
+          "requires_user_approval": true,
+          "is_automated_possible": false
+        }
+      ],
+      "messages": {
+        "email_draft": {
+          "subject": "Diş Hekimi İş Başvurusu — Dt. Rümeysa Çolak | Özel Emek Ağız ve Diş Sağlığı Polikliniği",
+          "recipient": "info@emekdis.com.tr",
+          "body": "Sayın Yetkili,\n\nBen Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi 2026 yılı mezunuyum.\n\nEğitimim süresince 350'nin üzerinde klinik vaka deneyimi edindim. Özellikle restoratif diş tedavisi, estetik anterior ve posterior kompozit restorasyonlar ile endodonti (kanal tedavisi) alanlarında yoğun klinik uygulamalar gerçekleştirdim. Mezuniyetimin ardından özel bir diş kliniğinde çalışarak hasta iletişimi, vaka takibi ve klinik iş akışında profesyonel deneyim kazandım.\n\nOdunpazarı bölgesindeki yoğun hasta sirkülasyonuna sahip poliklinik yapınızda pratik klinik tecrübemi ve vaka deneyimimi değerlendirmek istiyorum.\n\nKliniğinizde mevcut veya ilerleyen dönemde oluşabilecek diş hekimi pozisyonları için özgeçmişimi değerlendirmenize sunuyorum.\n\nUygun görmeniz hâlinde yüz yüze veya çevrim içi bir ön görüşme gerçekleştirmekten büyük memnuniyet duyarım.\n\nSaygılarımla,\n\nDt. Rümeysa Çolak\nTelefon: 0(555) 000 26 26\nE-posta: rumeysacolak.dt@gmail.com\n\nEk: Rumeysa_Colak_CV.pdf",
+          "attachment": "Rumeysa_Colak_CV.pdf"
+        },
+        "whatsapp_model_b": {
+          "title": "Model B — Mesaj + Güvenli CV Bağlantısı (Önerilen)",
+          "mobile_phone": "905456038043",
+          "message_text": "Merhaba, ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunuyum.\n\nKliniğinizde (Özel Emek Ağız ve Diş Sağlığı Polikliniği) oluşabilecek diş hekimi pozisyonları için başvuruda bulunmak istiyorum.\n\nÖzgeçmişimi aşağıdaki güvenli bağlantıdan inceleyebilirsiniz:\nhttps://careermap.local/cv/view/9306b1dee2c54959\n\nUygun görmeniz hâlinde görüşmekten memnuniyet duyarım. İyi çalışmalar dilerim.",
+          "wa_link": "https://wa.me/905456038043?text=Merhaba%2C%20ben%20Dt.%20R%C3%BCmeysa%20%C3%87olak.%20S%C3%BCleyman%20Demirel%20%C3%9Cniversitesi%20Di%C5%9F%20Hekimli%C4%9Fi%20Fak%C3%BCltesi%20mezunuyum.%0A%0AKlini%C4%9Finizde%20%28%C3%96zel%20Emek%20A%C4%9F%C4%B1z%20ve%20Di%C5%9F%20Sa%C4%9Fl%C4%B1%C4%9F%C4%B1%20Poliklini%C4%9Fi%29%20olu%C5%9Fabilecek%20di%C5%9F%20hekimi%20pozisyonlar%C4%B1%20i%C3%A7in%20ba%C5%9Fvuruda%20bulunmak%20istiyorum.%0A%0A%C3%96zge%C3%A7mi%C5%9Fimi%20a%C5%9Fa%C4%9F%C4%B1daki%20g%C3%BCvenli%20ba%C4%9Flant%C4%B1dan%20inceleyebilirsiniz%3A%0Ahttps%3A//careermap.local/cv/view/9306b1dee2c54959%0A%0AUygun%20g%C3%B6rmeniz%20h%C3%A2linde%20g%C3%B6r%C3%BC%C5%9Fmekten%20memnuniyet%20duyar%C4%B1m.%20%C4%B0yi%20%C3%A7al%C4%B1%C5%9Fmalar%20dilerim."
+        },
+        "whatsapp_model_c": {
+          "title": "Model C — Mesaj + Gerçek PDF Dosya Eki",
+          "message_text": "Merhaba, ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunuyum.\n\nKliniğiniz bünyesinde (Özel Emek Ağız ve Diş Sağlığı Polikliniği) değerlendirilmek üzere özgeçmişimi ekte PDF dosyası olarak iletiyorum.\n\nÖzellikle restoratif ve endodontik tedavilerdeki 350+ vaka tecrübemle kurumunuza değer katmayı hedefliyorum. Uygun görmeniz halinde görüşmekten memnuniyet duyarım. İyi çalışmalar dilerim.",
+          "wa_link": "https://wa.me/905456038043?text=Merhaba%2C%20ben%20Dt.%20R%C3%BCmeysa%20%C3%87olak.%20S%C3%BCleyman%20Demirel%20%C3%9Cniversitesi%20Di%C5%9F%20Hekimli%C4%9Fi%20Fak%C3%BCltesi%20mezunuyum.%0A%0AKlini%C4%9Finiz%20b%C3%BCnyesinde%20%28%C3%96zel%20Emek%20A%C4%9F%C4%B1z%20ve%20Di%C5%9F%20Sa%C4%9Fl%C4%B1%C4%9F%C4%B1%20Poliklini%C4%9Fi%29%20de%C4%9Ferlendirilmek%20%C3%BCzere%20%C3%B6zge%C3%A7mi%C5%9Fimi%20ekte%20PDF%20dosyas%C4%B1%20olarak%20iletiyorum.%0A%0A%C3%96zellikle%20restoratif%20ve%20endodontik%20tedavilerdeki%20350%2B%20vaka%20tecr%C3%BCbemle%20kurumunuza%20de%C4%9Fer%20katmay%C4%B1%20hedefliyorum.%20Uygun%20g%C3%B6rmeniz%20halinde%20g%C3%B6r%C3%BC%C5%9Fmekten%20memnuniyet%20duyar%C4%B1m.%20%C4%B0yi%20%C3%A7al%C4%B1%C5%9Fmalar%20dilerim.",
+          "instructions": "WhatsApp açılır, hazır mesaj iletilir; aday cihazındaki PDF CV dosyasını sohbete ekleyerek gönderir."
+        },
+        "whatsapp_followup": {
+          "title": "Nezaket Hatırlatması (4-5 İş Günü Sonrası)",
+          "message_text": "Merhaba, ben Dt. Rümeysa Çolak.\n\nDiş hekimi pozisyonları için geçtiğimiz günlerde kliniğinize özgeçmişimi e-posta yoluyla iletmiştim.\n\nBaşvurumun değerlendirilme imkânı olup olmadığını nazikçe öğrenmek istedim. Uygun görmeniz hâlinde tanışmaktan ve görüşmekten memnuniyet duyarım.\n\nİyi çalışmalar dilerim.",
+          "wa_link": "https://wa.me/905456038043?text=Merhaba%2C%20ben%20Dt.%20R%C3%BCmeysa%20%C3%87olak.%0A%0ADi%C5%9F%20hekimi%20pozisyonlar%C4%B1%20i%C3%A7in%20ge%C3%A7ti%C4%9Fimiz%20g%C3%BCnlerde%20klini%C4%9Finize%20%C3%B6zge%C3%A7mi%C5%9Fimi%20e-posta%20yoluyla%20iletmi%C5%9Ftim.%0A%0ABa%C5%9Fvurumun%20de%C4%9Ferlendirilme%20imk%C3%A2n%C4%B1%20olup%20olmad%C4%B1%C4%9F%C4%B1n%C4%B1%20nazik%C3%A7e%20%C3%B6%C4%9Frenmek%20istedim.%20Uygun%20g%C3%B6rmeniz%20h%C3%A2linde%20tan%C4%B1%C5%9Fmaktan%20ve%20g%C3%B6r%C3%BC%C5%9Fmekten%20memnuniyet%20duyar%C4%B1m.%0A%0A%C4%B0yi%20%C3%A7al%C4%B1%C5%9Fmalar%20dilerim."
+        },
+        "phone_calling_brief": {
+          "employer_name": "Özel Emek Ağız ve Diş Sağlığı Polikliniği",
+          "phone_formatted": "0(545) 603 80 43",
+          "tel_link": "tel:05456038043",
+          "call_script": "İyi günler, ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunu diş hekimiyim.\n\nKliniğinizin mesul müdürü veya hekim işe alımından sorumlu yetkilisi ile görüşmem mümkün müdür?\n\n(Yetkili bağlandığında):\n\"Merhabalar Hocam / İyi günler. Ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunuyum. 350'nin üzerinde restoratif ve endodontik vaka tecrübem ve özel klinik deneyimim bulunuyor. Kliniğiniz bünyesinde diş hekimi kadrosu değerlendirmesi için özgeçmişimi iletmek ve uygun görmeniz halinde kendimi kısaca tanıtmak isterdim.\" ",
+          "instructions": [
+            "1. Kurumu aramadan önce görüşme notunu gözden geçirin.",
+            "2. Klinik mesul müdürü veya insan kaynakları yetkilisi ile görüşmek istediğinizi belirtin.",
+            "3. Görüşme sonrasında aldığınız cevabı (Görüşme planlandı, İleride değerlendirilecek vb.) panele kaydedin."
+          ]
+        },
+        "career_form_brief": {
+          "employer_name": "Özel Emek Ağız ve Diş Sağlığı Polikliniği",
+          "form_url": "https://www.emekdis.com.tr",
+          "is_available": true,
+          "message_to_paste": "Sayın Özel Emek Ağız ve Diş Sağlığı Polikliniği Yetkilisi,\n\nBen Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi 2026 yılı mezunuyum. 350'nin üzerinde restoratif ve endodontik klinik vaka deneyimim ve özel klinik hekimlik tecrübem bulunmaktadır.\n\nOdunpazarı bölgesindeki yoğun hasta sirkülasyonuna sahip poliklinik yapınızda pratik klinik tecrübemi ve vaka deneyimimi değerlendirmek istiyorum.\n\nKliniğiniz bünyesinde diş hekimi kadrolarında değerlendirilmek üzere özgeçmişimi takdim etmek isterim. İletişim: 0(555) 000 26 26 / rumeysacolak.dt@gmail.com.",
+          "candidate_info": {
+            "name": "Dt. Rümeysa Çolak",
+            "email": "rumeysacolak.dt@gmail.com",
+            "phone": "0(555) 000 26 26",
+            "subject": "Diş Hekimi İş Başvurusu — Dt. Rümeysa Çolak"
+          },
+          "instructions": [
+            "1. 'Form Sayfasını Aç' düğmesine tıklayarak kliniğin resmî sayfasına gidin.",
+            "2. Ad, e-posta ve telefon bilgilerinizi doldurun.",
+            "3. 'Mesajınız' alanına hazırlanan başvuru metnini yapıştırıp formu gönderin.",
+            "4. CareerMap paneline dönüp başvuruyu 'Gönderildi' olarak onaylayın."
+          ]
+        }
+      }
+    },
+    {
+      "application_id": "app--colak-ileeskisehir",
+      "order": 8,
+      "clinic_name": "Özel Smile Eskişehir Ağız ve Diş Sağlığı Polikliniği",
+      "employer_type": "Özel poliklinik",
+      "district": "Tepebaşı",
+      "match_score": 80,
+      "match_reasons": [
+        "Şehir uyumu: Eskişehir",
+        "Hedef ilçe tercihi: Tepebaşı",
+        "Çok hekimli özel poliklinik yapısı (Geniş hasta sirkülasyonu ve ekip çalışması)",
+        "Doğrulanmış kurumsal WhatsApp hattı mevcut (Nezaket takibine uygun)",
+        "Restoratif diş tedavisi ve endodonti (kanal tedavisi) klinik vaka yetkinliği"
+      ],
+      "primary_channel": "whatsapp",
+      "verified_contacts": {
+        "email": "",
+        "phone": "0(222) 330 00 30",
+        "whatsapp": "https://api.whatsapp.com/send?phone=+905468680222&text=Merhaba, tedavileriniz hakkında bilgi alabilir miyim?",
+        "website": "https://www.smileeskisehir.com",
+        "contact_form": ""
+      },
+      "orchestration_workflow": [
+        {
+          "step_number": 1,
+          "day": 1,
+          "action_type": "initial_application",
+          "channel": "whatsapp",
+          "title": "WhatsApp Üzerinden İlk Başvuru (Model B/C)",
+          "description": "Doğrulanmış WhatsApp hattına (https://api.whatsapp.com/send?phone=+905468680222&text=Merhaba, tedavileriniz hakkında bilgi alabilir miyim?) hazır başvuru metni ve güvenli CV bağlantısı yönlendirilir.",
+          "requires_user_approval": true,
+          "is_automated_possible": false
+        },
+        {
+          "step_number": 2,
+          "day": 4,
+          "action_type": "wait_and_check",
+          "channel": "crm_monitor",
+          "title": "4-5 İş Günü Yanıt Bekleme Penceresi",
+          "description": "Kliniğin e-posta veya telefon dönüşü olup olmadığı CRM üzerinden kontrol edilir. Yanıt geldiyse takip durdurulur.",
+          "requires_user_approval": false,
+          "is_automated_possible": true
+        },
+        {
+          "step_number": 3,
+          "day": 6,
+          "action_type": "followup_reminder",
+          "channel": "phone",
+          "title": "Telefonla Takip Araması (Yalnızca Cevap Gelmediyse)",
+          "description": "Klinik sekreteryası aranarak gönderilen CV'nin ilgili mesul müdürün değerlendirmesine sunulup sunulmadığı teyit edilir.",
+          "requires_user_approval": true,
+          "is_automated_possible": false
+        },
+        {
+          "step_number": 4,
+          "day": 10,
+          "action_type": "finalize_or_archive",
+          "channel": "crm_monitor",
+          "title": "Başvuru Durumunu Netleştirme",
+          "description": "Görüşme daveti, olumsuz geri bildirim veya ileri tarihte değerlendirilmek üzere arşivleme kararı CRM'e işlenir.",
+          "requires_user_approval": true,
+          "is_automated_possible": false
+        }
+      ],
+      "messages": {
+        "email_draft": {
+          "subject": "Diş Hekimi İş Başvurusu — Dt. Rümeysa Çolak | Özel Smile Eskişehir Ağız ve Diş Sağlığı Polikliniği",
+          "recipient": "",
+          "body": "Sayın Yetkili,\n\nBen Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi 2026 yılı mezunuyum.\n\nEğitimim süresince 350'nin üzerinde klinik vaka deneyimi edindim. Özellikle restoratif diş tedavisi, estetik anterior ve posterior kompozit restorasyonlar ile endodonti (kanal tedavisi) alanlarında yoğun klinik uygulamalar gerçekleştirdim. Mezuniyetimin ardından özel bir diş kliniğinde çalışarak hasta iletişimi, vaka takibi ve klinik iş akışında profesyonel deneyim kazandım.\n\nTepebaşı bölgesindeki estetik ve dijital diş hekimliği vizyonunuz doğrultusunda kliniğiniz bünyesinde aktif hekimlik yapmayı hedefliyorum.\n\nKliniğinizde mevcut veya ilerleyen dönemde oluşabilecek diş hekimi pozisyonları için özgeçmişimi değerlendirmenize sunuyorum.\n\nUygun görmeniz hâlinde yüz yüze veya çevrim içi bir ön görüşme gerçekleştirmekten büyük memnuniyet duyarım.\n\nSaygılarımla,\n\nDt. Rümeysa Çolak\nTelefon: 0(555) 000 26 26\nE-posta: rumeysacolak.dt@gmail.com\n\nEk: Rumeysa_Colak_CV.pdf",
+          "attachment": "Rumeysa_Colak_CV.pdf"
+        },
+        "whatsapp_model_b": {
+          "title": "Model B — Mesaj + Güvenli CV Bağlantısı (Önerilen)",
+          "mobile_phone": "905468680222",
+          "message_text": "Merhaba, ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunuyum.\n\nKliniğinizde (Özel Smile Eskişehir Ağız ve Diş Sağlığı Polikliniği) oluşabilecek diş hekimi pozisyonları için başvuruda bulunmak istiyorum.\n\nÖzgeçmişimi aşağıdaki güvenli bağlantıdan inceleyebilirsiniz:\nhttps://careermap.local/cv/view/9306b1dee2c54959\n\nUygun görmeniz hâlinde görüşmekten memnuniyet duyarım. İyi çalışmalar dilerim.",
+          "wa_link": "https://wa.me/905468680222?text=Merhaba%2C%20ben%20Dt.%20R%C3%BCmeysa%20%C3%87olak.%20S%C3%BCleyman%20Demirel%20%C3%9Cniversitesi%20Di%C5%9F%20Hekimli%C4%9Fi%20Fak%C3%BCltesi%20mezunuyum.%0A%0AKlini%C4%9Finizde%20%28%C3%96zel%20Smile%20Eski%C5%9Fehir%20A%C4%9F%C4%B1z%20ve%20Di%C5%9F%20Sa%C4%9Fl%C4%B1%C4%9F%C4%B1%20Poliklini%C4%9Fi%29%20olu%C5%9Fabilecek%20di%C5%9F%20hekimi%20pozisyonlar%C4%B1%20i%C3%A7in%20ba%C5%9Fvuruda%20bulunmak%20istiyorum.%0A%0A%C3%96zge%C3%A7mi%C5%9Fimi%20a%C5%9Fa%C4%9F%C4%B1daki%20g%C3%BCvenli%20ba%C4%9Flant%C4%B1dan%20inceleyebilirsiniz%3A%0Ahttps%3A//careermap.local/cv/view/9306b1dee2c54959%0A%0AUygun%20g%C3%B6rmeniz%20h%C3%A2linde%20g%C3%B6r%C3%BC%C5%9Fmekten%20memnuniyet%20duyar%C4%B1m.%20%C4%B0yi%20%C3%A7al%C4%B1%C5%9Fmalar%20dilerim."
+        },
+        "whatsapp_model_c": {
+          "title": "Model C — Mesaj + Gerçek PDF Dosya Eki",
+          "message_text": "Merhaba, ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunuyum.\n\nKliniğiniz bünyesinde (Özel Smile Eskişehir Ağız ve Diş Sağlığı Polikliniği) değerlendirilmek üzere özgeçmişimi ekte PDF dosyası olarak iletiyorum.\n\nÖzellikle restoratif ve endodontik tedavilerdeki 350+ vaka tecrübemle kurumunuza değer katmayı hedefliyorum. Uygun görmeniz halinde görüşmekten memnuniyet duyarım. İyi çalışmalar dilerim.",
+          "wa_link": "https://wa.me/905468680222?text=Merhaba%2C%20ben%20Dt.%20R%C3%BCmeysa%20%C3%87olak.%20S%C3%BCleyman%20Demirel%20%C3%9Cniversitesi%20Di%C5%9F%20Hekimli%C4%9Fi%20Fak%C3%BCltesi%20mezunuyum.%0A%0AKlini%C4%9Finiz%20b%C3%BCnyesinde%20%28%C3%96zel%20Smile%20Eski%C5%9Fehir%20A%C4%9F%C4%B1z%20ve%20Di%C5%9F%20Sa%C4%9Fl%C4%B1%C4%9F%C4%B1%20Poliklini%C4%9Fi%29%20de%C4%9Ferlendirilmek%20%C3%BCzere%20%C3%B6zge%C3%A7mi%C5%9Fimi%20ekte%20PDF%20dosyas%C4%B1%20olarak%20iletiyorum.%0A%0A%C3%96zellikle%20restoratif%20ve%20endodontik%20tedavilerdeki%20350%2B%20vaka%20tecr%C3%BCbemle%20kurumunuza%20de%C4%9Fer%20katmay%C4%B1%20hedefliyorum.%20Uygun%20g%C3%B6rmeniz%20halinde%20g%C3%B6r%C3%BC%C5%9Fmekten%20memnuniyet%20duyar%C4%B1m.%20%C4%B0yi%20%C3%A7al%C4%B1%C5%9Fmalar%20dilerim.",
+          "instructions": "WhatsApp açılır, hazır mesaj iletilir; aday cihazındaki PDF CV dosyasını sohbete ekleyerek gönderir."
+        },
+        "whatsapp_followup": {
+          "title": "Nezaket Hatırlatması (4-5 İş Günü Sonrası)",
+          "message_text": "Merhaba, ben Dt. Rümeysa Çolak.\n\nDiş hekimi pozisyonları için geçtiğimiz günlerde kliniğinize özgeçmişimi e-posta yoluyla iletmiştim.\n\nBaşvurumun değerlendirilme imkânı olup olmadığını nazikçe öğrenmek istedim. Uygun görmeniz hâlinde tanışmaktan ve görüşmekten memnuniyet duyarım.\n\nİyi çalışmalar dilerim.",
+          "wa_link": "https://wa.me/905468680222?text=Merhaba%2C%20ben%20Dt.%20R%C3%BCmeysa%20%C3%87olak.%0A%0ADi%C5%9F%20hekimi%20pozisyonlar%C4%B1%20i%C3%A7in%20ge%C3%A7ti%C4%9Fimiz%20g%C3%BCnlerde%20klini%C4%9Finize%20%C3%B6zge%C3%A7mi%C5%9Fimi%20e-posta%20yoluyla%20iletmi%C5%9Ftim.%0A%0ABa%C5%9Fvurumun%20de%C4%9Ferlendirilme%20imk%C3%A2n%C4%B1%20olup%20olmad%C4%B1%C4%9F%C4%B1n%C4%B1%20nazik%C3%A7e%20%C3%B6%C4%9Frenmek%20istedim.%20Uygun%20g%C3%B6rmeniz%20h%C3%A2linde%20tan%C4%B1%C5%9Fmaktan%20ve%20g%C3%B6r%C3%BC%C5%9Fmekten%20memnuniyet%20duyar%C4%B1m.%0A%0A%C4%B0yi%20%C3%A7al%C4%B1%C5%9Fmalar%20dilerim."
+        },
+        "phone_calling_brief": {
+          "employer_name": "Özel Smile Eskişehir Ağız ve Diş Sağlığı Polikliniği",
+          "phone_formatted": "0(222) 330 00 30",
+          "tel_link": "tel:02223300030",
+          "call_script": "İyi günler, ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunu diş hekimiyim.\n\nKliniğinizin mesul müdürü veya hekim işe alımından sorumlu yetkilisi ile görüşmem mümkün müdür?\n\n(Yetkili bağlandığında):\n\"Merhabalar Hocam / İyi günler. Ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunuyum. 350'nin üzerinde restoratif ve endodontik vaka tecrübem ve özel klinik deneyimim bulunuyor. Kliniğiniz bünyesinde diş hekimi kadrosu değerlendirmesi için özgeçmişimi iletmek ve uygun görmeniz halinde kendimi kısaca tanıtmak isterdim.\" ",
+          "instructions": [
+            "1. Kurumu aramadan önce görüşme notunu gözden geçirin.",
+            "2. Klinik mesul müdürü veya insan kaynakları yetkilisi ile görüşmek istediğinizi belirtin.",
+            "3. Görüşme sonrasında aldığınız cevabı (Görüşme planlandı, İleride değerlendirilecek vb.) panele kaydedin."
+          ]
+        },
+        "career_form_brief": {
+          "employer_name": "Özel Smile Eskişehir Ağız ve Diş Sağlığı Polikliniği",
+          "form_url": "https://www.smileeskisehir.com",
+          "is_available": true,
+          "message_to_paste": "Sayın Özel Smile Eskişehir Ağız ve Diş Sağlığı Polikliniği Yetkilisi,\n\nBen Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi 2026 yılı mezunuyum. 350'nin üzerinde restoratif ve endodontik klinik vaka deneyimim ve özel klinik hekimlik tecrübem bulunmaktadır.\n\nTepebaşı bölgesindeki estetik ve dijital diş hekimliği vizyonunuz doğrultusunda kliniğiniz bünyesinde aktif hekimlik yapmayı hedefliyorum.\n\nKliniğiniz bünyesinde diş hekimi kadrolarında değerlendirilmek üzere özgeçmişimi takdim etmek isterim. İletişim: 0(555) 000 26 26 / rumeysacolak.dt@gmail.com.",
+          "candidate_info": {
+            "name": "Dt. Rümeysa Çolak",
+            "email": "rumeysacolak.dt@gmail.com",
+            "phone": "0(555) 000 26 26",
+            "subject": "Diş Hekimi İş Başvurusu — Dt. Rümeysa Çolak"
+          },
+          "instructions": [
+            "1. 'Form Sayfasını Aç' düğmesine tıklayarak kliniğin resmî sayfasına gidin.",
+            "2. Ad, e-posta ve telefon bilgilerinizi doldurun.",
+            "3. 'Mesajınız' alanına hazırlanan başvuru metnini yapıştırıp formu gönderin.",
+            "4. CareerMap paneline dönüp başvuruyu 'Gönderildi' olarak onaylayın."
+          ]
+        }
+      }
+    },
+    {
+      "application_id": "app--colak-i-erkanyucel",
+      "order": 9,
+      "clinic_name": "Dt. Erkan YÜCEL",
+      "employer_type": "Bireysel muayenehane",
+      "district": "Tepebaşı",
+      "match_score": 80,
+      "match_reasons": [
+        "Şehir uyumu: Eskişehir",
+        "Hedef ilçe tercihi: Tepebaşı",
+        "Köklü bireysel muayenehane (Doğrudan tecrübeli hekimle çalışma imkânı)",
+        "Doğrulanmış kurumsal e-posta kanalı mevcut (CV ekli resmî başvuruya uygun)",
+        "Kurumsal web iletişim formu mevcut",
+        "Restoratif diş tedavisi ve endodonti (kanal tedavisi) klinik vaka yetkinliği"
+      ],
+      "primary_channel": "email",
+      "verified_contacts": {
+        "email": "erkanyucel222@gmail.com",
+        "phone": "0(222) 230 63 82",
+        "whatsapp": "",
+        "website": "https://www.erkanyucel.com",
+        "contact_form": "https://www.erkanyucel.com/iletisim.php"
+      },
+      "orchestration_workflow": [
+        {
+          "step_number": 1,
+          "day": 1,
+          "action_type": "initial_application",
+          "channel": "email",
+          "title": "CV Ekli E-posta Başvurusu",
+          "description": "Sayın Yetkili hitabıyla hazırlanan kişiselleştirilmiş başvuru metni ve Dt. Rümeysa Çolak CV PDF eki kurumsal e-posta adresine (erkanyucel222@gmail.com) iletilir.",
+          "requires_user_approval": true,
+          "is_automated_possible": true
+        },
+        {
+          "step_number": 2,
+          "day": 4,
+          "action_type": "wait_and_check",
+          "channel": "crm_monitor",
+          "title": "4-5 İş Günü Yanıt Bekleme Penceresi",
+          "description": "Kliniğin e-posta veya telefon dönüşü olup olmadığı CRM üzerinden kontrol edilir. Yanıt geldiyse takip durdurulur.",
+          "requires_user_approval": false,
+          "is_automated_possible": true
+        },
+        {
+          "step_number": 3,
+          "day": 6,
+          "action_type": "followup_reminder",
+          "channel": "phone",
+          "title": "Telefonla Takip Araması (Yalnızca Cevap Gelmediyse)",
+          "description": "Klinik sekreteryası aranarak gönderilen CV'nin ilgili mesul müdürün değerlendirmesine sunulup sunulmadığı teyit edilir.",
+          "requires_user_approval": true,
+          "is_automated_possible": false
+        },
+        {
+          "step_number": 4,
+          "day": 10,
+          "action_type": "finalize_or_archive",
+          "channel": "crm_monitor",
+          "title": "Başvuru Durumunu Netleştirme",
+          "description": "Görüşme daveti, olumsuz geri bildirim veya ileri tarihte değerlendirilmek üzere arşivleme kararı CRM'e işlenir.",
+          "requires_user_approval": true,
+          "is_automated_possible": false
+        }
+      ],
+      "messages": {
+        "email_draft": {
+          "subject": "Diş Hekimi İş Başvurusu — Dt. Rümeysa Çolak | Dt. Erkan YÜCEL",
+          "recipient": "erkanyucel222@gmail.com",
+          "body": "Sayın Yetkili,\n\nBen Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi 2026 yılı mezunuyum.\n\nEğitimim süresince 350'nin üzerinde klinik vaka deneyimi edindim. Özellikle restoratif diş tedavisi, estetik anterior ve posterior kompozit restorasyonlar ile endodonti (kanal tedavisi) alanlarında yoğun klinik uygulamalar gerçekleştirdim. Mezuniyetimin ardından özel bir diş kliniğinde çalışarak hasta iletişimi, vaka takibi ve klinik iş akışında profesyonel deneyim kazandım.\n\nTepebaşı bölgesindeki köklü ve güvenilir muayenehane pratiğinizde, tecrübenizden istifade ederek hasta odaklı titiz bir hekimlik sunmayı amaçlıyorum.\n\nKliniğinizde mevcut veya ilerleyen dönemde oluşabilecek diş hekimi pozisyonları için özgeçmişimi değerlendirmenize sunuyorum.\n\nUygun görmeniz hâlinde yüz yüze veya çevrim içi bir ön görüşme gerçekleştirmekten büyük memnuniyet duyarım.\n\nSaygılarımla,\n\nDt. Rümeysa Çolak\nTelefon: 0(555) 000 26 26\nE-posta: rumeysacolak.dt@gmail.com\n\nEk: Rumeysa_Colak_CV.pdf",
+          "attachment": "Rumeysa_Colak_CV.pdf"
+        },
+        "whatsapp_model_b": {
+          "title": "Model B — Mesaj + Güvenli CV Bağlantısı (Önerilen)",
+          "mobile_phone": "",
+          "message_text": "Merhaba, ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunuyum.\n\nKliniğinizde (Dt. Erkan YÜCEL) oluşabilecek diş hekimi pozisyonları için başvuruda bulunmak istiyorum.\n\nÖzgeçmişimi aşağıdaki güvenli bağlantıdan inceleyebilirsiniz:\nhttps://careermap.local/cv/view/9306b1dee2c54959\n\nUygun görmeniz hâlinde görüşmekten memnuniyet duyarım. İyi çalışmalar dilerim.",
+          "wa_link": ""
+        },
+        "whatsapp_model_c": {
+          "title": "Model C — Mesaj + Gerçek PDF Dosya Eki",
+          "message_text": "Merhaba, ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunuyum.\n\nKliniğiniz bünyesinde (Dt. Erkan YÜCEL) değerlendirilmek üzere özgeçmişimi ekte PDF dosyası olarak iletiyorum.\n\nÖzellikle restoratif ve endodontik tedavilerdeki 350+ vaka tecrübemle kurumunuza değer katmayı hedefliyorum. Uygun görmeniz halinde görüşmekten memnuniyet duyarım. İyi çalışmalar dilerim.",
+          "wa_link": "",
+          "instructions": "WhatsApp açılır, hazır mesaj iletilir; aday cihazındaki PDF CV dosyasını sohbete ekleyerek gönderir."
+        },
+        "whatsapp_followup": {
+          "title": "Nezaket Hatırlatması (4-5 İş Günü Sonrası)",
+          "message_text": "Merhaba, ben Dt. Rümeysa Çolak.\n\nDiş hekimi pozisyonları için geçtiğimiz günlerde kliniğinize özgeçmişimi e-posta yoluyla iletmiştim.\n\nBaşvurumun değerlendirilme imkânı olup olmadığını nazikçe öğrenmek istedim. Uygun görmeniz hâlinde tanışmaktan ve görüşmekten memnuniyet duyarım.\n\nİyi çalışmalar dilerim.",
+          "wa_link": ""
+        },
+        "phone_calling_brief": {
+          "employer_name": "Dt. Erkan YÜCEL",
+          "phone_formatted": "0(222) 230 63 82",
+          "tel_link": "tel:02222306382",
+          "call_script": "İyi günler, ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunu diş hekimiyim.\n\nKliniğinizin mesul müdürü veya hekim işe alımından sorumlu yetkilisi ile görüşmem mümkün müdür?\n\n(Yetkili bağlandığında):\n\"Merhabalar Hocam / İyi günler. Ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunuyum. 350'nin üzerinde restoratif ve endodontik vaka tecrübem ve özel klinik deneyimim bulunuyor. Kliniğiniz bünyesinde diş hekimi kadrosu değerlendirmesi için özgeçmişimi iletmek ve uygun görmeniz halinde kendimi kısaca tanıtmak isterdim.\" ",
+          "instructions": [
+            "1. Kurumu aramadan önce görüşme notunu gözden geçirin.",
+            "2. Klinik mesul müdürü veya insan kaynakları yetkilisi ile görüşmek istediğinizi belirtin.",
+            "3. Görüşme sonrasında aldığınız cevabı (Görüşme planlandı, İleride değerlendirilecek vb.) panele kaydedin."
+          ]
+        },
+        "career_form_brief": {
+          "employer_name": "Dt. Erkan YÜCEL",
+          "form_url": "https://www.erkanyucel.com/iletisim.php",
+          "is_available": true,
+          "message_to_paste": "Sayın Dt. Erkan YÜCEL Yetkilisi,\n\nBen Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi 2026 yılı mezunuyum. 350'nin üzerinde restoratif ve endodontik klinik vaka deneyimim ve özel klinik hekimlik tecrübem bulunmaktadır.\n\nTepebaşı bölgesindeki köklü ve güvenilir muayenehane pratiğinizde, tecrübenizden istifade ederek hasta odaklı titiz bir hekimlik sunmayı amaçlıyorum.\n\nKliniğiniz bünyesinde diş hekimi kadrolarında değerlendirilmek üzere özgeçmişimi takdim etmek isterim. İletişim: 0(555) 000 26 26 / rumeysacolak.dt@gmail.com.",
+          "candidate_info": {
+            "name": "Dt. Rümeysa Çolak",
+            "email": "rumeysacolak.dt@gmail.com",
+            "phone": "0(555) 000 26 26",
+            "subject": "Diş Hekimi İş Başvurusu — Dt. Rümeysa Çolak"
+          },
+          "instructions": [
+            "1. 'Form Sayfasını Aç' düğmesine tıklayarak kliniğin resmî sayfasına gidin.",
+            "2. Ad, e-posta ve telefon bilgilerinizi doldurun.",
+            "3. 'Mesajınız' alanına hazırlanan başvuru metnini yapıştırıp formu gönderin.",
+            "4. CareerMap paneline dönüp başvuruyu 'Gönderildi' olarak onaylayın."
+          ]
+        }
+      }
+    },
+    {
+      "application_id": "app--colak--fahrikavrut",
+      "order": 10,
+      "clinic_name": "Dr. Dt. Fahri KAVRUT",
+      "employer_type": "Bireysel muayenehane",
+      "district": "Tepebaşı",
+      "match_score": 80,
+      "match_reasons": [
+        "Şehir uyumu: Eskişehir",
+        "Hedef ilçe tercihi: Tepebaşı",
+        "Köklü bireysel muayenehane (Doğrudan tecrübeli hekimle çalışma imkânı)",
+        "Doğrulanmış kurumsal e-posta kanalı mevcut (CV ekli resmî başvuruya uygun)",
+        "Kurumsal web iletişim formu mevcut",
+        "Restoratif diş tedavisi ve endodonti (kanal tedavisi) klinik vaka yetkinliği"
+      ],
+      "primary_channel": "email",
+      "verified_contacts": {
+        "email": "fahrikavrut@yahoo.com",
+        "phone": "0(222) 233 90 95",
+        "whatsapp": "",
+        "website": "https://www.fahrikavrut.com",
+        "contact_form": "https://www.fahrikavrut.com/iletisim.php"
+      },
+      "orchestration_workflow": [
+        {
+          "step_number": 1,
+          "day": 1,
+          "action_type": "initial_application",
+          "channel": "email",
+          "title": "CV Ekli E-posta Başvurusu",
+          "description": "Sayın Yetkili hitabıyla hazırlanan kişiselleştirilmiş başvuru metni ve Dt. Rümeysa Çolak CV PDF eki kurumsal e-posta adresine (fahrikavrut@yahoo.com) iletilir.",
+          "requires_user_approval": true,
+          "is_automated_possible": true
+        },
+        {
+          "step_number": 2,
+          "day": 4,
+          "action_type": "wait_and_check",
+          "channel": "crm_monitor",
+          "title": "4-5 İş Günü Yanıt Bekleme Penceresi",
+          "description": "Kliniğin e-posta veya telefon dönüşü olup olmadığı CRM üzerinden kontrol edilir. Yanıt geldiyse takip durdurulur.",
+          "requires_user_approval": false,
+          "is_automated_possible": true
+        },
+        {
+          "step_number": 3,
+          "day": 6,
+          "action_type": "followup_reminder",
+          "channel": "phone",
+          "title": "Telefonla Takip Araması (Yalnızca Cevap Gelmediyse)",
+          "description": "Klinik sekreteryası aranarak gönderilen CV'nin ilgili mesul müdürün değerlendirmesine sunulup sunulmadığı teyit edilir.",
+          "requires_user_approval": true,
+          "is_automated_possible": false
+        },
+        {
+          "step_number": 4,
+          "day": 10,
+          "action_type": "finalize_or_archive",
+          "channel": "crm_monitor",
+          "title": "Başvuru Durumunu Netleştirme",
+          "description": "Görüşme daveti, olumsuz geri bildirim veya ileri tarihte değerlendirilmek üzere arşivleme kararı CRM'e işlenir.",
+          "requires_user_approval": true,
+          "is_automated_possible": false
+        }
+      ],
+      "messages": {
+        "email_draft": {
+          "subject": "Diş Hekimi İş Başvurusu — Dt. Rümeysa Çolak | Dr. Dt. Fahri KAVRUT",
+          "recipient": "fahrikavrut@yahoo.com",
+          "body": "Sayın Yetkili,\n\nBen Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi 2026 yılı mezunuyum.\n\nEğitimim süresince 350'nin üzerinde klinik vaka deneyimi edindim. Özellikle restoratif diş tedavisi, estetik anterior ve posterior kompozit restorasyonlar ile endodonti (kanal tedavisi) alanlarında yoğun klinik uygulamalar gerçekleştirdim. Mezuniyetimin ardından özel bir diş kliniğinde çalışarak hasta iletişimi, vaka takibi ve klinik iş akışında profesyonel deneyim kazandım.\n\nTepebaşı lokasyonundaki saygın klinik tecrübeniz ve uzman yaklaşımınız doğrultusunda kurumunuz bünyesinde mesleki katkı sağlamayı arzu ediyorum.\n\nKliniğinizde mevcut veya ilerleyen dönemde oluşabilecek diş hekimi pozisyonları için özgeçmişimi değerlendirmenize sunuyorum.\n\nUygun görmeniz hâlinde yüz yüze veya çevrim içi bir ön görüşme gerçekleştirmekten büyük memnuniyet duyarım.\n\nSaygılarımla,\n\nDt. Rümeysa Çolak\nTelefon: 0(555) 000 26 26\nE-posta: rumeysacolak.dt@gmail.com\n\nEk: Rumeysa_Colak_CV.pdf",
+          "attachment": "Rumeysa_Colak_CV.pdf"
+        },
+        "whatsapp_model_b": {
+          "title": "Model B — Mesaj + Güvenli CV Bağlantısı (Önerilen)",
+          "mobile_phone": "",
+          "message_text": "Merhaba, ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunuyum.\n\nKliniğinizde (Dr. Dt. Fahri KAVRUT) oluşabilecek diş hekimi pozisyonları için başvuruda bulunmak istiyorum.\n\nÖzgeçmişimi aşağıdaki güvenli bağlantıdan inceleyebilirsiniz:\nhttps://careermap.local/cv/view/9306b1dee2c54959\n\nUygun görmeniz hâlinde görüşmekten memnuniyet duyarım. İyi çalışmalar dilerim.",
+          "wa_link": ""
+        },
+        "whatsapp_model_c": {
+          "title": "Model C — Mesaj + Gerçek PDF Dosya Eki",
+          "message_text": "Merhaba, ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunuyum.\n\nKliniğiniz bünyesinde (Dr. Dt. Fahri KAVRUT) değerlendirilmek üzere özgeçmişimi ekte PDF dosyası olarak iletiyorum.\n\nÖzellikle restoratif ve endodontik tedavilerdeki 350+ vaka tecrübemle kurumunuza değer katmayı hedefliyorum. Uygun görmeniz halinde görüşmekten memnuniyet duyarım. İyi çalışmalar dilerim.",
+          "wa_link": "",
+          "instructions": "WhatsApp açılır, hazır mesaj iletilir; aday cihazındaki PDF CV dosyasını sohbete ekleyerek gönderir."
+        },
+        "whatsapp_followup": {
+          "title": "Nezaket Hatırlatması (4-5 İş Günü Sonrası)",
+          "message_text": "Merhaba, ben Dt. Rümeysa Çolak.\n\nDiş hekimi pozisyonları için geçtiğimiz günlerde kliniğinize özgeçmişimi e-posta yoluyla iletmiştim.\n\nBaşvurumun değerlendirilme imkânı olup olmadığını nazikçe öğrenmek istedim. Uygun görmeniz hâlinde tanışmaktan ve görüşmekten memnuniyet duyarım.\n\nİyi çalışmalar dilerim.",
+          "wa_link": ""
+        },
+        "phone_calling_brief": {
+          "employer_name": "Dr. Dt. Fahri KAVRUT",
+          "phone_formatted": "0(222) 233 90 95",
+          "tel_link": "tel:02222339095",
+          "call_script": "İyi günler, ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunu diş hekimiyim.\n\nKliniğinizin mesul müdürü veya hekim işe alımından sorumlu yetkilisi ile görüşmem mümkün müdür?\n\n(Yetkili bağlandığında):\n\"Merhabalar Hocam / İyi günler. Ben Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi mezunuyum. 350'nin üzerinde restoratif ve endodontik vaka tecrübem ve özel klinik deneyimim bulunuyor. Kliniğiniz bünyesinde diş hekimi kadrosu değerlendirmesi için özgeçmişimi iletmek ve uygun görmeniz halinde kendimi kısaca tanıtmak isterdim.\" ",
+          "instructions": [
+            "1. Kurumu aramadan önce görüşme notunu gözden geçirin.",
+            "2. Klinik mesul müdürü veya insan kaynakları yetkilisi ile görüşmek istediğinizi belirtin.",
+            "3. Görüşme sonrasında aldığınız cevabı (Görüşme planlandı, İleride değerlendirilecek vb.) panele kaydedin."
+          ]
+        },
+        "career_form_brief": {
+          "employer_name": "Dr. Dt. Fahri KAVRUT",
+          "form_url": "https://www.fahrikavrut.com/iletisim.php",
+          "is_available": true,
+          "message_to_paste": "Sayın Dr. Dt. Fahri KAVRUT Yetkilisi,\n\nBen Dt. Rümeysa Çolak. Süleyman Demirel Üniversitesi Diş Hekimliği Fakültesi 2026 yılı mezunuyum. 350'nin üzerinde restoratif ve endodontik klinik vaka deneyimim ve özel klinik hekimlik tecrübem bulunmaktadır.\n\nTepebaşı lokasyonundaki saygın klinik tecrübeniz ve uzman yaklaşımınız doğrultusunda kurumunuz bünyesinde mesleki katkı sağlamayı arzu ediyorum.\n\nKliniğiniz bünyesinde diş hekimi kadrolarında değerlendirilmek üzere özgeçmişimi takdim etmek isterim. İletişim: 0(555) 000 26 26 / rumeysacolak.dt@gmail.com.",
+          "candidate_info": {
+            "name": "Dt. Rümeysa Çolak",
+            "email": "rumeysacolak.dt@gmail.com",
+            "phone": "0(555) 000 26 26",
+            "subject": "Diş Hekimi İş Başvurusu — Dt. Rümeysa Çolak"
+          },
+          "instructions": [
+            "1. 'Form Sayfasını Aç' düğmesine tıklayarak kliniğin resmî sayfasına gidin.",
+            "2. Ad, e-posta ve telefon bilgilerinizi doldurun.",
+            "3. 'Mesajınız' alanına hazırlanan başvuru metnini yapıştırıp formu gönderin.",
+            "4. CareerMap paneline dönüp başvuruyu 'Gönderildi' olarak onaylayın."
+          ]
+        }
+      }
+    }
+  ]
+}

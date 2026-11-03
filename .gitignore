@@ -1,0 +1,40 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+
+# Large Data & Distribution Archives (GitHub 100MB file limit)
+*.zip
+*.pbf
+careermap/data/osm/*.pbf
+data/osm/*.pbf
+*.tar.gz
+*.rar
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local backups & Databases
+*.db.bak
+*.v1_*.bak
+*.bak
+
+# Node & Frontend dependencies
+node_modules/
+.next/
+dist/
+build/
+
+# Local SSL certificates & Environment variables
+certs/
+*.pem
+*.key
+.env
+.env.local
+
+# OS Generated
+.DS_Store
+Thumbs.db

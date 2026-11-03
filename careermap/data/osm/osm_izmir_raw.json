@@ -1,0 +1,647 @@
+[
+  {
+    "type": "node",
+    "id": 3796899633,
+    "lat": 38.4348867,
+    "lon": 27.1802446,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "healthcare:speciality": "dentist",
+      "name": "Diş Hekimi Levent Özbek"
+    }
+  },
+  {
+    "type": "node",
+    "id": 3798662105,
+    "lat": 38.4900509,
+    "lon": 27.0739298,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Karşıyaka Ağız Diş Sağlığı Merkezi Çiğli Şubesi",
+      "phone": "+90 232 364 14 95"
+    }
+  },
+  {
+    "type": "node",
+    "id": 3798666334,
+    "lat": 38.4902252,
+    "lon": 27.0742382,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Çiğli Diş Tedavi Ve Protez Merkezi",
+      "phone": "+90 232 376 14 07"
+    }
+  },
+  {
+    "type": "node",
+    "id": 5287460070,
+    "lat": 38.4394017,
+    "lon": 27.1471103,
+    "tags": {
+      "addr:street": "Liman Caddesi",
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Avrupadent Ağız & Diş Sağlığı",
+      "wheelchair": "designated"
+    }
+  },
+  {
+    "type": "node",
+    "id": 5287461172,
+    "lat": 38.4393636,
+    "lon": 27.1471478,
+    "tags": {
+      "addr:housenumber": "416",
+      "addr:street": "Liman Caddesi",
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Özel Avrupadent"
+    }
+  },
+  {
+    "type": "node",
+    "id": 7834108085,
+    "lat": 38.4291214,
+    "lon": 27.1352832,
+    "tags": {
+      "amenity": "dentist",
+      "check_date": "2025-10-20",
+      "healthcare": "dentist",
+      "name": "Özel Dentin Ağız ve Diş Sağlığı Polikliniği"
+    }
+  },
+  {
+    "type": "node",
+    "id": 8100486056,
+    "lat": 38.4641262,
+    "lon": 27.1088645,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Arda Çetintaş"
+    }
+  },
+  {
+    "type": "node",
+    "id": 8384886444,
+    "lat": 38.4593011,
+    "lon": 27.216164,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist"
+    }
+  },
+  {
+    "type": "node",
+    "id": 9307129835,
+    "lat": 38.3748538,
+    "lon": 27.1633175,
+    "tags": {
+      "addr:city": "Yenigün Mahallesi",
+      "addr:country": "TR",
+      "addr:district": "Buca",
+      "addr:housenumber": "64/A",
+      "addr:street": "Nazım Hikmet Caddesi",
+      "amenity": "dentist",
+      "emergency": "no",
+      "healthcare": "dentist",
+      "healthcare:speciality": "dentist",
+      "name": "Dent Mega Ağız ve Diş Sağlığı Polikliniği",
+      "operator": "Dent Mega Ağız ve Diş Sağlığı Polikliniği",
+      "operator:type": "public"
+    }
+  },
+  {
+    "type": "node",
+    "id": 9573113997,
+    "lat": 38.4036225,
+    "lon": 27.1182329,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Özel Üçyol Ağız ve Diş Sağlığı Polikliniği"
+    }
+  },
+  {
+    "type": "node",
+    "id": 9610176463,
+    "lat": 38.4524615,
+    "lon": 27.1029114,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Diş Hekimi Nazan Erol"
+    }
+  },
+  {
+    "type": "node",
+    "id": 9839424818,
+    "lat": 38.4570782,
+    "lon": 27.0987116,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Diş Hekimi Ayhan Tiryakiler",
+      "phone": "+90 232 336 3650"
+    }
+  },
+  {
+    "type": "node",
+    "id": 9981868024,
+    "lat": 38.4271476,
+    "lon": 27.1327434,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Özel Dentiz Ağız ve Diş Sağlığı Polikliniği"
+    }
+  },
+  {
+    "type": "node",
+    "id": 10745093205,
+    "lat": 38.4498481,
+    "lon": 27.1822648,
+    "tags": {
+      "addr:housenumber": "2",
+      "addr:street": "293/1",
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "İzmir Bornova Ağız Ve Diş Sağlığı Merkezi Bayraklı Diş Ek Hizmet Binası",
+      "name:en": "Izmir Bornova Oral and Dental Health Clinics Bayraklı Annex",
+      "opening_hours": "Mo-Fr 09:00-16:30",
+      "phone": "444 35 42",
+      "website": "http://www.bornovaagizdis.gov.tr/"
+    }
+  },
+  {
+    "type": "node",
+    "id": 10970564920,
+    "lat": 38.4473094,
+    "lon": 27.2054875,
+    "tags": {
+      "access:disabled": "yes",
+      "addr:city": "Kazımdirik Mahallesi",
+      "addr:district": "Bornova",
+      "addr:housenumber": "2/C",
+      "addr:neighbourhood": "İzmir",
+      "addr:postcode": "35030",
+      "addr:street": "Kazımdirik cd.",
+      "amenity": "dentist",
+      "check_date:currency:XBT": "2023-10-12",
+      "currency:XBT": "yes",
+      "healthcare": "dentist",
+      "healthcare:speciality": "dentist;orthodontics;radiology;dental_oral_maxillo_facial_surgery",
+      "name": "Qairy Dental",
+      "opening_hours": "Mo-Su 09:00-23:00",
+      "operator": "http://qairydent.com/",
+      "payment:lightning": "yes",
+      "payment:onchain": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 11063983613,
+    "lat": 38.4575024,
+    "lon": 27.1150731,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Diş Hekimi Güray Sal"
+    }
+  },
+  {
+    "type": "node",
+    "id": 11076377399,
+    "lat": 38.4910561,
+    "lon": 27.0684571,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Beyaz Dental"
+    }
+  },
+  {
+    "type": "node",
+    "id": 11526070431,
+    "lat": 38.3779486,
+    "lon": 27.171251,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Diş Hekimi"
+    }
+  },
+  {
+    "type": "node",
+    "id": 11808171232,
+    "lat": 38.4017722,
+    "lon": 27.1023577,
+    "tags": {
+      "amenity": "dentist",
+      "check_date": "2024-04-10",
+      "healthcare": "dentist",
+      "name": "Ortodonti"
+    }
+  },
+  {
+    "type": "node",
+    "id": 11828820686,
+    "lat": 38.4631269,
+    "lon": 27.1018958,
+    "tags": {
+      "amenity": "dentist",
+      "check_date": "2024-04-18",
+      "healthcare": "dentist",
+      "healthcare:speciality": "orthodontics",
+      "name": "Gamadent"
+    }
+  },
+  {
+    "type": "node",
+    "id": 12117979021,
+    "lat": 38.4717319,
+    "lon": 27.0841491,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Özel Locadent Ağız ve Diş Sağlığı Polikliniği"
+    }
+  },
+  {
+    "type": "node",
+    "id": 12117979030,
+    "lat": 38.4173941,
+    "lon": 27.1295478,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "BeyazDental"
+    }
+  },
+  {
+    "type": "node",
+    "id": 12350509321,
+    "lat": 38.392681,
+    "lon": 27.058125,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Özel Avrupadent Ağız ve Diş Sağlığı Polikliniği"
+    }
+  },
+  {
+    "type": "node",
+    "id": 12358767511,
+    "lat": 38.4673415,
+    "lon": 27.1110335,
+    "tags": {
+      "addr:city": "İzmir",
+      "addr:district": "Karşıyaka",
+      "addr:housenumber": "47/A",
+      "addr:neighbourhood": "Bahçelievler",
+      "addr:postcode": "35600",
+      "addr:street": "Gün Sazak Bulvarı",
+      "amenity": "dentist",
+      "description": "Güleryüzlü ekibiyle her alanda sizlere hizmet vermeye devam ediyor.",
+      "healthcare": "dentist",
+      "healthcare:speciality": "dentist;general;orthodontics;dental_oral_maxillo_facial_surgery;hypnosis;paediatric_surgery;transplant",
+      "name": "Bulvardent Ağız ve Diş Sağlığı Polikliniği",
+      "opening_hours": "Mo-Sa 10:00-19:00",
+      "operator": "Bulvardent Ağız ve Diş Sağlığı Polikliniği",
+      "phone": "+90 232 369 01 28",
+      "website": "https://bulvardent.net"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13048197266,
+    "lat": 38.4569617,
+    "lon": 27.0980816,
+    "tags": {
+      "amenity": "dentist",
+      "check_date": "2026-05-05",
+      "name": "Diş Hekimi Güray Lal",
+      "phone": "+90 232 336 1027"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13077704183,
+    "lat": 38.4631862,
+    "lon": 27.2265803,
+    "tags": {
+      "amenity": "dentist",
+      "name": "MLS Dental"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13233969830,
+    "lat": 38.3975885,
+    "lon": 27.0864328,
+    "tags": {
+      "amenity": "dentist",
+      "check_date": "2025-10-15",
+      "healthcare": "dentist",
+      "name": "Özel Çağdaş Dent Ağız ve Diş Sağlığı Polikliniği",
+      "phone": "+90 232 224 33 44",
+      "website": "https://www.cagdasdent.com.tr"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13390053522,
+    "lat": 38.3253677,
+    "lon": 27.1363022,
+    "tags": {
+      "amenity": "dentist",
+      "check_date": "2025-12-20",
+      "healthcare": "dentist",
+      "name": "Avrupadent"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13390099005,
+    "lat": 38.3935722,
+    "lon": 27.0522272,
+    "tags": {
+      "amenity": "dentist",
+      "check_date": "2025-12-20",
+      "healthcare": "dentist",
+      "name": "Diş Hekimi Ufuk Tiyanşan"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13393723403,
+    "lat": 38.2517535,
+    "lon": 27.1322454,
+    "tags": {
+      "addr:city": "İzmir",
+      "addr:district": "Menderes",
+      "addr:housenumber": "No:1/A",
+      "addr:neighbourhood": "Kasımpaşa",
+      "addr:postcode": "35470",
+      "addr:street": "Atatürk caddesi",
+      "amenity": "dentist",
+      "description": "ICE DENT AĞIZ VE DİŞ SAĞLIĞI POLİKLİNİĞİ Menderes belediyesinin altında",
+      "email": "icedent.tr@gmail.com",
+      "healthcare": "dentist",
+      "healthcare:speciality": "dentist;orthodontics",
+      "level": "0",
+      "mobile": "+90 544 423 76 58",
+      "name": "ICE DENT AĞIZ VE DİŞ SAĞLIĞI POLİKLİNİĞİ",
+      "opening_hours": "Mo-Su 09:00-18:30",
+      "operator": "ICE DENT AĞIZ VE DİŞ SAĞLIĞI POLİKLİNİĞİ",
+      "payment:cards": "yes",
+      "payment:cash": "yes",
+      "payment:contactless": "yes",
+      "payment:credit_cards": "yes",
+      "payment:debit_cards": "yes",
+      "payment:mastercard": "yes",
+      "payment:notes": "yes",
+      "payment:visa": "yes",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13394768710,
+    "lat": 38.4937202,
+    "lon": 27.0620254,
+    "tags": {
+      "amenity": "dentist",
+      "check_date": "2025-12-22",
+      "healthcare": "dentist",
+      "name": "Diş Hekimi Hanife Korkmaz (Köprülü)"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13394768760,
+    "lat": 38.4925851,
+    "lon": 27.0645853,
+    "tags": {
+      "amenity": "dentist",
+      "check_date": "2025-12-22",
+      "healthcare": "dentist",
+      "name": "Avrupadent"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13455470221,
+    "lat": 38.4663518,
+    "lon": 27.1088904,
+    "tags": {
+      "addr:city": "İzmir",
+      "addr:district": "Karşıyaka",
+      "addr:housenumber": "No:5/A",
+      "addr:neighbourhood": "Goncalar Mahallesi",
+      "addr:postcode": "35560",
+      "addr:street": "6038.Sokak",
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "healthcare:speciality": "dentist",
+      "name": "Diş Hekimi Aslıhan Kulaşen Türkkahraman",
+      "opening_hours": "Mo-Sa 09:00-19:00"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13626316256,
+    "lat": 38.4568227,
+    "lon": 27.1177337,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Diş Hekimi Bora Tecimer"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13671234838,
+    "lat": 38.4709997,
+    "lon": 27.0986512,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Diş Hekimi Mustafa Kemal Yapıcıer"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13671234839,
+    "lat": 38.4711181,
+    "lon": 27.0989929,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Özel İzmir Diş Ağız ve Diş Sağlığı Polikinliği"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13671241399,
+    "lat": 38.472774,
+    "lon": 27.0972039,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Dr.Şakir Şekerci"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13671245612,
+    "lat": 38.4709573,
+    "lon": 27.1008147,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Diş Hekimi Onur Güzeldal"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13895958565,
+    "lat": 38.4619075,
+    "lon": 27.1703147,
+    "tags": {
+      "amenity": "dentist",
+      "check_date": "2026-05-30",
+      "healthcare": "dentist",
+      "name": "Vatan Dental Center"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13926005925,
+    "lat": 38.4968825,
+    "lon": 27.0608101,
+    "tags": {
+      "amenity": "dentist",
+      "check_date": "2026-06-10",
+      "healthcare": "dentist",
+      "name": "Dent Leon"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13999805662,
+    "lat": 38.4617621,
+    "lon": 27.0933432,
+    "tags": {
+      "addr:city": "Bostanlı Mahallesi",
+      "addr:district": "Karşıyaka",
+      "addr:housenumber": "No:19",
+      "addr:neighbourhood": "Bostanlı",
+      "addr:postcode": "35590",
+      "addr:street": "Bestekar Sadi Hoşses Sokağı",
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Berdeli Clinic",
+      "operator": "Diş Kliniği"
+    }
+  },
+  {
+    "type": "node",
+    "id": 14073045839,
+    "lat": 38.4502315,
+    "lon": 27.1798934,
+    "tags": {
+      "amenity": "dentist",
+      "check_date": "2026-08-04",
+      "healthcare": "dentist",
+      "name": "Özel LocaDent Ağız ve Diş Sağlığı Polikliniği"
+    }
+  },
+  {
+    "type": "node",
+    "id": 14101206593,
+    "lat": 38.4666063,
+    "lon": 27.0892841,
+    "tags": {
+      "amenity": "dentist",
+      "check_date": "2026-08-17",
+      "healthcare": "dentist",
+      "name": "Özel Yeşilyurt Ağız ve Diş Sağlığı Polikliniği"
+    }
+  },
+  {
+    "type": "node",
+    "id": 14148193937,
+    "lat": 38.3232559,
+    "lon": 27.1326124,
+    "tags": {
+      "addr:city": "İzmir",
+      "addr:district": "Gaziemir",
+      "addr:housenumber": "No:8/A",
+      "addr:neighbourhood": "Atıfbey Mah.",
+      "addr:postcode": "35410",
+      "addr:street": "5. Sokak",
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "healthcare:speciality": "dentistry;orthodontics",
+      "name": "Özel Dentinom Ağız ve Diş Sağlığı Polikliniği",
+      "opening_hours": "9:30 AM–7 PM",
+      "operator": "Dentinom",
+      "website": "https://dentinom.com"
+    }
+  },
+  {
+    "type": "node",
+    "id": 14302795276,
+    "lat": 38.4330943,
+    "lon": 27.1394791,
+    "tags": {
+      "addr:city": "İzmir",
+      "addr:district": "Konak",
+      "addr:housenumber": "1/1, 51",
+      "addr:neighbourhood": "Kültür Mah, Alsancak, Dr. Mustafa Enver Bey Cd. No:1/1 D:51, 35220 Konak/İzmir",
+      "addr:postcode": "35220",
+      "addr:street": "Mustafa Enver Bey Caddesi",
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "healthcare:speciality": "dentist;dentistry",
+      "name": "Dentorion Dental Clinic"
+    }
+  },
+  {
+    "type": "way",
+    "id": 1460340022,
+    "center": {
+      "lat": 38.2517517,
+      "lon": 27.1322472
+    },
+    "tags": {
+      "addr:city": "İzmir",
+      "addr:district": "Menderes",
+      "addr:housenumber": "No:1/A",
+      "addr:neighbourhood": "Kasımpaşa",
+      "addr:postcode": "35470",
+      "addr:street": "Atatürk caddesi",
+      "amenity": "dentist",
+      "building": "yes",
+      "email": "icedent.tr@gmail.com",
+      "emergency": "no",
+      "healthcare": "dentist",
+      "healthcare:speciality": "dentistry;orthodontics",
+      "mobile": "+905444237658",
+      "name": "ICE DENT AĞIZ VE DİŞ SAĞLIĞI POLİKLİNİĞİ",
+      "opening_hours": "Mo-Sa 09:00-18:30",
+      "operator": "ICE DENT AĞIZ VE DİŞ SAĞLIĞI POLİKLİNİĞİ",
+      "operator:type": "public",
+      "payment:cash": "yes",
+      "payment:credit_cards": "yes",
+      "payment:debit_cards": "yes",
+      "payment:mastercard": "yes",
+      "payment:visa": "yes",
+      "wheelchair": "yes"
+    }
+  }
+]

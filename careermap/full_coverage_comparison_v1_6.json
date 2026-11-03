@@ -1,0 +1,647 @@
+{
+  "metadata": {
+    "version": "CareerMap V1.6 Full Coverage Intelligence Engine",
+    "execution_date": "2026-11-02T23:23:36.047360",
+    "target_city": "Eskişehir",
+    "profession": "dentist",
+    "total_employers": 220
+  },
+  "baseline_stats": {
+    "total": 220,
+    "websites": 55,
+    "websites_ratio": 25.0,
+    "phones": 129,
+    "phones_ratio": 58.64,
+    "emails": 24,
+    "emails_ratio": 10.91,
+    "whatsapp_channels": 0,
+    "whatsapp_ratio": 0.0,
+    "contact_forms": 12,
+    "career_pages": 4,
+    "reachable_count": 129,
+    "reachable_ratio": 58.64
+  },
+  "final_stats": {
+    "total": 220,
+    "polyclinics": 40,
+    "private_offices": 180,
+    "websites": 57,
+    "websites_ratio": 25.91,
+    "phones": 134,
+    "phones_ratio": 60.91,
+    "directory_phones": 1,
+    "emails": 28,
+    "emails_ratio": 12.73,
+    "contact_forms": 25,
+    "career_pages": 4,
+    "whatsapp_channels": 13,
+    "whatsapp_ratio": 5.91,
+    "reachable_count": 135,
+    "reachable_ratio": 61.36
+  },
+  "net_improvements": {
+    "new_websites": 2,
+    "new_phones": 5,
+    "new_emails": 4,
+    "new_whatsapp": 13,
+    "new_contact_forms": 13,
+    "new_reachable_employers": 6,
+    "reachable_points_gain": 2.72
+  },
+  "starvation_audit": {
+    "erkan_yucel": {
+      "name": "Dt. Erkan YÜCEL",
+      "email": "erkanyucel222@gmail.com",
+      "website": "https://www.erkanyucel.com",
+      "status": "resolved"
+    },
+    "fahri_kavrut": {
+      "name": "Dr. Dt. Fahri KAVRUT",
+      "email": "fahrikavrut@yahoo.com",
+      "website": "https://www.fahrikavrut.com",
+      "status": "resolved"
+    }
+  },
+  "sample_verified_employers": [
+    {
+      "name": "Özel Alkordent Ağız ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Tepebaşı",
+      "website": "https://www.alkordent.com",
+      "phone": "0(506) 776 86 87",
+      "email": "info@alkordent.com",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Özel Aydınmakina Ağız ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Tepebaşı",
+      "website": "https://www.aydinmakinadis.com",
+      "phone": "0(222) 335 15 20",
+      "email": "",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Özel BC Ağız Ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Tepebaşı",
+      "website": "https://www.bcklinik.com.tr/links",
+      "phone": "0(545) 425 27 19",
+      "email": "bilgi@bcklinik.com.tr",
+      "whatsapp": "https://wa.me/905454252719",
+      "contact_form": "https://www.bcklinik.com.tr/eskisehir-dis-klingi-bc-iletisim"
+    },
+    {
+      "name": "Özel BTE Ağız ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Tepebaşı",
+      "website": "https://btediseskisehir.com",
+      "phone": "0(535) 795 00 26",
+      "email": "btediseskisehir@gmail.com",
+      "whatsapp": "",
+      "contact_form": "https://btediseskisehir.com/"
+    },
+    {
+      "name": "Özel Batı Diş Ağız ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Tepebaşı",
+      "website": "https://www.batidis.com",
+      "phone": "0(222) 322 34 34",
+      "email": "",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Özel Batıpol Ağız ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Tepebaşı",
+      "website": "https://www.batipol.com.tr",
+      "phone": "0(222) 320 44 44",
+      "email": "",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Özel Bolat Dental Ağız ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Tepebaşı",
+      "website": "https://www.bolatdental.com",
+      "phone": "0(222) 320 50 60",
+      "email": "info@bolatdental.com",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Özel Dent Ekspres Ağız Ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Odunpazarı",
+      "website": "https://dentekspreseskisehir.com",
+      "phone": "0(222) 221 21 00",
+      "email": "dentekspreseskisehir@gmail.com",
+      "whatsapp": "",
+      "contact_form": "https://dentekspreseskisehir.com/iletisim/"
+    },
+    {
+      "name": "Özel Dent Eskişehir Ağız ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Odunpazarı",
+      "website": "https://www.denteskisehir.com",
+      "phone": "0(222) 220 26 26",
+      "email": "",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Özel Dent26 Ağız ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Odunpazarı",
+      "website": "https://www.dent26.com.tr",
+      "phone": "0(222) 230 26 26",
+      "email": "",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Özel Dorlion Dent Ağız Ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Odunpazarı",
+      "website": "https://www.dorliondent.com",
+      "phone": "0(222) 234 44 44",
+      "email": "info@dorliondent.com.tr",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Özel Edipol Ağız ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Odunpazarı",
+      "website": "https://www.edipol.com.tr",
+      "phone": "0(222) 230 80 80",
+      "email": "",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Özel Emek Ağız ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Odunpazarı",
+      "website": "https://www.emekdis.com.tr",
+      "phone": "0(545) 603 80 43",
+      "email": "info@emekdis.com.tr",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Özel Eskişehir Gülüş Akademisi Ağız ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Tepebaşı",
+      "website": "https://www.gulusakademisi.com.tr",
+      "phone": "0(222) 320 22 22",
+      "email": "",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Özel Frigdent Ağız ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Tepebaşı",
+      "website": "https://frigdent.com",
+      "phone": "0(222) 322 26 26",
+      "email": "info@frigdent.com",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Özel Global Ağız ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Tepebaşı",
+      "website": "https://www.globaldent.com.tr",
+      "phone": "0(552) 322 02 48",
+      "email": "info@globaldent.com.tr",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Özel Kaşıkcıoğlu Ağız ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Tepebaşı",
+      "website": "https://www.kasikciogludis.com",
+      "phone": "0(222) 321 00 30",
+      "email": "",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Özel Klas Ağız ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Tepebaşı",
+      "website": "https://www.klasdisklinigi.com/index",
+      "phone": "0(222) 221 75 21",
+      "email": "info@klasdisklinigi.com",
+      "whatsapp": "https://api.whatsapp.com/send?phone=905366017726&text=Merhaba, https://www.klasdisklinigi.com/ web sitesinden sizlere ulaşıyorum. Hizmetleriniz hakkında bilgi alabilir miyim?",
+      "contact_form": "https://www.klasdisklinigi.com/iletisim"
+    },
+    {
+      "name": "Özel Kozadent Ağız ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Tepebaşı",
+      "website": "https://www.kozadent.com.tr",
+      "phone": "0(222) 335 11 22",
+      "email": "",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Özel Lindent Ağız ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Odunpazarı",
+      "website": "https://www.lindent.com.tr",
+      "phone": "0(222) 220 70 70",
+      "email": "",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Özel Loradent Ağız ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Tepebaşı",
+      "website": "https://www.loradent.com.tr",
+      "phone": "0(222) 335 00 26",
+      "email": "info@loradent.com.tr",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Özel Mayadapol Ağız Ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Odunpazarı",
+      "website": "https://www.mayadapol.com",
+      "phone": "0(222) 230 40 40",
+      "email": "mayadapoldental@gmail.com",
+      "whatsapp": "https://wa.me/905540052600",
+      "contact_form": "https://www.mayadapol.com/iletisim"
+    },
+    {
+      "name": "Özel Minepol Ağız ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Tepebaşı",
+      "website": "https://www.minepol.com.tr",
+      "phone": "0(222) 320 30 30",
+      "email": "info@minepol.com.tr",
+      "whatsapp": "https://api.whatsapp.com/send?phone=905324750817&text=Merhaba, size minepol.com.tr sitenizden ulaşıyorum.",
+      "contact_form": "https://www.minepol.com.tr/"
+    },
+    {
+      "name": "Özel Modapol Ağız ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Odunpazarı",
+      "website": "https://modapol.com.tr",
+      "phone": "0(222) 220 50 50",
+      "email": "",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Özel Modapol Ağız ve Diş Sağlığı Polikliniği Çamlıca Şubesi",
+      "type": "Özel poliklinik",
+      "district": "Tepebaşı",
+      "website": "https://modapol.com.tr",
+      "phone": "0(222) 220 50 50",
+      "email": "",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Özel Modapol Emek Ağız Ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Odunpazarı",
+      "website": "https://modapol.com.tr",
+      "phone": "0(222) 220 50 50",
+      "email": "",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Özel Modapol Sakarya Ağız ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Tepebaşı",
+      "website": "https://modapol.com.tr",
+      "phone": "0(222) 220 50 50",
+      "email": "",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Özel Naturapol Ağız Ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Tepebaşı",
+      "website": "https://naturapol.com.tr",
+      "phone": "0(222) 320 10 10",
+      "email": "",
+      "whatsapp": "https://api.whatsapp.com/send/?phone=%2B905066673103&text&type=phone_number&app_absent=0",
+      "contact_form": ""
+    },
+    {
+      "name": "Özel Porsuk Ağız ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Tepebaşı",
+      "website": "https://www.porsukdental.com",
+      "phone": "0(222) 230 30 20",
+      "email": "info@porsukdental.com",
+      "whatsapp": "",
+      "contact_form": "https://www.porsukdental.com/"
+    },
+    {
+      "name": "Özel Serdent Ağız ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Tepebaşı",
+      "website": "https://serdent.com.tr",
+      "phone": "0(553) 824 08 27",
+      "email": "info@serdent.com",
+      "whatsapp": "",
+      "contact_form": "https://serdent.com.tr/iletisim/"
+    },
+    {
+      "name": "Özel Smile Eskişehir Ağız ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Tepebaşı",
+      "website": "https://www.smileeskisehir.com",
+      "phone": "0(222) 330 00 30",
+      "email": "",
+      "whatsapp": "https://api.whatsapp.com/send?phone=+905468680222&text=Merhaba, tedavileriniz hakkında bilgi alabilir miyim?",
+      "contact_form": ""
+    },
+    {
+      "name": "Özel Vadi Dental Ağız ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Odunpazarı",
+      "website": "https://www.vadidental.com",
+      "phone": "0(222) 224 00 24",
+      "email": "",
+      "whatsapp": "",
+      "contact_form": "https://www.vadidental.com/"
+    },
+    {
+      "name": "Özel Yıldırım Ağız ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Tepebaşı",
+      "website": "https://www.yildirimdis.com",
+      "phone": "0(222) 320 60 70",
+      "email": "",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Özel İnci Ağız ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Tepebaşı",
+      "website": "https://incidisclinic.com",
+      "phone": "0(222) 231 11 11",
+      "email": "info@incidis.com.tr",
+      "whatsapp": "https://wa.me/905421373573",
+      "contact_form": "https://www.incidis.com.tr"
+    },
+    {
+      "name": "Özel İpek Ağız ve Diş Sağlığı Polikliniği",
+      "type": "Özel poliklinik",
+      "district": "Tepebaşı",
+      "website": "https://ipekdental.com",
+      "phone": "0(222) 231 15 15",
+      "email": "info@ipekdental.com",
+      "whatsapp": "https://api.whatsapp.com/send?text=https%3A%2F%2Fipekdental.com%2Fdental-drill-uretiminde-cnc-teknolojisinin-onemi%2F",
+      "contact_form": "https://ipekdental.com/iletisim/"
+    },
+    {
+      "name": "Özel İpek Ağız ve Diş Sağlığı Polikliniği Doktorlar Şubesi",
+      "type": "Özel poliklinik",
+      "district": "Tepebaşı",
+      "website": "https://www.ipekdis.com.tr",
+      "phone": "0(222) 231 15 15",
+      "email": "",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Dr. Dt. Erçin ŞEBEROL",
+      "type": "Bireysel muayenehane",
+      "district": "Odunpazarı",
+      "website": "https://www.ercinseberol.com",
+      "phone": "0(222) 225 07 66",
+      "email": "bilgi@seberoldental.com",
+      "whatsapp": "",
+      "contact_form": "https://www.ercinseberol.com/iletisim"
+    },
+    {
+      "name": "Dr. Dt. Fahri KAVRUT",
+      "type": "Bireysel muayenehane",
+      "district": "Tepebaşı",
+      "website": "https://www.fahrikavrut.com",
+      "phone": "0(222) 233 90 95",
+      "email": "fahrikavrut@yahoo.com",
+      "whatsapp": "",
+      "contact_form": "https://www.fahrikavrut.com/iletisim.php"
+    },
+    {
+      "name": "Dr. Dt. Ghizlane GENÇ",
+      "type": "Bireysel muayenehane",
+      "district": "Tepebaşı",
+      "website": "https://www.ghizlanegenc.com",
+      "phone": "0(222) 221 10 20",
+      "email": "info@ghizlanegenc.com",
+      "whatsapp": "https://api.whatsapp.com/send?phone=905079797797&text=Merhaba web sitenizden yazıyorum. Detaylı bilgi almak istiyorum.",
+      "contact_form": "https://www.ghizlanegenc.com/"
+    },
+    {
+      "name": "Dr. Dt. Nejla İLHAN",
+      "type": "Bireysel muayenehane",
+      "district": "Tepebaşı",
+      "website": "https://nejlailhan.com",
+      "phone": "0(546) 202 12 02",
+      "email": "ortodonti@nejlailhan.com",
+      "whatsapp": "",
+      "contact_form": "https://nejlailhan.com/iletisim/"
+    },
+    {
+      "name": "Dt. Abdullah AKPINAR",
+      "type": "Bireysel muayenehane",
+      "district": "Tepebaşı",
+      "website": "https://www.abdullahakpinar.com.tr",
+      "phone": "0(222) 234 96 31",
+      "email": "",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Dt. Arzu ALAGÖZ SAMUR",
+      "type": "Bireysel muayenehane",
+      "district": "Tepebaşı",
+      "website": "https://www.arzualagozsamur.com",
+      "phone": "0(053) 030 92 79",
+      "email": "alagozarzu@windowslive.com",
+      "whatsapp": "https://wa.me/+905303092798",
+      "contact_form": ""
+    },
+    {
+      "name": "Dt. Berkay ADALIĞ",
+      "type": "Bireysel muayenehane",
+      "district": "Tepebaşı",
+      "website": "https://www.dtberkayadalig.com",
+      "phone": "0(222) 231 51 40",
+      "email": "",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Dt. Erkan YÜCEL",
+      "type": "Bireysel muayenehane",
+      "district": "Tepebaşı",
+      "website": "https://www.erkanyucel.com",
+      "phone": "0(222) 230 63 82",
+      "email": "erkanyucel222@gmail.com",
+      "whatsapp": "",
+      "contact_form": "https://www.erkanyucel.com/iletisim.php"
+    },
+    {
+      "name": "Dt. Ezgi GÜLDALI",
+      "type": "Bireysel muayenehane",
+      "district": "Tepebaşı",
+      "website": "https://www.dtezgiguldali.com",
+      "phone": "0(534) 288 26 26",
+      "email": "",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Dt. Hasan ORAKÇIOĞLU",
+      "type": "Bireysel muayenehane",
+      "district": "Odunpazarı",
+      "website": "https://www.drhasanorakcioglu.com.tr",
+      "phone": "0(222) 239 10 26",
+      "email": "info@hasanorakcioglu.com",
+      "whatsapp": "https://wa.me/905335656901",
+      "contact_form": ""
+    },
+    {
+      "name": "Dt. Hatice TEMİZYÜREK",
+      "type": "Bireysel muayenehane",
+      "district": "Tepebaşı",
+      "website": "https://www.dthaticetemizyurek.com",
+      "phone": "0(222) 405 81 02",
+      "email": "",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Dt. Hilal AYVA",
+      "type": "Bireysel muayenehane",
+      "district": "Tepebaşı",
+      "website": "https://www.dishekimihilalayva.com",
+      "phone": "0(543) 384 45 25",
+      "email": "",
+      "whatsapp": "",
+      "contact_form": "https://www.dishekimihilalayva.com/"
+    },
+    {
+      "name": "Dt. Mehmet KAHVECİ",
+      "type": "Bireysel muayenehane",
+      "district": "Tepebaşı",
+      "website": "https://www.dtmehmetkahveci.com",
+      "phone": "0(222) 220 91 87",
+      "email": "",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Dt. Meliha ÇELİK",
+      "type": "Bireysel muayenehane",
+      "district": "Tepebaşı",
+      "website": "",
+      "phone": "0(222) 220 22 11",
+      "email": "",
+      "whatsapp": "https://api.whatsapp.com/send?phone=05384064433",
+      "contact_form": "https://www.eskisehir.net/ak-partiden-istifa-edip-chpye-gectiler"
+    },
+    {
+      "name": "Dt. Murat ÖZDEMİR",
+      "type": "Bireysel muayenehane",
+      "district": "Tepebaşı",
+      "website": "https://www.drmuratozdemir.com",
+      "phone": "0(222) 221 46 03",
+      "email": "hmurozdemir@gmail.com",
+      "whatsapp": "",
+      "contact_form": "https://www.drmuratozdemir.com/"
+    },
+    {
+      "name": "Dt. Mustafa POLAT",
+      "type": "Bireysel muayenehane",
+      "district": "Tepebaşı",
+      "website": "https://drmustafapolat.com",
+      "phone": "0(222) 221 02 27",
+      "email": "info@drmustafapolat.com",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Dt. S.Sami ERDEMİR",
+      "type": "Bireysel muayenehane",
+      "district": "Odunpazarı",
+      "website": "https://samierdemir.com.tr",
+      "phone": "0(222) 221 48 17",
+      "email": "",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Dt. Serkan AKSOY",
+      "type": "Bireysel muayenehane",
+      "district": "Tepebaşı",
+      "website": "https://www.serkanaksoy.com",
+      "phone": "0(544) 158 08 52",
+      "email": "",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Dt. Serkan KOCA",
+      "type": "Bireysel muayenehane",
+      "district": "Tepebaşı",
+      "website": "https://dtserkankoca.com",
+      "phone": "0(542) 731 58 01",
+      "email": "",
+      "whatsapp": "https://wa.me/905427315801",
+      "contact_form": ""
+    },
+    {
+      "name": "Dt. Umut DEMİREL",
+      "type": "Bireysel muayenehane",
+      "district": "Tepebaşı",
+      "website": "https://www.dtumutdemirel.com",
+      "phone": "0(530) 669 86 26",
+      "email": "",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Dt. Yusuf DURSUN",
+      "type": "Bireysel muayenehane",
+      "district": "Tepebaşı",
+      "website": "https://yusufdursun.com.tr",
+      "phone": "0(531) 226 90 07",
+      "email": "yusufdursun66@gmail.com",
+      "whatsapp": "",
+      "contact_form": ""
+    },
+    {
+      "name": "Dt. İdil Çiğdem PEKTAŞ",
+      "type": "Bireysel muayenehane",
+      "district": "Odunpazarı",
+      "website": "https://idilcigdempektas.com.tr",
+      "phone": "0(530) 717 80 26",
+      "email": "bilgi@idilcigdempektas.com.tr",
+      "whatsapp": "",
+      "contact_form": ""
+    }
+  ]
+}

@@ -1,0 +1,368 @@
+{% extends "base.html" %}
+
+{% block title %}CareerMap - Potansiyel İşveren Keşif Platformu{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section text-white py-5 position-relative overflow-hidden">
+    <div class="container py-4 position-relative z-1">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-7">
+                <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white mb-3 border border-white border-opacity-10 fs-sm">
+                    <span class="badge bg-primary rounded-pill">Yeni</span>
+                    <span>Konum Bazlı İş Arama ve İletişim Zenginleştirme Platformu</span>
+                </div>
+                <h1 class="display-4 fw-extrabold mb-3">
+                    Bölgenizdeki Potansiyel <span class="text-gradient">İşverenleri Keşfedin</span>
+                </h1>
+                <p class="lead text-light-dim mb-4">
+                    Mesleğinizi ve çalışmak istediğiniz konumu seçin. Resmî kurum kayıtları ve açık harita verilerini harmanlayarak kurumsal e-posta, telefon ve web sitelerinden oluşan 4 sekmeli profesyonel Excel raporu üretin.
+                </p>
+
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="#search-card" class="btn btn-primary btn-lg rounded-pill px-4 shadow-sm">
+                        <i class="bi bi-search me-2"></i> Keşfe Başla
+                    </a>
+                    <a href="/results" class="btn btn-outline-light btn-lg rounded-pill px-4">
+                        <i class="bi bi-table me-2"></i> Sonuçları İncele
+                    </a>
+                </div>
+
+                <!-- Hızlı İstatistik Rozetleri -->
+                <div class="row g-3 mt-4 pt-2">
+                    <div class="col-4">
+                        <div class="p-3 rounded-4 bg-white bg-opacity-10 border border-white border-opacity-10">
+                            <h3 class="fw-bold mb-0 text-white" id="stat-total">180+</h3>
+                            <small class="text-light-dim">Eskişehir Kliniği</small>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="p-3 rounded-4 bg-white bg-opacity-10 border border-white border-opacity-10">
+                            <h3 class="fw-bold mb-0 text-success" id="stat-email">%100</h3>
+                            <small class="text-light-dim">Ücretsiz Kaynak</small>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="p-3 rounded-4 bg-white bg-opacity-10 border border-white border-opacity-10">
+                            <h3 class="fw-bold mb-0 text-warning">4 Katman</h3>
+                            <small class="text-light-dim">Veri Zenginleştirme</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sağ Kolon: Arama ve Yapılandırma Kartı -->
+            <div class="col-lg-5" id="search-card">
+                <div class="card border-0 shadow-lg rounded-4 overflow-hidden search-container-card">
+                    <div class="card-header bg-navy text-white p-4 border-0">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <h4 class="fw-bold mb-1">Arama Yapılandırması</h4>
+                                <p class="text-muted small mb-0">Meslek ve bölge parametrelerini belirleyin</p>
+                            </div>
+                            <div class="bg-primary bg-opacity-10 p-2 rounded-circle text-primary">
+                                <i class="bi bi-sliders2 fs-4"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-body p-4 bg-white">
+                        <form id="search-form" action="/results" method="GET">
+                            <!-- Meslek Seçimi -->
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-dark small">
+                                    <i class="bi bi-person-badge text-primary me-1"></i> Mesleğin
+                                </label>
+                                <select class="form-select form-select-lg rounded-3 shadow-none border-secondary-subtle" name="profession" id="select-profession">
+                                    {% for p in professions %}
+                                        <option value="{{ p.id }}" {% if p.id == active_profession %}selected{% endif %} {% if not p.is_active %}disabled{% endif %}>
+                                            {{ p.name }} {% if not p.is_active %}(Genişletme Modülü - Yakında){% endif %}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                                <div class="form-text fs-xs text-muted">
+                                    İlk pilot Diş Hekimi ile aktiftir; mühendislik ve diğer meslekler aynı motor üzerine eklenecektir.
+                                </div>
+                            </div>
+
+                            <!-- Şehir Seçimi -->
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-dark small">
+                                    <i class="bi bi-geo-alt text-primary me-1"></i> Çalışmak İstediğin Şehir
+                                </label>
+                                <select class="form-select form-select-lg rounded-3 shadow-none border-secondary-subtle" name="city" id="select-city">
+                                    <option value="Eskişehir" selected>Eskişehir (Pilot Bölge)</option>
+                                    <option value="Bursa" disabled>Bursa (2. Aşama)</option>
+                                    <option value="Ankara" disabled>Ankara (3. Aşama)</option>
+                                </select>
+                            </div>
+
+                            <!-- İlçeler (Hızlı Seçim) -->
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <label class="form-label fw-bold text-dark small mb-0">
+                                        <i class="bi bi-pin-map text-primary me-1"></i> Hedef İlçeler
+                                    </label>
+                                    <button type="button" class="btn btn-link btn-sm text-decoration-none p-0 fs-xs" id="btn-toggle-all-districts">
+                                        Tümünü Seç / Temizle
+                                    </button>
+                                </div>
+                                <div class="district-tags-container p-2 border rounded-3 bg-light d-flex flex-wrap gap-1">
+                                    {% for d in districts %}
+                                        <div class="form-check form-check-inline m-0">
+                                            <input class="btn-check district-checkbox" type="checkbox" name="districts" value="{{ d }}" id="dist_{{ loop.index }}" checked>
+                                            <label class="btn btn-sm btn-outline-secondary rounded-pill district-pill" for="dist_{{ loop.index }}">
+                                                {{ d }}
+                                            </label>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <!-- İşveren Türü -->
+                            <div class="mb-4">
+                                <label class="form-label fw-bold text-dark small">
+                                    <i class="bi bi-building text-primary me-1"></i> İşveren Türü
+                                </label>
+                                <select class="form-select rounded-3 shadow-none border-secondary-subtle" name="employer_type" id="select-employer-type">
+                                    {% for t in employer_types %}
+                                        <option value="{{ t.id }}" {% if t.id == 'all' %}selected{% endif %}>
+                                            {{ t.label }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <!-- Butonlar -->
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary btn-lg rounded-3 fw-bold d-flex align-items-center justify-content-center gap-2">
+                                    <i class="bi bi-compass"></i> Arama Yapılandırmasını Çalıştır
+                                </button>
+                                <a href="/export/excel?profession=dentist&city=Eskişehir" class="btn btn-outline-success rounded-3 d-flex align-items-center justify-content-center gap-2" id="quick-excel-btn">
+                                    <i class="bi bi-file-earmark-excel-fill"></i> Doğrudan Excel (.xlsx) İndir
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Önbellek & Durum Bilgisi -->
+                    <div class="card-footer bg-light p-3 border-top text-center">
+                        <small class="text-muted d-flex align-items-center justify-content-center gap-2">
+                            <i class="bi bi-clock-history text-primary"></i>
+                            {% if cache and cache.last_scanned_at %}
+                                Son Güncelleme: <strong>{{ cache.last_scanned_at[:16] }}</strong> ({{ cache.total_count }} kayıt hazır)
+                            {% else %}
+                                İlk tarama için hazır (Anında oluşturulabilir)
+                            {% endif %}
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Veri Katmanları & Çalışma Mimarisi -->
+<section class="py-5 bg-white border-bottom">
+    <div class="container py-4">
+        <div class="text-center max-w-700 mx-auto mb-5">
+            <h6 class="text-primary text-uppercase fw-bold letter-spacing-1">Sistemin Çalışma Mimarisi</h6>
+            <h2 class="fw-bold">Tek Bir Kaynağa Bağımlı Olmayan 4 Veri Katmanı</h2>
+            <p class="text-muted">
+                İşletme keşfi ile iletişim bilgisi toplama işlemini birbirinden ayırıyoruz. Böylece yüksek kapsama oranı ve güvenilir iletişim verisi elde ediyoruz.
+            </p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Katman 1: OSM -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 border rounded-4 p-4 feature-card shadow-sm">
+                    <div class="feature-icon bg-primary-subtle text-primary mb-3">
+                        <i class="bi bi-map-fill"></i>
+                    </div>
+                    <span class="badge bg-primary-subtle text-primary w-fit mb-2">Katman A</span>
+                    <h5 class="fw-bold mb-2">OpenStreetMap</h5>
+                    <p class="text-muted small mb-0">
+                        Overpass API ve açık harita verisiyle <code>amenity=dentist</code> işletmelerinin konumları, koordinatları ve kayıtlı iletişimleri keşfedilir.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Katman 2: Resmî Kurum -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 border rounded-4 p-4 feature-card shadow-sm">
+                    <div class="feature-icon bg-success-subtle text-success mb-3">
+                        <i class="bi bi-building-check"></i>
+                    </div>
+                    <span class="badge bg-success-subtle text-success w-fit mb-2">Katman B</span>
+                    <h5 class="fw-bold mb-2">Resmî Kurum Kayıtları</h5>
+                    <p class="text-muted small mb-0">
+                        Eskişehir İl Sağlık Müdürlüğü'nün özel poliklinik ve hekim muayenehane listeleri taranarak haritada olmayan kurumlar tespit edilir.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Katman 3: Web Sitesi İletişim Analizi -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 border rounded-4 p-4 feature-card shadow-sm">
+                    <div class="feature-icon bg-warning-subtle text-warning mb-3">
+                        <i class="bi bi-envelope-at-fill"></i>
+                    </div>
+                    <span class="badge bg-warning-subtle text-warning w-fit mb-2">Katman C</span>
+                    <h5 class="fw-bold mb-2">İletişim & Kariyer Zenginleştirme</h5>
+                    <p class="text-muted small mb-0">
+                        İşletmelerin resmî sitelerindeki <code>/iletisim</code> ve <code>/kariyer</code> sayfalarından kurumsal e-posta ve başvuru linkleri ayıklanır.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Katman 4: RapidFuzz & Kalite Kontrol -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 border rounded-4 p-4 feature-card shadow-sm">
+                    <div class="feature-icon bg-info-subtle text-info mb-3">
+                        <i class="bi bi-shield-lock-fill"></i>
+                    </div>
+                    <span class="badge bg-info-subtle text-info w-fit mb-2">Katman D</span>
+                    <h5 class="fw-bold mb-2">Tekilleştirme & Güven Skoru</h5>
+                    <p class="text-muted small mb-0">
+                        RapidFuzz ile yinelenen kayıtlar birleştirilir; her işletmeye 0-100 arasında güvenilirlik ve başvuru uygunluk puanı atanır.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Excel Rapor Yapısı Tanıtımı -->
+<section class="py-5 bg-light">
+    <div class="container py-4">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <div class="pe-lg-4">
+                    <span class="badge bg-primary-subtle text-primary mb-2">Profesyonel Raporlama</span>
+                    <h2 class="fw-bold mb-3">4 Sayfalı Profesyonel Excel Çıktısı</h2>
+                    <p class="text-muted mb-4">
+                        CareerMap, ham bir veri dökümü yerine iş arayanların ve araştırmacıların doğrudan eyleme geçebileceği 4 ayrı çalışma sekmesi üretir:
+                    </p>
+
+                    <div class="d-flex flex-column gap-3">
+                        <div class="d-flex align-items-start gap-3 p-3 bg-white rounded-3 border">
+                            <div class="excel-tab-icon text-primary"><i class="bi bi-grid-3x3-gap-fill"></i></div>
+                            <div>
+                                <h6 class="fw-bold mb-1">1. Tüm İşverenler</h6>
+                                <p class="text-muted small mb-0">Tekilleştirilmiş ana liste, açık adres, kurum türü, telefon, web sitesi ve kaynaklar.</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-start gap-3 p-3 bg-white rounded-3 border">
+                            <div class="excel-tab-icon text-success"><i class="bi bi-send-check-fill"></i></div>
+                            <div>
+                                <h6 class="fw-bold mb-1">2. E-posta Bulunanlar</h6>
+                                <p class="text-muted small mb-0">Doğrudan CV veya ön yazı göndermek için kullanılabilecek doğrulanmış e-postalar.</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-start gap-3 p-3 bg-white rounded-3 border">
+                            <div class="excel-tab-icon text-warning"><i class="bi bi-exclamation-triangle-fill"></i></div>
+                            <div>
+                                <h6 class="fw-bold mb-1">3. Eksik / Kontrol Gerektirenler</h6>
+                                <p class="text-muted small mb-0">Web sitesi veya e-postası olmayan, telefonla arama veya ziyaret gerektiren kayıtlar.</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-start gap-3 p-3 bg-white rounded-3 border">
+                            <div class="excel-tab-icon text-info"><i class="bi bi-clipboard2-data-fill"></i></div>
+                            <div>
+                                <h6 class="fw-bold mb-1">4. Kaynaklar ve Tarama Raporu</h6>
+                                <p class="text-muted small mb-0">Hangi kaynaktan kaç işletme geldiği, başarı oranları, son tarama zamanı ve telif açıklamaları.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sağ Taraf: Excel Görsel Mockup -->
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                    <div class="card-header bg-navy text-white d-flex align-items-center justify-content-between p-3 border-0">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-file-earmark-excel-fill text-success fs-5"></i>
+                            <span class="fw-bold fs-sm">CareerMap_Eskisehir_Dis_Hekimi.xlsx</span>
+                        </div>
+                        <span class="badge bg-success rounded-pill px-3">Hazır</span>
+                    </div>
+                    <div class="table-responsive p-0 bg-white">
+                        <table class="table table-hover table-sm mb-0 excel-mock-table">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Klinik / İşveren</th>
+                                    <th>İlçe</th>
+                                    <th>Telefon</th>
+                                    <th>E-posta</th>
+                                    <th>Güven</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="fw-bold">Özel Dent Eskişehir Ağız ve Diş Sağlığı</td>
+                                    <td>Tepebaşı</td>
+                                    <td><span class="badge bg-light text-dark">0(222) 320 ..</span></td>
+                                    <td><span class="badge bg-success-subtle text-success">info@...</span></td>
+                                    <td><span class="badge bg-success">Yüksek</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">Özel İnci Diş Polikliniği</td>
+                                    <td>Odunpazarı</td>
+                                    <td><span class="badge bg-light text-dark">0(222) 231 ..</span></td>
+                                    <td><span class="badge bg-success-subtle text-success">iletisim@...</span></td>
+                                    <td><span class="badge bg-success">Yüksek</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">Dt. Ahmet Yılmaz Muayenehanesi</td>
+                                    <td>Tepebaşı</td>
+                                    <td><span class="badge bg-light text-dark">0(532) ...</span></td>
+                                    <td><span class="text-muted">-</span></td>
+                                    <td><span class="badge bg-warning text-dark">Orta</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">Özel Modern Dental Polikliniği</td>
+                                    <td>Odunpazarı</td>
+                                    <td><span class="badge bg-light text-dark">0(222) 220 ..</span></td>
+                                    <td><span class="badge bg-success-subtle text-success">ik@...</span></td>
+                                    <td><span class="badge bg-success">Yüksek</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer bg-light p-3 d-flex justify-content-between align-items-center border-0">
+                        <div class="d-flex gap-1">
+                            <span class="badge bg-primary">Tüm İşverenler</span>
+                            <span class="badge bg-secondary">E-posta Bulunanlar</span>
+                            <span class="badge bg-secondary">Eksik Listesi</span>
+                            <span class="badge bg-secondary">Kaynak Raporu</span>
+                        </div>
+                        <a href="/export/excel?profession=dentist&city=Eskişehir" class="btn btn-sm btn-success rounded-pill px-3">
+                            <i class="bi bi-download me-1"></i> İndir
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    // İlçe Tümünü Seç/Kaldır
+    const toggleBtn = document.getElementById('btn-toggle-all-districts');
+    let allChecked = true;
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+            allChecked = !allChecked;
+            document.querySelectorAll('.district-checkbox').forEach(cb => cb.checked = allChecked);
+        });
+    }
+</script>
+{% endblock %}
+

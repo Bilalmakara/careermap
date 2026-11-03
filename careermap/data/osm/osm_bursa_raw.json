@@ -1,0 +1,142 @@
+[
+  {
+    "type": "node",
+    "id": 5101967122,
+    "lat": 40.1807581,
+    "lon": 29.0706668,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Özel MESAM Bursadent Ağız ve Diş Sağlığı Merkezi Setbaşı Şubesi"
+    }
+  },
+  {
+    "type": "node",
+    "id": 5114178300,
+    "lat": 40.2626379,
+    "lon": 28.9507502,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Özel Dentisevi Ağız ve Diş Sağlığı Polikliniği"
+    }
+  },
+  {
+    "type": "node",
+    "id": 11749842023,
+    "lat": 40.1857587,
+    "lon": 29.1284927,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Bursa Ağız ve Diş Sağlığı Hastanesi"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13528157993,
+    "lat": 40.180769,
+    "lon": 29.0688874,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "healthcare:speciality": "dentist",
+      "name": "Dilek Hatunoğlu"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13609789518,
+    "lat": 40.2467744,
+    "lon": 28.9684396,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "healthcare:speciality": "dental_oral_maxillo_facial_surgery",
+      "name": "Özel Klinik Akpınar Ağız ve Diş Sağlığı Polikliniği"
+    }
+  },
+  {
+    "type": "node",
+    "id": 14105564406,
+    "lat": 40.2228939,
+    "lon": 28.9151917,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "indoor": "yes",
+      "level": "1",
+      "name": "Estetik A"
+    }
+  },
+  {
+    "type": "way",
+    "id": 974787904,
+    "center": {
+      "lat": 40.1826391,
+      "lon": 29.0876191
+    },
+    "tags": {
+      "addr:city": "Bursa",
+      "addr:district": "Yıldırım",
+      "addr:housenumber": "4-6A/1",
+      "addr:neighbourhood": "Davutkadı",
+      "addr:street": "Teyyareci Mehmet Ali Caddesi",
+      "amenity": "dentist",
+      "building": "yes",
+      "healthcare": "dentist",
+      "healthcare:speciality": "dentistry",
+      "name": "Varveren Ağız ve Diş Sağlığı Polikliniği"
+    }
+  },
+  {
+    "type": "way",
+    "id": 1471454666,
+    "center": {
+      "lat": 40.247033,
+      "lon": 28.9872943
+    },
+    "tags": {
+      "amenity": "dentist",
+      "building": "yes",
+      "healthcare": "dentist",
+      "name": "Kayı Dent"
+    }
+  },
+  {
+    "type": "way",
+    "id": 1550420334,
+    "center": {
+      "lat": 40.2476905,
+      "lon": 28.9902163
+    },
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Moda Plus"
+    }
+  },
+  {
+    "type": "way",
+    "id": 1551570194,
+    "center": {
+      "lat": 40.2197907,
+      "lon": 28.9789774
+    },
+    "tags": {
+      "addr:city": "Bursa",
+      "addr:district": "Nilüfer",
+      "addr:housenumber": "Kat:6 No:12",
+      "addr:neighbourhood": "Cumhuriyet",
+      "addr:postcode": "16210",
+      "addr:street": "İlknur Sokak",
+      "amenity": "dentist",
+      "building": "yes",
+      "healthcare": "dentist",
+      "healthcare:speciality": "dental_oral_maxillo_facial_surgery",
+      "mobile": "+90 538 385 96 52",
+      "name": "Diş Hekimi Aynur Bayan",
+      "opening_hours": "Mo Fr- 10:30-19:30 Sa- 10:30-15:30 Su-Off"
+    }
+  }
+]

@@ -1,0 +1,242 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "updated_at": "2026-11-03",
+    "country": "Türkiye",
+    "metropolitan_count": 30,
+    "national_tdb_2025_total": 23685,
+    "national_tdb_2025_categories": {
+      "muayenehane": 14458,
+      "poliklinik": 7178,
+      "musterek_muayenehane": 1728,
+      "adsm_merkez": 321
+    },
+    "emsalo_30_metro_total": 14996,
+    "emsalo_national_total": 17819,
+    "emsalo_metro_percentage": 84.16,
+    "license_notes": "Açık makro istatistikler ve TBMM/AFAD kamu kayıtları karşılaştırma tabanı (benchmark) olarak kullanılmıştır."
+  },
+  "provinces": {
+    "İstanbul": {
+      "city": "İstanbul",
+      "official_reference_count": 4633,
+      "official_reference_source": "İstanbul İl Sağlık Müdürlüğü (TBMM Tutanakları 31 Ocak 2025)",
+      "official_breakdown": {
+        "muayenehane": 2927,
+        "poliklinik": 1652,
+        "adsm_merkez": 54
+      },
+      "emsalo_record_count": 3574,
+      "emsalo_date": "2026-10-15"
+    },
+    "İzmir": {
+      "city": "İzmir",
+      "official_reference_count": 1332,
+      "official_reference_source": "Emsalo (2026-10-15) & İzmir AFAD İRAP 2024 (342 Poliklinik + 7 Merkez)",
+      "official_breakdown": {
+        "poliklinik": 342,
+        "adsm_merkez": 7
+      },
+      "emsalo_record_count": 1332,
+      "emsalo_date": "2026-10-15"
+    },
+    "Ankara": {
+      "city": "Ankara",
+      "official_reference_count": 1316,
+      "official_reference_source": "Emsalo Ticari Dizin Raporu (2026-10-15)",
+      "emsalo_record_count": 1316,
+      "emsalo_date": "2026-10-15"
+    },
+    "Antalya": {
+      "city": "Antalya",
+      "official_reference_count": 1121,
+      "official_reference_source": "Emsalo Ticari Dizin Raporu (2026-10-15)",
+      "emsalo_record_count": 1121,
+      "emsalo_date": "2026-10-15"
+    },
+    "Bursa": {
+      "city": "Bursa",
+      "official_reference_count": 988,
+      "official_reference_source": "Emsalo Ticari Dizin Raporu (2026-10-15)",
+      "emsalo_record_count": 988,
+      "emsalo_date": "2026-10-15"
+    },
+    "Kocaeli": {
+      "city": "Kocaeli",
+      "official_reference_count": 520,
+      "official_reference_source": "Emsalo Ticari Dizin Raporu (2026-10-15)",
+      "emsalo_record_count": 520,
+      "emsalo_date": "2026-10-15"
+    },
+    "Muğla": {
+      "city": "Muğla",
+      "official_reference_count": 472,
+      "official_reference_source": "Emsalo Ticari Dizin Raporu (2026-10-15)",
+      "emsalo_record_count": 472,
+      "emsalo_date": "2026-10-15"
+    },
+    "Gaziantep": {
+      "city": "Gaziantep",
+      "official_reference_count": 403,
+      "official_reference_source": "Emsalo Ticari Dizin Raporu (2026-10-15)",
+      "emsalo_record_count": 403,
+      "emsalo_date": "2026-10-15"
+    },
+    "Aydın": {
+      "city": "Aydın",
+      "official_reference_count": 388,
+      "official_reference_source": "Emsalo Ticari Dizin Raporu (2026-10-15)",
+      "emsalo_record_count": 388,
+      "emsalo_date": "2026-10-15"
+    },
+    "Konya": {
+      "city": "Konya",
+      "official_reference_count": 381,
+      "official_reference_source": "Emsalo Ticari Dizin Raporu (2026-10-15)",
+      "emsalo_record_count": 381,
+      "emsalo_date": "2026-10-15"
+    },
+    "Adana": {
+      "city": "Adana",
+      "official_reference_count": 352,
+      "official_reference_source": "Emsalo Ticari Dizin Raporu (2026-10-15)",
+      "emsalo_record_count": 352,
+      "emsalo_date": "2026-10-15"
+    },
+    "Hatay": {
+      "city": "Hatay",
+      "official_reference_count": 340,
+      "official_reference_source": "Emsalo Ticari Dizin Raporu (2026-10-15)",
+      "emsalo_record_count": 340,
+      "emsalo_date": "2026-10-15"
+    },
+    "Balıkesir": {
+      "city": "Balıkesir",
+      "official_reference_count": 320,
+      "official_reference_source": "Emsalo Ticari Dizin Raporu (2026-10-15)",
+      "emsalo_record_count": 320,
+      "emsalo_date": "2026-10-15"
+    },
+    "Samsun": {
+      "city": "Samsun",
+      "official_reference_count": 303,
+      "official_reference_source": "Emsalo Ticari Dizin Raporu (2026-10-15)",
+      "emsalo_record_count": 303,
+      "emsalo_date": "2026-10-15"
+    },
+    "Kayseri": {
+      "city": "Kayseri",
+      "official_reference_count": 272,
+      "official_reference_source": "Emsalo Ticari Dizin Raporu (2026-10-15)",
+      "emsalo_record_count": 272,
+      "emsalo_date": "2026-10-15"
+    },
+    "Sakarya": {
+      "city": "Sakarya",
+      "official_reference_count": 266,
+      "official_reference_source": "Emsalo Ticari Dizin Raporu (2026-10-15)",
+      "emsalo_record_count": 266,
+      "emsalo_date": "2026-10-15"
+    },
+    "Mersin": {
+      "city": "Mersin",
+      "official_reference_count": 263,
+      "official_reference_source": "Emsalo Ticari Dizin Raporu (2026-10-15)",
+      "emsalo_record_count": 263,
+      "emsalo_date": "2026-10-15"
+    },
+    "Tekirdağ": {
+      "city": "Tekirdağ",
+      "official_reference_count": 245,
+      "official_reference_source": "Emsalo Ticari Dizin Raporu (2026-10-15)",
+      "emsalo_record_count": 245,
+      "emsalo_date": "2026-10-15"
+    },
+    "Diyarbakır": {
+      "city": "Diyarbakır",
+      "official_reference_count": 237,
+      "official_reference_source": "Emsalo Ticari Dizin Raporu (2026-10-15)",
+      "emsalo_record_count": 237,
+      "emsalo_date": "2026-10-15"
+    },
+    "Eskişehir": {
+      "city": "Eskişehir",
+      "official_reference_count": 233,
+      "official_reference_source": "Emsalo (2026-10-15) & Eskişehir İl Sağlık / TDB Oda Sicili (220 Kurum)",
+      "emsalo_record_count": 233,
+      "careermap_verified_count": 220,
+      "emsalo_date": "2026-10-15"
+    },
+    "Manisa": {
+      "city": "Manisa",
+      "official_reference_count": 228,
+      "official_reference_source": "Emsalo Ticari Dizin Raporu (2026-10-15)",
+      "emsalo_record_count": 228,
+      "emsalo_date": "2026-10-15"
+    },
+    "Denizli": {
+      "city": "Denizli",
+      "official_reference_count": 227,
+      "official_reference_source": "Emsalo Ticari Dizin Raporu (2026-10-15)",
+      "emsalo_record_count": 227,
+      "emsalo_date": "2026-10-15"
+    },
+    "Şanlıurfa": {
+      "city": "Şanlıurfa",
+      "official_reference_count": 216,
+      "official_reference_source": "Emsalo Ticari Dizin Raporu (2026-10-15)",
+      "emsalo_record_count": 216,
+      "emsalo_date": "2026-10-15"
+    },
+    "Trabzon": {
+      "city": "Trabzon",
+      "official_reference_count": 205,
+      "official_reference_source": "Emsalo Ticari Dizin Raporu (2026-10-15)",
+      "emsalo_record_count": 205,
+      "emsalo_date": "2026-10-15"
+    },
+    "Kahramanmaraş": {
+      "city": "Kahramanmaraş",
+      "official_reference_count": 199,
+      "official_reference_source": "Emsalo Ticari Dizin Raporu (2026-10-15)",
+      "emsalo_record_count": 199,
+      "emsalo_date": "2026-10-15"
+    },
+    "Malatya": {
+      "city": "Malatya",
+      "official_reference_count": 156,
+      "official_reference_source": "Emsalo Ticari Dizin Raporu (2026-10-15)",
+      "emsalo_record_count": 156,
+      "emsalo_date": "2026-10-15"
+    },
+    "Van": {
+      "city": "Van",
+      "official_reference_count": 152,
+      "official_reference_source": "Emsalo Ticari Dizin Raporu (2026-10-15)",
+      "emsalo_record_count": 152,
+      "emsalo_date": "2026-10-15"
+    },
+    "Mardin": {
+      "city": "Mardin",
+      "official_reference_count": 134,
+      "official_reference_source": "Emsalo Ticari Dizin Raporu (2026-10-15)",
+      "emsalo_record_count": 134,
+      "emsalo_date": "2026-10-15"
+    },
+    "Ordu": {
+      "city": "Ordu",
+      "official_reference_count": 100,
+      "official_reference_source": "Emsalo Ticari Dizin Raporu (2026-10-15)",
+      "emsalo_record_count": 100,
+      "emsalo_date": "2026-10-15"
+    },
+    "Erzurum": {
+      "city": "Erzurum",
+      "official_reference_count": 53,
+      "official_reference_source": "Emsalo Ticari Dizin Raporu (2026-10-15)",
+      "emsalo_record_count": 53,
+      "emsalo_date": "2026-10-15"
+    }
+  }
+}
+

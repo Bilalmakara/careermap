@@ -1,0 +1,11 @@
+{
+  "name": "careermap-frontend-pwa",
+  "version": "2.6.0",
+  "description": "CareerMap V2.6 — iPhone PWA & Web Platform Frontend for Vercel",
+  "private": true,
+  "scripts": {
+    "dev": "npx serve .",
+    "start": "npx serve ."
+  }
+}
+

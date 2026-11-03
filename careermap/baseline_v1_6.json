@@ -1,0 +1,18 @@
+{
+  "taken_at": "2026-11-02T22:41:41.971208",
+  "backup": "c:\\Users\\user\\Desktop\\Other Projects\\Job Finder\\careermap\\backups\\careermap_pre_v1_6_20261102_224141.db",
+  "total": 220,
+  "website": 55,
+  "phone": 129,
+  "email": 24,
+  "contact_form_url": 12,
+  "career_url": 4,
+  "any_channel": 129,
+  "contacts_by_type": {
+    "career_page": 3,
+    "contact_form": 6,
+    "email": 12,
+    "phone": 117,
+    "website": 36
+  }
+}

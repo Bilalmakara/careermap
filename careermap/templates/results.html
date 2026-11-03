@@ -1,0 +1,482 @@
+{% extends "base.html" %}
+
+{% block title %}İşveren Keşif Sonuçları - CareerMap{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    <!-- Üst Başlık & Eylemler -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+        <div>
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <span class="badge bg-primary rounded-pill px-3 py-1">Diş Hekimi</span>
+                <span class="badge bg-secondary rounded-pill px-3 py-1">Eskişehir</span>
+                <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-1" id="cache-badge">
+                    <i class="bi bi-check-circle-fill me-1"></i> Önbellekten Hazır
+                </span>
+            </div>
+            <h2 class="fw-bold mb-0">Eskişehir Diş Klinikleri ve Muayenehaneleri</h2>
+            <p class="text-muted small mb-0">Resmî kurum kayıtları, açık harita ve web sitelerinden derlenmiş potansiyel işveren havuzu.</p>
+        </div>
+
+        <div class="d-flex flex-wrap gap-2">
+            <button class="btn btn-outline-secondary rounded-pill px-3 d-flex align-items-center gap-2" id="btn-refresh-cache" title="Tüm internet kaynaklarını sıfırdan tara">
+                <i class="bi bi-arrow-clockwise" id="refresh-icon"></i>
+                <span>Taramayı Yenile</span>
+            </button>
+            <a href="/export/excel?profession=dentist&city=Eskişehir" class="btn btn-success rounded-pill px-4 shadow-sm d-flex align-items-center gap-2" id="btn-export-excel">
+                <i class="bi bi-file-earmark-excel-fill"></i>
+                <span class="fw-bold">Excel (.xlsx) İndir</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- İstatistik Sayaç Kartları -->
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-lg-3">
+            <div class="card border-0 shadow-sm rounded-4 p-3 bg-white h-100">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <div class="text-muted small fw-semibold">Toplam İşveren</div>
+                        <h3 class="fw-bold text-navy mb-0" id="stat-card-total">0</h3>
+                    </div>
+                    <div class="stat-icon bg-primary-subtle text-primary">
+                        <i class="bi bi-building"></i>
+                    </div>
+                </div>
+                <div class="mt-2 fs-xs text-muted">Tekilleştirilmiş kurum sayısı</div>
+            </div>
+        </div>
+
+        <div class="col-6 col-lg-3">
+            <div class="card border-0 shadow-sm rounded-4 p-3 bg-white h-100">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <div class="text-muted small fw-semibold">Kurumsal E-posta</div>
+                        <h3 class="fw-bold text-success mb-0" id="stat-card-email">0</h3>
+                    </div>
+                    <div class="stat-icon bg-success-subtle text-success">
+                        <i class="bi bi-envelope-at-fill"></i>
+                    </div>
+                </div>
+                <div class="mt-2 fs-xs text-muted">Doğrudan CV / başvuru adresi</div>
+            </div>
+        </div>
+
+        <div class="col-6 col-lg-3">
+            <div class="card border-0 shadow-sm rounded-4 p-3 bg-white h-100">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <div class="text-muted small fw-semibold">Doğrulanmış Telefon</div>
+                        <h3 class="fw-bold text-info mb-0" id="stat-card-phone">0</h3>
+                    </div>
+                    <div class="stat-icon bg-info-subtle text-info">
+                        <i class="bi bi-telephone-fill"></i>
+                    </div>
+                </div>
+                <div class="mt-2 fs-xs text-muted">Aktif iletişim hattı</div>
+            </div>
+        </div>
+
+        <div class="col-6 col-lg-3">
+            <div class="card border-0 shadow-sm rounded-4 p-3 bg-white h-100">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <div class="text-muted small fw-semibold">Yüksek Güvenilirlik</div>
+                        <h3 class="fw-bold text-warning mb-0" id="stat-card-confidence">0</h3>
+                    </div>
+                    <div class="stat-icon bg-warning-subtle text-warning">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+                </div>
+                <div class="mt-2 fs-xs text-muted">Çoklu kaynakla teyitli</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filtreleme & Arama Çubuğu -->
+    <div class="card border-0 shadow-sm rounded-4 mb-4 bg-white">
+        <div class="card-body p-3">
+            <div class="row g-2 align-items-center">
+                <!-- Arama Metni -->
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0 text-muted">
+                            <i class="bi bi-search"></i>
+                        </span>
+                        <input type="text" class="form-control bg-light border-start-0 shadow-none" id="input-search-text" placeholder="Klinik adı, hekim, cadde veya adres...">
+                    </div>
+                </div>
+
+                <!-- İlçe Filtresi -->
+                <div class="col-md-3">
+                    <select class="form-select bg-light shadow-none" id="filter-district">
+                        <option value="">Tüm İlçeler</option>
+                        {% for d in districts %}
+                            <option value="{{ d }}">{{ d }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Kurum Türü -->
+                <div class="col-md-3">
+                    <select class="form-select bg-light shadow-none" id="filter-type">
+                        <option value="all">Tüm Kurum Türleri</option>
+                        <option value="poliklinik">Yalnızca Özel Poliklinikler</option>
+                        <option value="muayenehane">Bireysel Muayenehaneler</option>
+                    </select>
+                </div>
+
+                <!-- Sadece E-postası Olanlar Toggle -->
+                <div class="col-md-2">
+                    <div class="form-check form-switch d-flex align-items-center gap-2 ps-0 justify-content-md-end">
+                        <input class="form-check-input ms-0" type="checkbox" role="switch" id="toggle-only-email">
+                        <label class="form-check-label fs-xs fw-semibold" for="toggle-only-email">Sadece E-postalı</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Yükleniyor Göstergesi -->
+    <div id="loading-spinner" class="text-center py-5 d-none">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="visually-hidden">Yükleniyor...</span>
+        </div>
+        <p class="mt-3 text-muted fw-semibold" id="loading-text">Veriler taranıyor ve zenginleştiriliyor...</p>
+    </div>
+
+    <!-- Sonuç Tablosu Kartı -->
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white" id="results-table-card">
+        <div class="card-header bg-white py-3 px-4 border-bottom d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-2">
+                <h5 class="fw-bold mb-0">İşveren Kayıtları</h5>
+                <span class="badge bg-primary-subtle text-primary rounded-pill font-monospace" id="record-count-badge">0 Kayıt</span>
+            </div>
+            <div class="text-muted fs-xs">
+                Sıralama: <strong>Güven Puanı & E-posta Durumu</strong>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0 custom-results-table">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-4">Klinik / Hekim Adı</th>
+                        <th>Tür</th>
+                        <th>İlçe</th>
+                        <th>İletişim</th>
+                        <th>Web / Kariyer</th>
+                        <th>Güvenilirlik</th>
+                        <th class="text-end pe-4">Detay</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <!-- Dinamik JavaScript ile doldurulur -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Boş Durum (Empty State) -->
+        <div id="empty-state" class="text-center py-5 d-none">
+            <i class="bi bi-inbox text-muted display-4"></i>
+            <h5 class="mt-3 fw-bold">Eşleşen İşveren Bulunamadı</h5>
+            <p class="text-muted small">Lütfen arama veya filtre kriterlerinizi değiştirin.</p>
+        </div>
+    </div>
+
+</div>
+
+<!-- Kayıt Detay Modalı -->
+<div class="modal fade" id="detailModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 shadow-lg">
+            <div class="modal-header bg-navy text-white border-0 py-3">
+                <h5 class="modal-title fw-bold" id="modal-name">Klinik Detayı</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="mb-3">
+                    <small class="text-muted text-uppercase fw-bold">Kurum Türü & İlçe</small>
+                    <div class="d-flex gap-2 mt-1">
+                        <span class="badge bg-light text-dark border" id="modal-type">-</span>
+                        <span class="badge bg-light text-dark border" id="modal-district">-</span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <small class="text-muted text-uppercase fw-bold">Açık Adres</small>
+                    <p class="mb-0 text-dark small" id="modal-address">-</p>
+                </div>
+
+                <div class="row g-2 mb-3">
+                    <div class="col-6">
+                        <small class="text-muted text-uppercase fw-bold">Telefon</small>
+                        <p class="mb-0 fw-semibold small" id="modal-phone">-</p>
+                    </div>
+                    <div class="col-6">
+                        <small class="text-muted text-uppercase fw-bold">E-posta</small>
+                        <p class="mb-0 fw-semibold small text-success" id="modal-email">-</p>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <small class="text-muted text-uppercase fw-bold">Web & Kariyer Bağlantısı</small>
+                    <div id="modal-links" class="mt-1 small">
+                        -
+                    </div>
+                </div>
+
+                <div class="p-3 bg-light rounded-3 border">
+                    <small class="text-muted text-uppercase fw-bold d-block mb-1">Veri Kaynağı & Doğrulama</small>
+                    <div class="small text-muted" id="modal-source-type">-</div>
+                    <div class="small text-muted mt-1 text-truncate" id="modal-source-urls">-</div>
+                </div>
+            </div>
+            <div class="modal-footer border-0 bg-light py-2">
+                <button type="button" class="btn btn-secondary btn-sm rounded-pill px-3" data-bs-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Sonuçları ilk yükleme
+        loadResults();
+
+        // Filtre dinleyicileri
+        document.getElementById('input-search-text').addEventListener('input', debounce(loadResults, 300));
+        document.getElementById('filter-district').addEventListener('change', loadResults);
+        document.getElementById('filter-type').addEventListener('change', loadResults);
+        document.getElementById('toggle-only-email').addEventListener('change', loadResults);
+
+        // Önbellek Yenileme Butonu
+        document.getElementById('btn-refresh-cache').addEventListener('click', () => {
+            if (confirm('İnternet üzerindeki resmî kaynaklar ve web siteleri yeniden taranacak. Bu işlem birkaç saniye sürebilir. Devam edilsin mi?')) {
+                triggerFreshScan();
+            }
+        });
+    });
+
+    let currentRecords = [];
+
+    function updateExportLink() {
+        const district = document.getElementById('filter-district').value;
+        const type = document.getElementById('filter-type').value;
+        const q = document.getElementById('input-search-text').value;
+        const onlyEmail = document.getElementById('toggle-only-email').checked;
+
+        let url = `/export/excel?profession=dentist&city=Eskişehir`;
+        if (district) url += `&districts=${encodeURIComponent(district)}`;
+        if (type && type !== 'all') url += `&employer_type=${encodeURIComponent(type)}`;
+        if (q) url += `&q=${encodeURIComponent(q)}`;
+        if (onlyEmail) url += `&only_with_email=true`;
+
+        const exportBtn = document.getElementById('btn-export-excel');
+        if (exportBtn) exportBtn.href = url;
+    }
+
+    async function loadResults() {
+        updateExportLink();
+        const district = document.getElementById('filter-district').value;
+        const type = document.getElementById('filter-type').value;
+        const q = document.getElementById('input-search-text').value;
+        const onlyEmail = document.getElementById('toggle-only-email').checked;
+
+        let apiUrl = `/api/search?profession=dentist&city=Eskişehir`;
+        if (district) apiUrl += `&districts=${encodeURIComponent(district)}`;
+        if (type && type !== 'all') apiUrl += `&employer_type=${encodeURIComponent(type)}`;
+        if (q) apiUrl += `&q=${encodeURIComponent(q)}`;
+        if (onlyEmail) apiUrl += `&only_with_email=true`;
+
+        const spinner = document.getElementById('loading-spinner');
+        const tableCard = document.getElementById('results-table-card');
+        const emptyState = document.getElementById('empty-state');
+        const tableBody = document.getElementById('table-body');
+
+        try {
+            const resp = await fetch(apiUrl);
+            const data = await resp.json();
+            
+            if (data.status === 'success') {
+                currentRecords = data.records;
+                renderTable(currentRecords);
+                updateStats(currentRecords);
+            }
+        } catch (err) {
+            console.error('Veri yükleme hatası:', err);
+        }
+    }
+
+    function renderTable(records) {
+        const tableBody = document.getElementById('table-body');
+        const emptyState = document.getElementById('empty-state');
+        const countBadge = document.getElementById('record-count-badge');
+        
+        countBadge.innerText = `${records.length} Kayıt`;
+        tableBody.innerHTML = '';
+
+        if (!records || records.length === 0) {
+            emptyState.classList.remove('d-none');
+            return;
+        }
+        emptyState.classList.add('d-none');
+
+        records.forEach((r, idx) => {
+            const tr = document.createElement('tr');
+            
+            // Güvenilirlik rozeti
+            let confBadge = '';
+            if (r.confidence_level === 'Yüksek') {
+                confBadge = `<span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill"><i class="bi bi-shield-check me-1"></i>${r.confidence_score} Yüksek</span>`;
+            } else if (r.confidence_level === 'Orta') {
+                confBadge = `<span class="badge bg-warning-subtle text-warning border border-warning-subtle rounded-pill"><i class="bi bi-shield me-1"></i>${r.confidence_score} Orta</span>`;
+            } else {
+                confBadge = `<span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle rounded-pill"><i class="bi bi-shield-exclamation me-1"></i>${r.confidence_score} Düşük</span>`;
+            }
+
+            // İletişim butonları
+            let contactHtml = '';
+            if (r.phone) {
+                contactHtml += `<a href="tel:${r.phone}" class="btn btn-sm btn-light border rounded-pill py-0 px-2 me-1 text-nowrap" title="Telefonu Ara"><i class="bi bi-telephone text-primary me-1"></i>${r.phone}</a>`;
+            }
+            if (r.email) {
+                contactHtml += `<a href="mailto:${r.email}" class="btn btn-sm btn-success-subtle text-success border border-success-subtle rounded-pill py-0 px-2 text-nowrap" title="E-posta Gönder"><i class="bi bi-envelope-fill me-1"></i>${r.email}</a>`;
+            }
+            if (!contactHtml) {
+                contactHtml = '<span class="text-muted fs-xs">Telefon/E-posta yok</span>';
+            }
+
+            // Web, Kariyer ve Form bağlantıları
+            let webHtml = '';
+            if (r.website) {
+                webHtml += `<a href="${r.website}" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill py-0 px-2 me-1" title="Web Sitesini Ziyaret Et"><i class="bi bi-globe me-1"></i>Site</a>`;
+            }
+            if (r.career_url) {
+                webHtml += `<a href="${r.career_url}" target="_blank" class="btn btn-sm btn-primary rounded-pill py-0 px-2 me-1" title="Kariyer / İş Başvuru Sayfası"><i class="bi bi-briefcase-fill me-1"></i>Kariyer</a>`;
+            }
+            if (r.contact_form_url) {
+                webHtml += `<a href="${r.contact_form_url}" target="_blank" class="btn btn-sm btn-outline-success rounded-pill py-0 px-2" title="İletişim / Başvuru Formu"><i class="bi bi-ui-checks me-1"></i>Form</a>`;
+            }
+            if (!webHtml) {
+                webHtml = '<span class="text-muted fs-xs">-</span>';
+            }
+
+            tr.innerHTML = `
+                <td class="ps-4">
+                    <div class="fw-bold text-dark">${escapeHtml(r.name)}</div>
+                    <small class="text-muted text-truncate d-inline-block" style="max-width: 280px;" title="${escapeHtml(r.address || '')}">
+                        ${escapeHtml(r.address || 'Adres bilgisi mevcut değil')}
+                    </small>
+                </td>
+                <td>
+                    <span class="badge bg-light text-dark border rounded-pill fs-xs">${escapeHtml(r.employer_type || 'Genel')}</span>
+                </td>
+                <td>
+                    <span class="badge bg-secondary-subtle text-secondary rounded-pill">${escapeHtml(r.district || 'Belirtilmedi')}</span>
+                </td>
+                <td>${contactHtml}</td>
+                <td>${webHtml}</td>
+                <td>${confBadge}</td>
+                <td class="text-end pe-4">
+                    <button class="btn btn-sm btn-light border rounded-circle p-1" onclick="openDetailModal(${idx})" title="Detayları İncele">
+                        <i class="bi bi-chevron-right text-muted"></i>
+                    </button>
+                </td>
+            `;
+            tableBody.appendChild(tr);
+        });
+    }
+
+    function updateStats(records) {
+        const total = records.length;
+        const withEmail = records.filter(r => (r.email || '').trim()).length;
+        const withPhone = records.filter(r => (r.phone || '').trim()).length;
+        const highConf = records.filter(r => r.confidence_level === 'Yüksek').length;
+
+        document.getElementById('stat-card-total').innerText = total;
+        document.getElementById('stat-card-email').innerText = withEmail;
+        document.getElementById('stat-card-phone').innerText = withPhone;
+        document.getElementById('stat-card-confidence').innerText = highConf;
+    }
+
+    function openDetailModal(index) {
+        const r = currentRecords[index];
+        if (!r) return;
+
+        document.getElementById('modal-name').innerText = r.name;
+        document.getElementById('modal-type').innerText = r.employer_type || 'Klinik';
+        document.getElementById('modal-district').innerText = r.district || 'Eskişehir';
+        document.getElementById('modal-address').innerText = r.address || 'Açık adres kaydı bulunamadı.';
+        document.getElementById('modal-phone').innerText = r.phone || 'Telefon bulunamadı';
+        document.getElementById('modal-email').innerText = r.email || 'E-posta bulunamadı';
+        document.getElementById('modal-source-type').innerText = `Kaynak: ${r.source_type || 'Resmî Liste'}`;
+        document.getElementById('modal-source-urls').innerText = r.source_urls || '-';
+
+        let linksHtml = '';
+        if (r.website) {
+            linksHtml += `<a href="${r.website}" target="_blank" class="d-inline-block me-3 text-primary"><i class="bi bi-globe me-1"></i>Web Sitesi</a>`;
+        }
+        if (r.career_url) {
+            linksHtml += `<a href="${r.career_url}" target="_blank" class="d-inline-block me-3 text-success fw-bold"><i class="bi bi-briefcase me-1"></i>Kariyer & İK</a>`;
+        }
+        if (r.contact_form_url) {
+            linksHtml += `<a href="${r.contact_form_url}" target="_blank" class="d-inline-block text-info fw-bold"><i class="bi bi-ui-checks me-1"></i>İletişim / Randevu Formu</a>`;
+        }
+        if (!linksHtml) linksHtml = '<span class="text-muted">Web sitesi kaydı yok</span>';
+        document.getElementById('modal-links').innerHTML = linksHtml;
+
+        const modal = new bootstrap.Modal(document.getElementById('detailModal'));
+        modal.show();
+    }
+
+    async function triggerFreshScan() {
+        const refreshIcon = document.getElementById('refresh-icon');
+        const spinner = document.getElementById('loading-spinner');
+        const tableCard = document.getElementById('results-table-card');
+        
+        refreshIcon.classList.add('spin-animation');
+        spinner.classList.remove('d-none');
+        tableCard.classList.add('d-none');
+
+        try {
+            const resp = await fetch('/api/scan?profession=dentist&city=Eskişehir&enrich_emails=true', { method: 'POST' });
+            const data = await resp.json();
+            if (data.status === 'success') {
+                alert(`Tarama başarıyla tamamlandı! Toplam ${data.total_count} işletme güncellendi.`);
+                await loadResults();
+            } else {
+                alert('Tarama sırasında hata oluştu: ' + (data.detail || 'Bilinmiyor'));
+            }
+        } catch (err) {
+            alert('Ağ hatası: ' + err);
+        } finally {
+            refreshIcon.classList.remove('spin-animation');
+            spinner.classList.add('d-none');
+            tableCard.classList.remove('d-none');
+        }
+    }
+
+    function debounce(func, wait) {
+        let timeout;
+        return function(...args) {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), wait);
+        };
+    }
+
+    function escapeHtml(text) {
+        if (!text) return '';
+        return text
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+</script>
+{% endblock %}
+

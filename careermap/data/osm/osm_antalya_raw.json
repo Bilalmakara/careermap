@@ -1,0 +1,571 @@
+[
+  {
+    "type": "node",
+    "id": 3721365032,
+    "lat": 36.8984116,
+    "lon": 30.6900509,
+    "tags": {
+      "addr:city": "Muratpaşa/Antalya",
+      "addr:street": "Güllük Caddesi",
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Diş Hekimi H. Kenan Özkan"
+    }
+  },
+  {
+    "type": "node",
+    "id": 3721365034,
+    "lat": 36.8987179,
+    "lon": 30.6898977,
+    "tags": {
+      "addr:city": "Muratpaşa/Antalya",
+      "addr:street": "Güllük Caddesi",
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Diş Hekimi"
+    }
+  },
+  {
+    "type": "node",
+    "id": 3723136066,
+    "lat": 36.8628108,
+    "lon": 30.7303626,
+    "tags": {
+      "addr:city": "Muratpaşa/Antalya",
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Diş Hekimi Hüseyin AYDIN"
+    }
+  },
+  {
+    "type": "node",
+    "id": 3723136088,
+    "lat": 36.8622032,
+    "lon": 30.7306457,
+    "tags": {
+      "addr:city": "Muratpaşa/Antalya",
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Diş Hekimi Ayça Demir Hoyi"
+    }
+  },
+  {
+    "type": "node",
+    "id": 4446039990,
+    "lat": 36.9114619,
+    "lon": 30.6845687,
+    "tags": {
+      "addr:housenumber": "50/A",
+      "addr:postcode": "07025",
+      "addr:street": "Mehmet Akif Caddesi",
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Atalya Diş Kliniği",
+      "phone": "+905455266602"
+    }
+  },
+  {
+    "type": "node",
+    "id": 5254326261,
+    "lat": 36.8513625,
+    "lon": 30.7669317,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "İnter Diş Polikliniği"
+    }
+  },
+  {
+    "type": "node",
+    "id": 5256036925,
+    "lat": 36.8582819,
+    "lon": 30.8678735,
+    "tags": {
+      "amenity": "dentist",
+      "name": "Kundu Diş Polikliniği",
+      "phone": "+90 242 244 10 11"
+    }
+  },
+  {
+    "type": "node",
+    "id": 5393573805,
+    "lat": 36.8524279,
+    "lon": 30.7554698,
+    "tags": {
+      "addr:neighbourhood": "Fener Mah.",
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Antera"
+    }
+  },
+  {
+    "type": "node",
+    "id": 6085861590,
+    "lat": 36.8583313,
+    "lon": 30.7417516,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Özel Lara Diş Polikliniği"
+    }
+  },
+  {
+    "type": "node",
+    "id": 6085861692,
+    "lat": 36.8582113,
+    "lon": 30.7434182,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Myra Diş Polikliniği"
+    }
+  },
+  {
+    "type": "node",
+    "id": 6228079503,
+    "lat": 36.9311158,
+    "lon": 30.7231274,
+    "tags": {
+      "addr:city": "Antalya",
+      "addr:district": "Kepez",
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Papatya Ağız ve Diş Sağlığı Polikliniği - Sütçüler Şubesi",
+      "phone": "+90 242 338 33 07"
+    }
+  },
+  {
+    "type": "node",
+    "id": 6257282089,
+    "lat": 36.9144875,
+    "lon": 30.6874371,
+    "tags": {
+      "addr:city": "Antalya",
+      "addr:street": "Mithat Paşa Caddesi",
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Diş Hekimi Yasemin Tokgöz"
+    }
+  },
+  {
+    "type": "node",
+    "id": 6257831299,
+    "lat": 36.9217142,
+    "lon": 30.7089306,
+    "tags": {
+      "addr:city": "Antalya",
+      "addr:district": "Kepez",
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Özel Antalya Ağız ve Diş Polikinliği"
+    }
+  },
+  {
+    "type": "node",
+    "id": 6779224708,
+    "lat": 36.8532388,
+    "lon": 30.6111469,
+    "tags": {
+      "addr:housenumber": "3B",
+      "addr:neighbourhood": "Liman Mahallesi",
+      "addr:street": "39 sokak",
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "healthcare:speciality": "general",
+      "name": "Rasim Shavketov",
+      "phone": "+90 531 688 78 94"
+    }
+  },
+  {
+    "type": "node",
+    "id": 7713007926,
+    "lat": 36.8583194,
+    "lon": 30.7518004,
+    "tags": {
+      "addr:housenumber": "22/3",
+      "addr:street": "Bülent Ecevit Bulvarı",
+      "amenity": "dentist",
+      "email": "ahcelebi9@hotmail.com",
+      "healthcare": "dentist",
+      "name": "Diş Hekimi Ahmet Çelebi",
+      "phone": "+902423239642"
+    }
+  },
+  {
+    "type": "node",
+    "id": 8355198617,
+    "lat": 36.8855311,
+    "lon": 30.6933924,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name:en": "SMILE COSMETIC DENTAL CENTER"
+    }
+  },
+  {
+    "type": "node",
+    "id": 9417376717,
+    "lat": 36.8502754,
+    "lon": 30.7532765,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Perla"
+    }
+  },
+  {
+    "type": "node",
+    "id": 9845589517,
+    "lat": 36.861334,
+    "lon": 30.7828732,
+    "tags": {
+      "addr:city": "Antalya",
+      "addr:district": "Lara",
+      "addr:housenumber": "7/A",
+      "addr:neighbourhood": "Güzeloba Mah.",
+      "addr:postcode": "07230",
+      "addr:street": "Bülent Ecevit Bulvarı",
+      "amenity": "dentist",
+      "amenity:waiting_area": "yes",
+      "building": "clinic",
+      "email": "info@klinik7.com.tr",
+      "healthcare": "dentist",
+      "healthcare:speciality": "dentistry;cosmetic_dentistry;smile_design;orthodontics;endodontics;periodontology;implantology;prosthetics;maxillofacial_surgery;dental_implant;dental_veneer;dental_laminate_veneers;root_canal_treatment;wisdom_tooth_extraction;restorative_dentistry",
+      "language:de": "yes",
+      "language:en": "yes",
+      "language:nl": "yes",
+      "language:ru": "yes",
+      "language:tr": "yes",
+      "name": "Klinik7",
+      "opening_hours": "Mo-Fr 09:00-18:00",
+      "operator": "Klinik7",
+      "payment:bank_transfer": "yes",
+      "payment:cash": "yes",
+      "payment:credit_cards": "yes",
+      "payment:debit_cards": "yes",
+      "payment:eft": "yes",
+      "phone": "+90 242 243 41 18",
+      "reservation": "required",
+      "source": "local knowledge",
+      "start_date": "2002",
+      "website": "https://klinik7.com",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 10221384021,
+    "lat": 36.9814831,
+    "lon": 30.714475,
+    "tags": {
+      "amenity": "dentist",
+      "name": "Varsak Diş Tedavi ve Protez Merkezi"
+    }
+  },
+  {
+    "type": "node",
+    "id": 10763733847,
+    "lat": 36.8692552,
+    "lon": 30.6298797,
+    "tags": {
+      "amenity": "dentist",
+      "check_date": "2023-03-26",
+      "healthcare": "dentist"
+    }
+  },
+  {
+    "type": "node",
+    "id": 10925957138,
+    "lat": 36.8566693,
+    "lon": 30.7832152,
+    "tags": {
+      "addr:city": "Antalya",
+      "addr:district": "Muratpaşa",
+      "addr:housenumber": "131",
+      "addr:neighbourhood": "Güzeloba",
+      "addr:postcode": "07230",
+      "addr:street": "Barinaklar Bulvarı",
+      "amenity": "dentist",
+      "email": "hello@magicsmileturkey.com",
+      "healthcare": "dentist",
+      "healthcare:speciality": "dental_oral_maxillo_facial_surgery",
+      "image": "https://www.magicsmileturkey.com/wp-content/uploads/2019/06/dental-clinic-turkey.jpg",
+      "name": "Magic Smile",
+      "opening_hours": "Mo-Sa 10:00-19:00",
+      "operator": "Güzeloba, Barınaklar Blv. No:131/1 Muratpaşa / Antalya",
+      "website": "https://www.magicsmileturkey.com/"
+    }
+  },
+  {
+    "type": "node",
+    "id": 12241937095,
+    "lat": 36.8782457,
+    "lon": 30.7361865,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Smile Designs"
+    }
+  },
+  {
+    "type": "node",
+    "id": 12252237880,
+    "lat": 36.8841578,
+    "lon": 30.7399758,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Ekmel Karaismailoğlu"
+    }
+  },
+  {
+    "type": "node",
+    "id": 12279183850,
+    "lat": 36.8762809,
+    "lon": 30.7268202,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Özel Öz Clinic"
+    }
+  },
+  {
+    "type": "node",
+    "id": 12397948301,
+    "lat": 36.8907389,
+    "lon": 30.6944056,
+    "tags": {
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "name": "Avrupa Diş Kliniği"
+    }
+  },
+  {
+    "type": "node",
+    "id": 12641840305,
+    "lat": 36.8904305,
+    "lon": 30.6290085,
+    "tags": {
+      "addr:city": "Antalya",
+      "addr:district": "Konyaaltı",
+      "addr:housenumber": "No:8B",
+      "addr:neighbourhood": "Siteler Mahallesi",
+      "addr:postcode": "07070",
+      "addr:street": "Şehit Polis Memuru Muhammet Oğuz Kılınç Sokak",
+      "amenity": "dentist",
+      "healthcare": "dentist",
+      "healthcare:speciality": "dental_oral_maxillo_facial_surgery;orthodontics;dentist",
+      "name": "Tantalya Dental Clinic | Antalya Cosmetic Dentistry | Implants&Veneers",
+      "name:en": "Tantalya Dental Clinic | Antalya Cosmetic Dentistry | Implants&Veneers",
+      "operator": "Tantalya Dental Clinic"
+    }
+  },
+  {
+    "type": "node",
+    "id": 12672828746,
+    "lat": 36.889674,
+    "lon": 30.6254298,
+    "tags": {
+      "addr:city": "Antalya",
+      "addr:district": "Konyaaltı",
+      "addr:housenumber": "No: 54 D",
+      "addr:neighbourhood": "Molla Yusuf Mah.",
+      "addr:postcode": "07800",
+      "addr:street": "Uncalı Caddesi",
+      "alt_name": "Diamond Dental Diş Kliniği",
+      "alt_name:tr": "Diamond Dental Diş Kliniği",
+      "amenity": "dentist",
+      "description": "Private Dental Clinic in Konyaaltı, Antalya, Türkiye",
+      "email": "info@diamonddentalantalya.com",
+      "healthcare": "dentist",
+      "healthcare:speciality": "dental_oral_maxillo_facial_surgery;dentist;dentistry;orthodontics;implantology",
+      "name": "Diamond Dental Antalya - Dental Clinic",
+      "official_name": "Diamond Dental Antalya",
+      "opening_hours": "Mo-Fr 10:00-18:00",
+      "operator": "Dental Clinic, Dentist, Diş Kliniği",
+      "payment:cash": "yes",
+      "payment:credit_cards": "yes",
+      "payment:debit_cards": "yes",
+      "payment:visa": "yes",
+      "phone": "+90 543 388 85 78",
+      "website": "https://diamonddentalantalya.com",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13647741901,
+    "lat": 36.8935903,
+    "lon": 30.6935256,
+    "tags": {
+      "addr:housenumber": "82",
+      "addr:postcode": "07050",
+      "addr:street": "Güllük Caddesi",
+      "amenity": "dentist",
+      "name": "Uzmanlar Ağız ve Diş Sağlığı Merkezi",
+      "opening_hours": "Mo-Sa 09:00-18:00"
+    }
+  },
+  {
+    "type": "node",
+    "id": 14079796601,
+    "lat": 36.8563474,
+    "lon": 30.7949561,
+    "tags": {
+      "addr:city": "Antalya",
+      "addr:district": "Muratpaşa",
+      "addr:housenumber": "13C",
+      "addr:neighbourhood": "Güzeloba Mahallesi",
+      "addr:postcode": "07230",
+      "addr:street": "Havaalanı Caddesi",
+      "amenity": "dentist",
+      "email": "hello@takident.com",
+      "healthcare": "dentist",
+      "name": "Taki Dent",
+      "official_name": "Taki Ağız ve Diş Sağlığı Polikliniği Turizm Hizmetleri Ticaret A.Ş.",
+      "phone": "+44 7939 036211",
+      "website": "https://www.takident.com",
+      "wikidata": "Q140306450"
+    }
+  },
+  {
+    "type": "way",
+    "id": 442411241,
+    "center": {
+      "lat": 36.8566746,
+      "lon": 30.7832197
+    },
+    "tags": {
+      "addr:city": "Antalya",
+      "addr:district": "Muratpaşa",
+      "addr:housenumber": "131",
+      "addr:neighbourhood": "Güzeloba",
+      "addr:postcode": "07230",
+      "addr:street": "Barinaklar Bulvarı",
+      "amenity": "dentist",
+      "building": "yes",
+      "healthcare": "dentist",
+      "healthcare:speciality": "dental_oral_maxillo_facial_surgery",
+      "name": "Magic Smile Turkey",
+      "opening_hours": "Mo-Su 10:00-19:00",
+      "operator": "Magic Smile Dental Clinic"
+    }
+  },
+  {
+    "type": "way",
+    "id": 653109451,
+    "center": {
+      "lat": 36.9156487,
+      "lon": 30.6473478
+    },
+    "tags": {
+      "addr:city": "Antalya",
+      "addr:district": "Kepez",
+      "addr:housenumber": "148",
+      "addr:neighbourhood": "Ahatlı Mah.",
+      "addr:street": "75. Yıl Caddesi",
+      "amenity": "dentist",
+      "building": "yes",
+      "email": "antalya.adsm@saglik.gov.tr",
+      "healthcare": "dentist",
+      "healthcare:speciality": "dentistry",
+      "name": "Antalya Ağız ve Diş Sağlığı Hastanesi",
+      "opening_hours": "Mo-Fr 08:30-12:00 13:30-16:30",
+      "phone": "+90 242 2275550",
+      "website": "https://antalyaadsm.saglik.gov.tr/"
+    }
+  },
+  {
+    "type": "way",
+    "id": 657857795,
+    "center": {
+      "lat": 36.854862,
+      "lon": 30.7964899
+    },
+    "tags": {
+      "addr:city": "Antalya",
+      "addr:district": "Muratpaşa",
+      "addr:housenumber": "383",
+      "addr:neighbourhood": "Güzeloba Mah",
+      "addr:postcode": "07230",
+      "addr:street": "Lara caddesi",
+      "amenity": "hospital",
+      "building:levels": "3",
+      "description": "Welcome to Land of Smile, where we don’t just create smiles; we’re crafting masterpieces of health and beauty.",
+      "email": "info@landofsmile.com.tr",
+      "emergency": "no",
+      "healthcare": "dentist",
+      "healthcare:speciality": "dental_oral_maxillo_facial_surgery;dentistry",
+      "mobile": "+905301731193",
+      "name": "Land of Smile",
+      "opening_hours": "Mo-Su 08:00-21:00",
+      "operator": "Land of Smile",
+      "operator:type": "business",
+      "start_date": "2023-09-22"
+    }
+  },
+  {
+    "type": "way",
+    "id": 658699793,
+    "center": {
+      "lat": 36.8878639,
+      "lon": 30.7336855
+    },
+    "tags": {
+      "addr:city": "Antalya",
+      "addr:district": "Muratpaşa",
+      "addr:housenumber": "33/A",
+      "addr:neighbourhood": "Kızıltoprak, Aspendos Blv. No:33/A, 07300 Muratpaşa/Antalya",
+      "addr:postcode": "07300",
+      "addr:street": "Aspendos Bulvarı",
+      "amenity": "dentist",
+      "building": "yes",
+      "contact:facebook": "https://www.facebook.com/atteliadent",
+      "description": "Founded in 2000 by Turkey’s most popular dentist, Mehmet Işlek, ‘Attelia Oral and Dental Health Centre’ provides the highest level of quality with exacting international hospital standards, and is probably the most experienced in Turkey.",
+      "email": "info@atteliadental.com",
+      "healthcare": "dentist",
+      "healthcare:speciality": "dental_oral_maxillo_facial_surgery;orthodontics",
+      "image": "https://lh3.googleusercontent.com/p/AF1QipMqCPxxJiD-9up4sd1gupZdAe-IYMc00pKhphPy=w408-h408-k-no",
+      "name": "Attelia Oral & Dental Health Center 2",
+      "opening_hours": "Mo-Sa 09:00-20:00",
+      "operator": "Attelia Oral & Dental Health Center 2",
+      "phone": "+90 549 175 57 82",
+      "website": "https://atteliadental.com/"
+    }
+  },
+  {
+    "type": "way",
+    "id": 1073229939,
+    "center": {
+      "lat": 36.8613774,
+      "lon": 30.7828741
+    },
+    "tags": {
+      "addr:city": "Antalya",
+      "addr:district": "Lara",
+      "addr:housenumber": "7/A",
+      "addr:neighbourhood": "Güzeloba Mah.",
+      "addr:postcode": "07230",
+      "addr:street": "Bülent Ecevit Bulvarı",
+      "amenity": "dentist",
+      "building": "clinic",
+      "description": "One of the best in its field, Klinik7 is a clinic established with the power of 20 years of experience.\n\nBarbaros Baran, the founder of the clinic is a westerner dentist who was born in Germany, trained in Turkey and can speak three languages.",
+      "email": "info@klinik7.com.tr",
+      "healthcare": "dentist",
+      "healthcare:speciality": "dentistry;cosmetic_dentistry;smile_design;orthodontics;endodontics;periodontology;implantology;prosthetics;maxillofacial_surgery;dental_implant;dental_veneer;dental_laminate_veneers;root_canal_treatment;wisdom_tooth_extraction;restorative_dentistry",
+      "name": "Klinik7",
+      "note": "The clinic provides service in 5 languages including; Turkish, German, English, Russian and Dutch.  \n- Appointment required (absolutely)\n- Staff wearing masks\n- Meticulous clinic\n- Disabled toilet\n- Brewed beverage service",
+      "opening_hours": "Mo-Fr 09:00-18:00",
+      "payment:bank_transfer": "yes",
+      "payment:cash": "yes",
+      "payment:credit_cards": "yes",
+      "payment:debit_cards": "yes",
+      "payment:eft": "yes",
+      "phone": "+90 242 243 41 18",
+      "source": "local knowledge",
+      "start_date": "2002",
+      "website": "https://klinik7.com",
+      "wheelchair": "yes"
+    }
+  }
+]
