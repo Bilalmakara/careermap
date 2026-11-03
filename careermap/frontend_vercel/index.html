@@ -1,19 +1,33 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <!-- CareerMap Vercel API Interceptor -->
+    <!-- CareerMap API Interceptor: Auto-connected to Render Backend -->
   <script>
     (function() {
-      const DEFAULT_REMOTE_BACKEND = 'https://careermap-dnlb.onrender.com';
+      const PRODUCTION_API = 'https://careermap-dnlb.onrender.com';
+      
+      try {
+        const stored = localStorage.getItem('CAREERMAP_API_URL');
+        if (stored && (stored.includes('careermap-backend') || stored.includes('careermap-api') || stored.trim() === '')) {
+          localStorage.setItem('CAREERMAP_API_URL', PRODUCTION_API);
+        }
+      } catch (e) {}
+
       const originalFetch = window.fetch;
       window.fetch = function(url, options) {
         if (typeof url === 'string' && url.startsWith('/api/')) {
-          let customApiBase = localStorage.getItem('CAREERMAP_API_URL');
-          if (!customApiBase && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-            customApiBase = DEFAULT_REMOTE_BACKEND;
+          let base = '';
+          try {
+            base = localStorage.getItem('CAREERMAP_API_URL') || '';
+          } catch (e) {}
+
+          if (!base || base.trim() === '') {
+            base = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+              ? ''
+              : PRODUCTION_API;
           }
-          if (customApiBase && customApiBase.trim() !== '') {
-            url = customApiBase.trim().replace(/\/+$/, '') + url;
+          if (base && base.trim() !== '') {
+            url = base.trim().replace(/\/+$/, '') + url;
           }
         }
         return originalFetch.call(this, url, options);
@@ -426,7 +440,10 @@
     </ul>
 
     <div class="nav-user">
-      <button class="btn btn-outline btn-sm" style="color:#38bdf8; border-color:#0284c7; padding: 6px 10px;" onclick="openApiSettingsModal()">🌐 API Sunucusu</button>
+            <div class="backend-status-pill" style="display:inline-flex; align-items:center; gap:6px; background:rgba(16, 185, 129, 0.15); border:1px solid rgba(16, 185, 129, 0.4); color:#34d399; font-size:12px; font-weight:600; padding:5px 11px; border-radius:20px; cursor:pointer;" title="Canlı Render Sunucusu Bağlı (https://careermap-dnlb.onrender.com)" onclick="openApiSettingsModal()">
+        <span style="display:inline-block; width:8px; height:8px; background:#10b981; border-radius:50%; box-shadow:0 0 6px #10b981;"></span>
+        <span>Canlı Sunucu Aktif</span>
+      </div>
       <button class="btn btn-outline btn-sm d-md-none" style="color:#38bdf8; border-color:#0284c7; padding: 6px 10px;" onclick="openPwaModal()">📲 Kurulum</button>
       <button class="btn btn-outline btn-sm" style="color:#94a3b8; border-color:#334155;" onclick="switchScreen('admin')">⚙️ Yönetici & Excel</button>
       <div class="user-pill" id="user-display" onclick="switchScreen('profile')">
@@ -1000,8 +1017,7 @@
 
         if (!res.ok) {
           if (res.status === 404 || res.status === 502 || res.status === 503) {
-            showToast('⚠️ Python arka ucu bağlı değil. Canlı araştırma için sağ üstteki 🌐 API Sunucusu butonundan backend adresinizi bağlayın.');
-            openApiSettingsModal();
+            showToast('⏳ Render sunucusu uyku modundan uyanıyor (ilk çağrıda ~20-30 sn sürebilir), lütfen 10 saniye sonra tekrar butona basınız.');
             return;
           }
           const errData = await res.json().catch(() => ({}));
@@ -1019,8 +1035,7 @@
         }
       } catch (e) {
         console.error('Araştırma hatası:', e);
-        showToast('⚠️ Arka uç sunucusuna ulaşılamadı. Sağ üstteki 🌐 API Sunucusu butonundan bağlantıyı kontrol ediniz.');
-        openApiSettingsModal();
+        showToast('⏳ Sunucu yanıt vermedi veya uyanıyor olabilir. Lütfen birkaç saniye sonra tekrar deneyiniz.');
       }
     }
 
