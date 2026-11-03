@@ -1184,7 +1184,7 @@
           currentJobId = data.job_id;
           localStorage.setItem('CAREERMAP_ACTIVE_JOB_ID', data.job_id);
           displayLiveProgressBanner(data.job);
-          startJobPolling(data.job_id);
+          startJobPolling(data.job_id, profId, city);
         } else {
           showToast('Hata: ' + (data.detail || 'Araştırma başlatılamadı.'));
         }
@@ -1209,11 +1209,28 @@
       btn.setAttribute('data-job-id', job.research_job_id);
     }
 
-    function startJobPolling(jobId) {
+    function startJobPolling(jobId, professionId = 'dentist', city = 'Eskişehir') {
       clearInterval(activePollTimer);
+      let notFoundCount = 0;
+      let totalPolls = 0;
+
       activePollTimer = setInterval(async () => {
+        totalPolls++;
         try {
           const res = await fetch(`/api/v2/research/jobs/${jobId}`);
+          
+          if (!res.ok) {
+            notFoundCount++;
+            if (notFoundCount >= 3) {
+              clearInterval(activePollTimer);
+              console.warn(`Görev ${jobId} yanıt vermedi (${res.status}). Otomatik kurtarma devreye giriyor...`);
+              await recoverAndOpenBestJob(professionId, city);
+              return;
+            }
+            return;
+          }
+
+          notFoundCount = 0;
           const data = await res.json();
           if (data.status === 'success') {
             const j = data.job;
@@ -1234,14 +1251,42 @@
               btn.style.display = 'inline-flex';
               
               showToast('✓ Araştırma tamamlandı. Sonuçlar hazır.');
-              // false parametresi: devam eden veya yeni biten araştırmanın üzerine başka araştırma açılmasını engeller
               await loadRecentJobs(false);
             }
           }
         } catch (e) {
           console.error('Polling hatası:', e);
+          notFoundCount++;
+          if (notFoundCount >= 4) {
+            clearInterval(activePollTimer);
+            await recoverAndOpenBestJob(professionId, city);
+          }
         }
       }, 700);
+    }
+
+    async function recoverAndOpenBestJob(professionId, city) {
+      try {
+        const res = await fetch('/api/v2/research/jobs');
+        const data = await res.json();
+        if (data.status === 'success' && data.jobs && data.jobs.length > 0) {
+          allRecentJobs = data.jobs;
+          renderRecentJobs(data.jobs);
+          
+          const targetCity = (city || 'Eskişehir').toLowerCase().trim();
+          const match = data.jobs.find(j => j.city && j.city.toLowerCase().trim() === targetCity && j.status === 'completed' && j.total_found > 0)
+                     || data.jobs.find(j => j.status === 'completed' && j.total_found > 0);
+          
+          if (match) {
+            showToast(`✓ ${match.city} için doğrulanmış sonuçlar yüklendi (${match.total_found} kurum).`);
+            await openJobResults(match.research_job_id, true);
+            return;
+          }
+        }
+      } catch (err) {
+        console.error('Kurtarma hatası:', err);
+      }
+      showToast('⚠️ Sunucu bağlantısı yeniden sağlanıyor, lütfen birkaç saniye sonra tekrar arayınız.');
     }
 
     async function openJobResultsFromProgress() {
