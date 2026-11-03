@@ -1241,9 +1241,11 @@ Saygılarımla,
             wa_text = f"Merhaba Sayın Yetkili ({clinic_name}), ben {cand_name} ({cand_uni}). Kliniğinizde değerlendirilmek üzere özgeçmişimi paylaşmak isterim: {cand_cv_url} . İyi çalışmalar dilerim."
             d["whatsapp_web_url"] = f"https://web.whatsapp.com/send?phone={clean_wa}&text={quote(wa_text)}"
             d["whatsapp_app_url"] = f"https://api.whatsapp.com/send?phone={clean_wa}&text={quote(wa_text)}"
+            d["whatsapp_universal_url"] = f"https://wa.me/{clean_wa}?text={quote(wa_text)}"
         else:
             d["whatsapp_web_url"] = ""
             d["whatsapp_app_url"] = ""
+            d["whatsapp_universal_url"] = ""
         results.append(d)
 
     if should_close:

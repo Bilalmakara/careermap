@@ -1199,6 +1199,15 @@
       return '#';
     }
 
+        function generateWhatsAppUniversalUrl(phoneOrUrl, message) {
+      const clean = extractCleanMobile(phoneOrUrl);
+      if (clean) {
+        return `https://wa.me/${clean}?text=${encodeURIComponent(message)}`;
+      }
+      if (phoneOrUrl && phoneOrUrl.startsWith('http')) return phoneOrUrl;
+      return '#';
+    }
+
     function generateWhatsAppAppUrl(phoneOrUrl, message) {
       const clean = extractCleanMobile(phoneOrUrl);
       if (clean) {
@@ -1307,19 +1316,19 @@
           `);
         }
 
-        if (emp.whatsapp_web_url || emp.whatsapp_url || (emp.phone && (emp.phone.includes('5') || emp.phone.includes('05')))) {
+        if (emp.whatsapp_universal_url || emp.whatsapp_web_url || emp.whatsapp_url || (emp.phone && (emp.phone.includes('5') || emp.phone.includes('05')))) {
           const rawWa = emp.whatsapp_url || emp.phone;
-          const waUrl = emp.whatsapp_web_url || generateWhatsAppWebUrl(rawWa, getDirectWhatsAppMsg(emp.name));
-          if (waUrl && waUrl !== '#') {
+          const waUniversalUrl = emp.whatsapp_universal_url || generateWhatsAppUniversalUrl(rawWa, getDirectWhatsAppMsg(emp.name));
+          if (waUniversalUrl && waUniversalUrl !== '#') {
             channelsHtml.push(`
-              <a href="${waUrl}" 
+              <a href="${waUniversalUrl}" 
                  target="_blank" 
                  rel="noopener noreferrer"
                  onclick="recordDirectWhatsAppApply('${emp.employer_id}', event)"
                  class="badge badge-success badge-interactive" 
                  style="text-decoration:none; padding:6px 11px; font-weight:700; display:inline-flex; align-items:center; gap:5px;"
-                 title="WhatsApp Web'de Aç ve Başvur">
-                💬 WhatsApp Web <span style="font-size:11px; opacity:0.85;">↗</span>
+                 title="Telefonda WhatsApp Uygulamasını, Bilgisayarda WhatsApp Web'i Açar">
+                💬 WhatsApp <span style="font-size:11px; opacity:0.85;">↗</span>
               </a>
             `);
           }
@@ -1358,27 +1367,41 @@
           ? `<span class="badge ${getStatusBadgeClass(emp.application_status)}">${getStatusLabel(emp.application_status)}</span>`
           : '';
 
-        const gmailActionBtn = emp.email ? `
-          <a href="${emp.gmail_compose_url || generateGmailComposeUrl(emp.email, `Diş Hekimi İş Başvurusu — Dt. Rümeysa Çolak | ${emp.name}`, getDirectEmailBody(emp.name))}" 
-             target="_blank" 
-             rel="noopener noreferrer"
+        const mailSubj = `Diş Hekimi İş Başvurusu — Dt. Rümeysa Çolak | ${emp.name}`;
+        const mailBody = getDirectEmailBody(emp.name);
+        const mailtoLink = emp.mailto_url || generateMailtoUrl(emp.email, mailSubj, mailBody);
+        const gmailWebLink = emp.gmail_compose_url || generateGmailComposeUrl(emp.email, mailSubj, mailBody);
+
+        const emailActionBtns = emp.email ? `
+          <a href="${mailtoLink}" 
              class="btn btn-outline btn-sm" 
              style="color:#0284c7; border-color:#bfdbfe; font-size:12px; padding:5px 11px; text-decoration:none; display:inline-flex; align-items:center; gap:4px;" 
              onclick="recordDirectEmailApply('${emp.employer_id}', '${emp.email}', event)"
-             title="Gmail Web'de Aç ve Başvur">
-            📧 Gmail ile Başvur ↗
+             title="Telefonda iPhone Mail / Varsayılan Posta Uygulamasını Açar">
+            ✉️ Mail ile Başvur ↗
+          </a>
+          <a href="${gmailWebLink}" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             class="btn btn-outline btn-sm" 
+             style="color:#64748b; border-color:#e2e8f0; font-size:11px; padding:5px 9px; text-decoration:none; display:inline-flex; align-items:center; gap:3px;" 
+             onclick="recordDirectEmailApply('${emp.employer_id}', '${emp.email}', event)"
+             title="Gmail Web Tarayıcısında Aç ve Başvur">
+            🌐 Gmail Web ↗
           </a>
         ` : '';
 
-        const waActionBtn = (emp.whatsapp_web_url || emp.whatsapp_url || (emp.phone && (emp.phone.includes('5') || emp.phone.includes('05')))) ? `
-          <a href="${emp.whatsapp_web_url || generateWhatsAppWebUrl(emp.whatsapp_url || emp.phone, getDirectWhatsAppMsg(emp.name))}" 
+        const rawWaVal = emp.whatsapp_url || emp.phone;
+        const waHandoffUrl = emp.whatsapp_universal_url || generateWhatsAppUniversalUrl(rawWaVal, getDirectWhatsAppMsg(emp.name));
+        const waActionBtn = (emp.whatsapp_universal_url || emp.whatsapp_web_url || emp.whatsapp_url || (emp.phone && (emp.phone.includes('5') || emp.phone.includes('05')))) && waHandoffUrl !== '#' ? `
+          <a href="${waHandoffUrl}" 
              target="_blank" 
              rel="noopener noreferrer"
              class="btn btn-outline btn-sm" 
              style="color:#16a34a; border-color:#bbf7d0; font-size:12px; padding:5px 11px; text-decoration:none; display:inline-flex; align-items:center; gap:4px;" 
              onclick="recordDirectWhatsAppApply('${emp.employer_id}', event)"
-             title="WhatsApp Web'de Aç ve Başvur">
-            💬 WhatsApp Web ↗
+             title="Telefonda WhatsApp Uygulamasını Doğrudan Açar ve Mesajı Doldurur">
+            💬 WhatsApp ile Başvur ↗
           </a>
         ` : '';
 
@@ -1404,7 +1427,7 @@
             <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #f1f5f9; padding-top:10px; margin-top:8px; margin-left:30px; flex-wrap:wrap; gap:8px;">
               <span style="font-size:11.5px; color:#94a3b8;">Kaynak: Doğrulanmış rehber ve kurumsal site</span>
               <div style="display:flex; gap:6px; flex-wrap:wrap;">
-                ${gmailActionBtn}
+                ${emailActionBtns}
                 ${waActionBtn}
                 <button class="btn btn-primary btn-sm" onclick="prepareSingleEmployerApplication('${emp.employer_id}')">Bu Kuruma Başvur →</button>
               </div>
