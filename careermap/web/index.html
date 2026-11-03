@@ -1034,7 +1034,7 @@
       checkAuthState();
       populateProfessionUI(); // Anında arayüzü doldur, asla boş kalmasın
       await loadProfessions();
-      await loadRecentJobs();
+      await loadRecentJobs(true);
       await loadCandidateProfile();
       await loadCrmDashboard();
     });
@@ -1182,6 +1182,7 @@
         const data = await res.json();
         if (data.status === 'success') {
           currentJobId = data.job_id;
+          localStorage.setItem('CAREERMAP_ACTIVE_JOB_ID', data.job_id);
           displayLiveProgressBanner(data.job);
           startJobPolling(data.job_id);
         } else {
@@ -1202,7 +1203,10 @@
       document.getElementById('prog-percent-text').innerText = `%${job.progress_percent || 10}`;
       document.getElementById('prog-bar-fill').style.width = `${job.progress_percent || 10}%`;
       document.getElementById('prog-stage-text').innerText = job.progress_stage || 'Sıraya alındı...';
-      document.getElementById('prog-view-results-btn').style.display = 'none';
+      
+      const btn = document.getElementById('prog-view-results-btn');
+      btn.style.display = 'none';
+      btn.setAttribute('data-job-id', job.research_job_id);
     }
 
     function startJobPolling(jobId) {
@@ -1222,9 +1226,16 @@
 
             if (j.status === 'completed' || j.status === 'failed') {
               clearInterval(activePollTimer);
-              document.getElementById('prog-view-results-btn').style.display = 'inline-flex';
+              currentJobId = jobId;
+              localStorage.setItem('CAREERMAP_ACTIVE_JOB_ID', jobId);
+              
+              const btn = document.getElementById('prog-view-results-btn');
+              btn.setAttribute('data-job-id', jobId);
+              btn.style.display = 'inline-flex';
+              
               showToast('✓ Araştırma tamamlandı. Sonuçlar hazır.');
-              await loadRecentJobs();
+              // false parametresi: devam eden veya yeni biten araştırmanın üzerine başka araştırma açılmasını engeller
+              await loadRecentJobs(false);
             }
           }
         } catch (e) {
@@ -1234,26 +1245,32 @@
     }
 
     async function openJobResultsFromProgress() {
-      if (!currentJobId) return;
-      await openJobResults(currentJobId);
-      switchScreen('results');
+      const btn = document.getElementById('prog-view-results-btn');
+      const targetJobId = (btn && btn.getAttribute('data-job-id')) || currentJobId || localStorage.getItem('CAREERMAP_ACTIVE_JOB_ID');
+      if (!targetJobId) return;
+      await openJobResults(targetJobId, true);
     }
 
-    // 3. Kayıtlı Araştırmaları Listele
-    async function loadRecentJobs() {
+    let allRecentJobs = [];
+
+    // 3. Kayıtlı Araştırmaları Listele (autoOpen = false varsayılan: mevcut aktif araştırmayı ezmez)
+    async function loadRecentJobs(autoOpen = false) {
       try {
         const res = await fetch('/api/v2/research/jobs');
         const data = await res.json();
         if (data.status === 'success' && data.jobs && data.jobs.length > 0) {
+          allRecentJobs = data.jobs;
           renderRecentJobs(data.jobs);
-          const savedJobId = localStorage.getItem('CAREERMAP_ACTIVE_JOB_ID');
-          const targetJobId = (savedJobId && data.jobs.some(j => j.research_job_id === savedJobId))
-            ? savedJobId
-            : data.jobs[0].research_job_id;
-          
-          const savedScreen = localStorage.getItem('CAREERMAP_ACTIVE_SCREEN') || 'results';
-          await openJobResults(targetJobId, false);
-          switchScreen(savedScreen, false);
+          if (autoOpen) {
+            const savedJobId = localStorage.getItem('CAREERMAP_ACTIVE_JOB_ID');
+            const targetJobId = (savedJobId && data.jobs.some(j => j.research_job_id === savedJobId))
+              ? savedJobId
+              : data.jobs[0].research_job_id;
+            
+            const savedScreen = localStorage.getItem('CAREERMAP_ACTIVE_SCREEN') || 'results';
+            await openJobResults(targetJobId, false);
+            switchScreen(savedScreen, false);
+          }
         }
       } catch (e) {
         console.error('Araştırma listesi hatası:', e);
@@ -1261,6 +1278,7 @@
     }
 
     function renderRecentJobs(jobs) {
+      allRecentJobs = jobs || [];
       const container = document.getElementById('recent-jobs-list');
       const sideContainer = document.getElementById('sidebar-jobs-container');
 
@@ -1281,14 +1299,14 @@
             <span>🏢 ${j.total_found} Kurum</span>
             <span style="color:#16a34a;">📞 ${j.contacts_found} İletişimli</span>
           </div>
-          <button class="btn btn-primary btn-sm" style="width:100%; margin-top:12px;" onclick="openJobResults('${j.research_job_id}')">
+          <button class="btn btn-primary btn-sm" style="width:100%; margin-top:12px;" onclick="openJobResults('${j.research_job_id}', true)">
             Sonuçları Aç →
           </button>
         </div>
       `).join('');
 
       sideContainer.innerHTML = jobs.map(j => `
-        <div class="job-item ${j.research_job_id === currentJobId ? 'active' : ''}" onclick="openJobResults('${j.research_job_id}')">
+        <div class="job-item ${j.research_job_id === currentJobId ? 'active' : ''}" data-job-id="${j.research_job_id}" onclick="openJobResults('${j.research_job_id}', true)">
           <div style="font-weight:700; font-size:13px; color:#0f172a;">${j.profession_name}</div>
           <div style="font-size:12px; color:#64748b;">${j.city} • ${j.total_found} kurum</div>
         </div>
@@ -1297,6 +1315,7 @@
 
     // 4. Belirli bir araştırmanın sonuçlarını aç
     async function openJobResults(jobId, shouldSwitchScreen = true) {
+      if (!jobId) return;
       currentJobId = jobId;
       localStorage.setItem('CAREERMAP_ACTIVE_JOB_ID', jobId);
       try {
@@ -1308,7 +1327,24 @@
           updateStickyActionBar();
 
           document.getElementById('rf-cnt-total').innerText = data.total;
-          document.getElementById('results-page-title').innerText = `Araştırma Sonuçları (${data.total} Kurum)`;
+          
+          // Aktif görevin başlığını ve ilini göster
+          const activeJob = allRecentJobs.find(j => j.research_job_id === jobId);
+          const cityTitle = activeJob ? `${activeJob.profession_name} • ${activeJob.city}` : '';
+          document.getElementById('results-page-title').innerText = cityTitle 
+            ? `${cityTitle} (${data.total} Kurum)` 
+            : `Araştırma Sonuçları (${data.total} Kurum)`;
+
+          // Yan menüdeki sekmelerde aktif sınıfını senkronize et
+          document.querySelectorAll('.job-item').forEach(el => {
+            if (el.getAttribute('data-job-id') === jobId) {
+              el.classList.add('active');
+              try { el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }); } catch(e){}
+            } else {
+              el.classList.remove('active');
+            }
+          });
+
           updateFilterCounts();
           filterJobResults('unapplied');
           if (shouldSwitchScreen) switchScreen('results');
